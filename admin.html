@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BATU Admin Panel — لوحة تحكم المشرف</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --subtle: #F1F5F9;
+      --text: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --primary: #1D4ED8;
+      --primary-soft: #EFF6FF;
+      --success: #059669;
+      --success-soft: #ECFDF5;
+      --danger: #DC2626;
+      --danger-soft: #FEF2F2;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.07);
+    }
+    [data-theme="dark"] {
+      --bg: #0B0E14;
+      --surface: #131720;
+      --subtle: #1A202C;
+      --text: #F1F5F9;
+      --muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.09);
+      --primary: #3B82F6;
+      --primary-soft: rgba(59, 130, 246, 0.15);
+      --success: #10B981;
+      --success-soft: rgba(16, 185, 129, 0.15);
+      --danger: #EF4444;
+      --danger-soft: rgba(239, 68, 68, 0.15);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; gap: 12px; flex-wrap: wrap;
+    }
+    .brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--primary); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .card-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+    .input {
+      width: 100%; padding: 12px 14px; border-radius: 12px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font-size: 0.95rem; font-family: inherit;
+    }
+    .input:focus { outline: none; border-color: var(--primary); }
+    .btn {
+      padding: 11px 18px; border-radius: 12px; border: none; font-weight: 600;
+      font-size: 0.92rem; cursor: pointer; font-family: inherit; transition: 0.15s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-danger { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(220,38,38,0.25); }
+    .btn-ghost { background: var(--subtle); color: var(--text); border: 1px solid var(--border); }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row .input { flex: 1; min-width: 200px; }
+
+    /* Toggle Switch */
+    .switch-box {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px; border-radius: 12px; background: var(--subtle); border: 1px solid var(--border);
+      gap: 16px;
+    }
+    .switch { position: relative; display: inline-block; width: 54px; height: 30px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; inset: 0; background: #94A3B8;
+      border-radius: 999px; transition: 0.25s;
+    }
+    .slider::before {
+      content: ""; position: absolute; height: 22px; width: 22px; left: 4px; bottom: 4px;
+      background: #fff; border-radius: 50%; transition: 0.25s;
+    }
+    input:checked + .slider { background: var(--primary); }
+    input:checked + .slider::before { transform: translateX(24px); }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .stat-box {
+      padding: 16px; border-radius: 12px; background: var(--subtle); border: 1px solid var(--border);
+    }
+    .stat-num { font-family: 'JetBrains Mono', monospace; font-size: 1.75rem; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 0.85rem; color: var(--muted); }
+    .admin-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .admin-item {
+      padding: 10px 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;
+    }
+    .badge {
+      padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700;
+    }
+    .badge-on { background: var(--success-soft); color: var(--success); }
+    .badge-off { background: var(--danger-soft); color: var(--danger); }
+    .mono { font-family: 'JetBrains Mono', monospace; direction: ltr; unicode-bidi: isolate; }
+    .toast {
+      position: fixed; bottom: 20px; left: 20px; background: var(--text); color: var(--surface);
+      padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+      opacity: 0; transform: translateY(20px); transition: 0.2s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">BATU English Club • Admin Control</div>
+      <div style="display:flex; gap:8px;">
+        <a href="./index.html" class="btn btn-ghost">فتح المنصة ↗</a>
+        <button type="button" class="btn btn-ghost" onclick="toggleTheme()">🌓 المظهر</button>
+      </div>
+    </div>
+
+    <!-- شاشة تسجيل دخول المشرف -->
+    <div class="card" id="loginCard">
+      <h2 class="card-title">🔐 تسجيل الدخول للوحة التحكم</h2>
+      <p class="card-desc">أدخل باسوورد وضع المشرف الحالية (الافتراضية: <span class="mono">262010302008</span>) للتحكم في المنصة.</p>
+      <div class="row">
+        <input type="password" id="loginPinInput" class="input mono" placeholder="أدخل الباسوورد..." onkeydown="if(event.key==='Enter') loginAdmin()" />
+        <button type="button" class="btn btn-primary" onclick="loginAdmin()">دخول</button>
+      </div>
+      <p id="loginErr" style="color:var(--danger); font-size:0.85rem; margin-top:10px; display:none;">الباسوورد غير صحيحة!</p>
+    </div>
+
+    <!-- لوحة التحكم الرئيسية -->
+    <div id="dashboardArea" style="display:none;">
+      <!-- 1. تفعيل أو إيقاف وضع المشرف -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h2 class="card-title">1. حالة وضع المشرف في المنصة</h2>
+          <span class="badge" id="modeStatusBadge">جاري التحميل...</span>
+        </div>
+        <p class="card-desc">
+          عند <strong>التفعيل</strong>: تُقفل المراحل بالتسلسل ولا تُفتح بالكامل إلا بباسوورد المشرف.<br />
+          عند <strong>الإلغاء (الإيقاف)</strong>: يُلغى نظام القفل وتصبح جميع المراحل السبع مفتوحة تلقائياً لكل الطلاب.
+        </p>
+        <div class="switch-box">
+          <div>
+            <strong id="switchTitle" style="display:block;">تفعيل وضع المشرف وقفل المراحل</strong>
+            <span id="switchSub" style="font-size:0.85rem; color:var(--muted);">المراحل محمية بباسوورد المشرف حالياً</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="adminModeToggle" onchange="toggleAdminRequirement()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 2. تغيير باسوورد وضع المشرف -->
+      <div class="card">
+        <h2 class="card-title">2. تغيير باسوورد وضع المشرف</h2>
+        <p class="card-desc">
+          الباسوورد الحالية: <strong class="mono" id="currentPinDisplay" style="color:var(--primary);">---</strong>
+        </p>
+        <div class="row">
+          <input type="text" id="newPinInput" class="input mono" placeholder="اكتب الباسوورد الجديدة (4 أرقام/حروف فأكثر)..." />
+          <button type="button" class="btn btn-primary" onclick="updateAdminPassword()">حفظ الباسوورد الجديدة</button>
+        </div>
+      </div>
+
+      <!-- 3. عدد المشرفين المسجلين حالياً -->
+      <div class="card" id="liveAdminsCard">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+          <h2 class="card-title">3. المشرفون المسجلون حالياً (مباشر)</h2>
+          <button type="button" class="btn btn-danger" onclick="kickAllAdmins()">طرد جميع المشرفين الآن 🚫</button>
+        </div>
+
+        <div id="disabledNotice" style="display:none; padding:14px; border-radius:12px; background:var(--subtle); color:var(--muted); font-size:0.9rem;">
+          وضع المشرف غير مُفعّل حالياً (كل المراحل مفتوحة للجميع). فعّل وضع المشرف من الأعلى لمراقبة المسجلين بالباسوورد.
+        </div>
+
+        <div id="activeStatsContent">
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-num" id="loggedAdminsCount">0</div>
+              <div class="stat-label">عدد المشرفين الداخلين بالباسوورد الآن</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" id="totalOnlineCount" style="color:var(--success);">0</div>
+              <div class="stat-label">إجمالي المتواجدين على المنصة الآن</div>
+            </div>
+          </div>
+          <ul class="admin-list" id="loggedAdminsList"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ضع رابط قاعدة بيانات Firebase الخاص بك هنا
+    const RAW_FIREBASE_URL = "https://english-study-batu-default-rtdb.firebaseio.com/";
+    const DB_URL = RAW_FIREBASE_URL.replace(/\/+$/, "");
+    const DEFAULT_PIN = "262010302008";
+
+    let currentConfig = {
+      requireAdminPass: true,
+      adminPin: DEFAULT_PIN,
+      passVersion: 1
+    };
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove("show"), 3000);
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+    }
+
+    async function fetchConfig() {
+      if (!DB_URL.startsWith("http")) {
+        toast("⚠️ ضع رابط Firebase أولاً داخل ملف admin.html");
+        return currentConfig;
+      }
+      const res = await fetch(`${DB_URL}/config.json`);
+      const data = await res.json();
+      if (data) {
+        currentConfig = {
+          requireAdminPass: data.requireAdminPass !== undefined ? Boolean(data.requireAdminPass) : true,
+          adminPin: data.adminPin ? String(data.adminPin) : DEFAULT_PIN,
+          passVersion: data.passVersion || 1
+        };
+      }
+      return currentConfig;
+    }
+
+    async function saveConfig(newCfg) {
+      currentConfig = { ...currentConfig, ...newCfg, updatedAt: new Date().toISOString() };
+      await fetch(`${DB_URL}/config.json`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(currentConfig)
+      });
+      renderDashboardUI();
+    }
+
+    async function loginAdmin() {
+      const entered = document.getElementById("loginPinInput").value.trim();
+      await fetchConfig();
+      // يقبل الباسوورد المحفوظة أو الباسوورد الافتراضية في أول تشغيل
+      if (entered === currentConfig.adminPin || (currentConfig.adminPin === DEFAULT_PIN && entered === "26201032008")) {
+        document.getElementById("loginCard").style.display = "none";
+        document.getElementById("dashboardArea").style.display = "block";
+        renderDashboardUI();
+        refreshLiveStats();
+        setInterval(refreshLiveStats, 5000);
+      } else {
+        document.getElementById("loginErr").style.display = "block";
+      }
+    }
+
+    function renderDashboardUI() {
+      const isOn = currentConfig.requireAdminPass;
+      document.getElementById("adminModeToggle").checked = isOn;
+      document.getElementById("currentPinDisplay").textContent = currentConfig.adminPin;
+
+      const badge = document.getElementById("modeStatusBadge");
+      const title = document.getElementById("switchTitle");
+      const sub = document.getElementById("switchSub");
+
+      if (isOn) {
+        badge.textContent = "مُفعّل (محمي بباسوورد)";
+        badge.className = "badge badge-on";
+        title.textContent = "وضع المشرف مُفعّل حالياً";
+        sub.textContent = "المراحل تُفتح بالتسلسل، ولا تُفتح بالكامل إلا بباسوورد المشرف.";
+        document.getElementById("disabledNotice").style.display = "none";
+        document.getElementById("activeStatsContent").style.display = "block";
+      } else {
+        badge.textContent = "مُلغى (كل شيء مفتوح)";
+        badge.className = "badge badge-off";
+        title.textContent = "وضع المشرف مُلغى — الوصول المفتوح للجميع";
+        sub.textContent = "جميع المراحل السبع مفتوحة تلقائياً لأي طالب بدون باسوورد.";
+        document.getElementById("disabledNotice").style.display = "block";
+        document.getElementById("activeStatsContent").style.display = "none";
+      }
+    }
+
+    async function toggleAdminRequirement() {
+      const checked = document.getElementById("adminModeToggle").checked;
+      await saveConfig({ requireAdminPass: checked });
+      toast(checked ? "✅ تم تفعيل وضع المشرف وقفل المراحل" : "🔓 تم إلغاء وضع المشرف وفتح كل شيء للجميع");
+    }
+
+    async function updateAdminPassword() {
+      const newPin = document.getElementById("newPinInput").value.trim();
+      if (newPin.length < 4) {
+        toast("⚠️ اكتب باسوورد لا تقل عن 4 رموز");
+        return;
+      }
+      await saveConfig({
+        adminPin: newPin,
+        passVersion: (currentConfig.passVersion || 1) + 1
+      });
+      document.getElementById("newPinInput").value = "";
+      toast(`✅ تم تغيير الباسوورد إلى ${newPin} وطرد الجلسات القديمة`);
+      refreshLiveStats();
+    }
+
+    async function kickAllAdmins() {
+      await saveConfig({ passVersion: (currentConfig.passVersion || 1) + 1 });
+      toast("🚫 تم طرد جميع المشرفين المسجلين حالياً");
+      setTimeout(refreshLiveStats, 1500);
+    }
+
+    async function refreshLiveStats() {
+      if (!DB_URL.startsWith("http") || !currentConfig.requireAdminPass) return;
+      try {
+        const res = await fetch(`${DB_URL}/presence.json`);
+        const data = (await res.json()) || {};
+        const now = Date.now();
+        const online = Object.values(data).filter((u) => u && (now - u.lastSeen) < 35000);
+        const admins = online.filter((u) => u.isAdmin);
+
+        document.getElementById("loggedAdminsCount").textContent = admins.length;
+        document.getElementById("totalOnlineCount").textContent = online.length;
+
+        const listEl = document.getElementById("loggedAdminsList");
+        if (admins.length === 0) {
+          listEl.innerHTML = `<li class="admin-item" style="color:var(--muted);">لا يوجد مشرفون مسجلون حالياً.</li>`;
+        } else {
+          listEl.innerHTML = admins.map((a, i) => `
+            <li class="admin-item">
+              <span><strong>${i + 1}. ${a.name || "مشرف"}</strong> — في المرحلة ${a.stage || 1}</span>
+              <span class="badge badge-on">نشط الآن 🔑</span>
+            </li>
+          `).join("");
+        }
+      } catch (_) {}
+    }
+  </script>
+</body>
+</html>
