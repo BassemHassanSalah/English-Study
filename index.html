@@ -3326,104 +3326,122 @@
       applyTheme(state.theme || "light");
       renderHomeAndRoadmap();
     })();
-  const RAW_FIREBASE_URL = "https://english-study-batu-default-rtdb.firebaseio.com/";
-  const DB_URL = RAW_FIREBASE_URL.replace(/\/+$/, "");
-  const SESSION_ID = sessionStorage.getItem("batu_sid") || ("sid_" + Math.random().toString(36).slice(2, 11));
-  sessionStorage.setItem("batu_sid", SESSION_ID);
+</script>
+  <script>
+  window.addEventListener("DOMContentLoaded", function () {
+    // ضع نفس رابط قاعدة بيانات Firebase الموجود في admin.html
+    const RAW_FIREBASE_URL = "https://english-study-batu-default-rtdb.firebaseio.com/";
+    const DB_URL = RAW_FIREBASE_URL.replace(/\/+$/, "");
 
-  let remoteConfig = {
-    requireAdminPass: true,
-    adminPin: "262010302008",
-    passVersion: 1
-  };
-  let localPassVersion = parseInt(sessionStorage.getItem("batu_pass_ver") || "1", 10);
-
-  async function syncPlatformControl() {
-    if (!DB_URL.startsWith("http")) return;
-    try {
-      const res = await fetch(`${DB_URL}/config.json`);
-      const cfg = await res.json();
-      if (!cfg) return;
-
-      const prevRequire = remoteConfig.requireAdminPass;
-      remoteConfig = {
-        requireAdminPass: cfg.requireAdminPass !== undefined ? Boolean(cfg.requireAdminPass) : true,
-        adminPin: cfg.adminPin ? String(cfg.adminPin) : "262010302008",
-        passVersion: cfg.passVersion || 1
-      };
-
-      const keyBtn = document.getElementById("adminModalBtn");
-
-      // 1. إذا ألغيت وضع المشرف من لوحة التحكم: افتح كل المراحل للجميع
-      if (!remoteConfig.requireAdminPass) {
-        appState.unlockedStage = STAGES_DATA.length;
-        appState.adminMode = false;
-        if (keyBtn) keyBtn.style.display = "none";
-        if (prevRequire !== remoteConfig.requireAdminPass) renderAll();
-        return;
-      } else {
-        if (keyBtn) keyBtn.style.display = "inline-grid";
-        if (prevRequire === false && !appState.adminMode) {
-          // إعادة حساب المراحل المفتوحة حسب إنجاز الطالب الفعلي
-          appState.unlockedStage = Math.min(STAGES_DATA.length, appState.completedStages.length + 1);
-          renderAll();
+    if (!DB_URL.startsWith("https://")) {
+      setTimeout(() => {
+        if (typeof showToast === "function") {
+          showToast("⚠️ تنبيه: ملف index.html غير مربوط برابط Firebase بعد!");
         }
-      }
+      }, 1000);
+      return;
+    }
 
-      // 2. طرد الجلسة إذا تم تغيير الباسوورد أو الضغط على زر الطرد
-      if (appState.adminMode && localPassVersion < remoteConfig.passVersion) {
-        appState.adminMode = false;
-        appState.unlockedStage = Math.min(STAGES_DATA.length, appState.completedStages.length + 1);
+    const SESSION_ID = sessionStorage.getItem("batu_sid") || ("sid_" + Math.random().toString(36).slice(2, 11));
+    sessionStorage.setItem("batu_sid", SESSION_ID);
+
+    let remoteConfig = {
+      requireAdminPass: true,
+      adminPin: "262010302008",
+      passVersion: 1
+    };
+    let localPassVersion = parseInt(sessionStorage.getItem("batu_pass_ver") || "1", 10);
+
+    // 1. ربط حالة فتح المراحل مباشرة بحالة وضع المشرف في لوحة التحكم
+    const origIsStageUnlocked = window.isStageUnlocked;
+    window.isStageUnlocked = function (stageId) {
+      if (!remoteConfig.requireAdminPass) return true; // وضع المشرف مُلغى -> كل المراحل مفتوحة
+      return origIsStageUnlocked(stageId);
+    };
+
+    // 2. جلب الإعدادات من Firebase بدون كاش كل 5 ثوانٍ
+    async function syncPlatformControl() {
+      try {
+        const res = await fetch(`${DB_URL}/config.json?t=${Date.now()}`, { cache: "no-store" });
+        const cfg = await res.json();
+        if (!cfg || cfg.error) return;
+
+        const prevRequire = remoteConfig.requireAdminPass;
+        remoteConfig = {
+          requireAdminPass: cfg.requireAdminPass !== undefined ? Boolean(cfg.requireAdminPass) : true,
+          adminPin: cfg.adminPin ? String(cfg.adminPin) : "262010302008",
+          passVersion: cfg.passVersion || 1
+        };
+
+        const keyBtn = document.getElementById("adminModalBtn");
+
+        if (!remoteConfig.requireAdminPass) {
+          // وضع المشرف مُلغى من لوحة التحكم
+          appState.adminMode = false;
+          if (keyBtn) keyBtn.style.display = "none";
+          if (prevRequire !== false) renderAll();
+        } else {
+          // وضع المشرف مُفعّل
+          if (keyBtn) keyBtn.style.display = "inline-grid";
+
+          // طرد الجلسة فوراً إذا تم تغيير الباسوورد أو الضغط على زر الطرد
+          if (appState.adminMode && localPassVersion < remoteConfig.passVersion) {
+            appState.adminMode = false;
+            saveState();
+            renderAll();
+            showToast("🔒 تم إنهاء جلسة المشرف لتحديث الباسوورد.");
+            return;
+          }
+
+          if (prevRequire === false) renderAll();
+        }
+      } catch (_) {}
+    }
+
+    // 3. التحقق من الباسوورد الجديدة عند الضغط على زر المفتاح 🔑
+    window.verifyAdminPin = async function () {
+      await syncPlatformControl();
+      const entered = document.getElementById("adminPinInput").value.trim();
+      if (entered === remoteConfig.adminPin) {
+        localPassVersion = remoteConfig.passVersion;
+        sessionStorage.setItem("batu_pass_ver", String(localPassVersion));
+        appState.adminMode = true;
         saveState();
+        closeAdminModal();
         renderAll();
-        showToast("🔒 تم إنهاء جلسة المشرف لتحديث الباسوورد.");
+        sendHeartbeat();
+        showToast("🔓 تم تفعيل وضع المشرف بنجاح!");
+      } else {
+        document.getElementById("adminErrorMsg").style.display = "block";
       }
-    } catch (_) {}
-  }
+    };
 
-  // استبدال دالة التحقق من الباسوورد لتعمل مع الباسوورد المحدثة
-  verifyAdminPin = window.verifyAdminPin = async function () {
-    await syncPlatformControl();
-    const entered = document.getElementById("adminPinInput").value.trim();
-    if (entered === remoteConfig.adminPin) {
-      localPassVersion = remoteConfig.passVersion;
-      sessionStorage.setItem("batu_pass_ver", String(localPassVersion));
-      appState.adminMode = true;
-      appState.unlockedStage = STAGES_DATA.length;
-      saveState();
-      closeAdminModal();
+    // 4. إرسال حالة التواجد المباشر للوحة التحكم
+    async function sendHeartbeat() {
+      try {
+        await fetch(`${DB_URL}/presence/${SESSION_ID}.json`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: appState.studentName || "طالب زائر",
+            isAdmin: Boolean(appState.adminMode && remoteConfig.requireAdminPass),
+            stage: appState.currentStageId,
+            lastSeen: Date.now()
+          })
+        });
+      } catch (_) {}
+    }
+
+    syncPlatformControl().then(() => {
       renderAll();
       sendHeartbeat();
-      showToast("🔓 تم تفعيل وضع المشرف بنجاح!");
-    } else {
-      document.getElementById("adminErrorMsg").style.display = "block";
-    }
-  };
+    });
 
-  async function sendHeartbeat() {
-    if (!DB_URL.startsWith("http")) return;
-    try {
-      await fetch(`${DB_URL}/presence/${SESSION_ID}.json`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: appState.studentName || "طالب زائر",
-          isAdmin: Boolean(appState.adminMode && remoteConfig.requireAdminPass),
-          stage: appState.currentStageId,
-          lastSeen: Date.now()
-        })
-      });
-    } catch (_) {}
-  }
-
-  syncPlatformControl().then(() => {
-    renderAll();
-    sendHeartbeat();
+    setInterval(() => {
+      syncPlatformControl();
+      sendHeartbeat();
+    }, 5000);
   });
-  setInterval(() => {
-    syncPlatformControl();
-    sendHeartbeat();
-  }, 10000);
 </script>
 </body>
 </html>
