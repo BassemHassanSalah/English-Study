@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>English Club — لوحة تحكم المشرف</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="light"] {
+      --bg: #FAF5EA;
+      --surface: #FFFFFF;
+      --subtle: #F1E8D4;
+      --text: #14213D;
+      --muted: #4B5470;
+      --border: #E4D9C0;
+      --border-strong: #D2C5A5;
+      --primary: #14213D;
+      --crimson: #D62839;
+      --crimson-hover: #B71F2F;
+      --gold: #F2A93B;
+      --success: #15803D;
+      --success-soft: rgba(21, 128, 61, 0.11);
+      --danger: #D62839;
+      --danger-soft: rgba(214, 40, 57, 0.10);
+      --warn: #B45309;
+      --warn-soft: rgba(242, 169, 59, 0.22);
+      --shadow: 0 14px 34px -8px rgba(20, 33, 61, 0.10);
+    }
+    [data-theme="dark"] {
+      --bg: #0D1321;
+      --surface: #14213D;
+      --subtle: #1C2D52;
+      --text: #FAF5EA;
+      --muted: #C9D0E4;
+      --border: #2D406B;
+      --border-strong: #3E558A;
+      --primary: #F2A93B;
+      --crimson: #FF5A67;
+      --crimson-hover: #D62839;
+      --gold: #F2A93B;
+      --success: #4ADE80;
+      --success-soft: rgba(74, 222, 128, 0.14);
+      --danger: #FF6B78;
+      --danger-soft: rgba(255, 90, 103, 0.16);
+      --warn: #F2A93B;
+      --warn-soft: rgba(242, 169, 59, 0.18);
+      --shadow: 0 16px 38px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+      line-height: 1.65;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    .wrap { max-width: 780px; margin: 0 auto; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; gap: 12px; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 14px 18px; border-radius: 20px; box-shadow: var(--shadow);
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .wm { font: 700 24px 'Playfair Display', serif; line-height: 1.1; color: var(--text); }
+    .wm i { color: var(--crimson); }
+    .sub-tag { font-size: 12px; color: var(--muted); font-weight: 700; }
+    .status-banner {
+      padding: 13px 16px; border-radius: 14px; font-size: 0.92rem; font-weight: 700;
+      margin-bottom: 18px; border: 1px solid var(--border); background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .status-ok { background: var(--success-soft); color: var(--success); border-color: rgba(21, 128, 61, 0.35); }
+    .status-err { background: var(--danger-soft); color: var(--danger); border-color: rgba(214, 40, 57, 0.35); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 22px; padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .card.maint-active {
+      border: 2px solid var(--crimson);
+    }
+    .card-title { font-size: 1.12rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .card-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+    .input {
+      width: 100%; padding: 12px 15px; border-radius: 14px;
+      border: 1.5px solid var(--border-strong); background: var(--bg); color: var(--text);
+      font-size: 0.95rem; font-family: inherit; font-weight: 600;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input:focus {
+      outline: none; border-color: var(--crimson);
+      box-shadow: 0 0 0 4px rgba(214, 40, 57, 0.14);
+    }
+    .btn {
+      min-height: 44px; padding: 10px 18px; border-radius: 14px; border: 1px solid transparent;
+      font-weight: 800; font-size: 0.92rem; cursor: pointer; font-family: inherit;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--crimson); color: #FFFFFF; }
+    .btn-primary:hover { background: var(--crimson-hover); box-shadow: 0 10px 20px rgba(214, 40, 57, 0.25); }
+    .btn-navy { background: #14213D; color: #FAF5EA; }
+    .btn-danger { background: var(--danger-soft); color: var(--danger); border-color: rgba(214, 40, 57, 0.3); }
+    .btn-ghost { background: var(--subtle); color: var(--text); border-color: var(--border); }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row .input { flex: 1; min-width: 210px; }
+    .switch-box {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px; border-radius: 16px; background: var(--subtle);
+      border: 1px solid var(--border); gap: 16px;
+    }
+    .switch { position: relative; display: inline-block; width: 56px; height: 32px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background: #94A3B8; border-radius: 999px; transition: 0.25s; }
+    .slider::before {
+      content: ""; position: absolute; height: 24px; width: 24px; left: 4px; bottom: 4px;
+      background: #fff; border-radius: 50%; transition: 0.25s;
+    }
+    input:checked + .slider { background: var(--crimson); }
+    input:checked + .slider::before { transform: translateX(24px); }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .stat-box { padding: 16px; border-radius: 16px; background: var(--subtle); border: 1px solid var(--border); }
+    .stat-num { font-family: 'Space Grotesk', monospace; font-size: 1.9rem; font-weight: 700; color: var(--crimson); line-height: 1.1; }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; font-weight: 700; }
+    .admin-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .admin-item {
+      padding: 11px 15px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;
+    }
+    .badge { padding: 4px 12px; border-radius: 999px; font-size: 0.78rem; font-weight: 800; }
+    .badge-on { background: var(--success-soft); color: var(--success); }
+    .badge-off { background: var(--danger-soft); color: var(--danger); }
+    .badge-warn { background: var(--warn-soft); color: var(--warn); }
+    .mono { font-family: 'Space Grotesk', monospace; direction: ltr; unicode-bidi: isolate; }
+    .toast {
+      position: fixed; bottom: 20px; left: 20px; background: #14213D; color: #FAF5EA;
+      border: 1.5px solid var(--gold); padding: 13px 18px; border-radius: 14px;
+      font-weight: 700; font-size: 0.9rem; opacity: 0; transform: translateY(20px);
+      transition: 0.22s; pointer-events: none; z-index: 99; box-shadow: var(--shadow);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand-wrap">
+        <svg width="46" height="46" viewBox="0 0 56 56" aria-hidden="true">
+          <path d="M12 3h32a9 9 0 0 1 9 9v24a9 9 0 0 1-9 9H31l-11 9v-9H12a9 9 0 0 1-9-9V12a9 9 0 0 1 9-9z" fill="#14213D"></path>
+          <path d="M28 7l6 10H22zM23 17h10v25H23z" fill="#FAF5EA"></path>
+          <circle cx="28" cy="25" r="5.5" fill="#D62839"></circle>
+          <path d="M28 25v-3M28 25l2.2 1.4" stroke="#FAF5EA" stroke-width="1.4" stroke-linecap="round" fill="none"></path>
+          <path d="M19 42h18M28 7V3" stroke="#D62839" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
+          <path d="M19 42h18" stroke="#FAF5EA" stroke-width="2.4" stroke-linecap="round"></path>
+        </svg>
+        <div>
+          <div class="wm">English <i>Club</i></div>
+          <div class="sub-tag">لوحة تحكم المشرف والإدارة اللحظية (Admin Control)</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="./index.html" class="btn btn-ghost">فتح المنصة ↗</a>
+        <button type="button" class="btn btn-ghost" onclick="toggleTheme()" id="themeBtn">🌙 الوضع الليلي</button>
+        <button type="button" class="btn btn-danger" onclick="logoutAdmin('تم قفل لوحة التحكم وتسجيل الخروج بأمان.')" id="lockPanelBtn" style="display:none;">قفل اللوحة 🔒</button>
+      </div>
+    </div>
+
+    <!-- شريط تشخيص الاتصال التلقائي -->
+    <div id="connStatusBanner" class="status-banner">⏳ جاري فحص الاتصال بقاعدة بيانات Firebase...</div>
+
+    <!-- شاشة تسجيل دخول المشرف -->
+    <div class="card" id="loginCard">
+      <h2 class="card-title">🔐 تسجيل الدخول الآمن للوحة التحكم</h2>
+      <p class="card-desc" id="loginSubtitle">أدخل رمز مرور المشرف للتحكم في قفل المراحل، وضع الصيانة، ومراقبة المتواجدين لحظياً (محمي بتشفير SHA-256 وقفل تلقائي ضد التخمين).</p>
+      <div id="firebaseEmailRow" style="display:none; margin-bottom:10px;">
+        <input type="email" id="loginEmailInput" class="input mono" placeholder="البريد الإلكتروني للمشرف (Firebase Auth)..." autocomplete="username" />
+      </div>
+      <div class="row">
+        <input type="password" id="loginPinInput" class="input mono" placeholder="أدخل رمز المرور..." autocomplete="current-password" onkeydown="if(event.key==='Enter') loginAdmin()" />
+        <button type="button" class="btn btn-ghost" onclick="togglePassVisibility('loginPinInput', this)" title="إظهار / إخفاء">👁️</button>
+        <button type="button" class="btn btn-primary" id="loginSubmitBtn" onclick="loginAdmin()">دخول لوحة التحكم ←</button>
+      </div>
+      <p id="loginErr" style="color:var(--danger); font-size:0.88rem; margin-top:10px; font-weight:700; display:none;"></p>
+    </div>
+
+    <!-- لوحة التحكم الرئيسية -->
+    <div id="dashboardArea" style="display:none;">
+
+      <!-- 1. وضع الصيانة (Maintenance Mode) -->
+      <div class="card" id="maintenanceCard">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+          <h2 class="card-title">🚧 1. وضع الصيانة (إغلاق المنصة مؤقتاً للتحديث)</h2>
+          <span class="badge" id="maintStatusBadge">متاحة للطلاب</span>
+        </div>
+        <p class="card-desc">
+          عند <strong>تفعيل وضع الصيانة</strong>: تُغلق المنصة فوراً أمام الطلاب وتظهر لهم شاشة «جاري التحديث والصيانة»، بينما يمكنك أنت الدخول برمز المشرف لمراجعة التعديلات.
+        </p>
+        <div class="switch-box" style="margin-bottom:14px;">
+          <div>
+            <strong id="maintSwitchTitle" style="display:block;">المنصة مفتوحة وتعمل بشكل طبيعي</strong>
+            <span id="maintSwitchSub" style="font-size:0.85rem; color:var(--muted);">الطلاب يمكنهم تصفح المنصة والدراسة الآن</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="row">
+          <input type="text" id="maintMessageInput" class="input" placeholder="رسالة الصيانة للطلاب (مثال: نقوم بتحديث الأسئلة وسنعود خلال دقائق...)" />
+          <button type="button" class="btn btn-navy" onclick="saveMaintenanceMessage()">حفظ الرسالة</button>
+        </div>
+      </div>
+
+      <!-- 2. تفعيل أو إلغاء وضع المشرف (قفل المراحل) -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+          <h2 class="card-title">🔑 2. تفعيل أو إلغاء وضع المشرف (القفل التسلسلي)</h2>
+          <span class="badge" id="modeStatusBadge">...</span>
+        </div>
+        <p class="card-desc">
+          عند <strong>التفعيل</strong>: تُقفل المراحل بالتسلسل ولا تُفتح بالكامل إلا بباسوورد المشرف.<br />
+          عند <strong>الإلغاء</strong>: يُلغى نظام القفل وتصبح جميع المراحل السبعة مفتوحة تلقائياً لكل الطلاب.
+        </p>
+        <div class="switch-box">
+          <div>
+            <strong id="switchTitle" style="display:block;">وضع المشرف مُفعّل</strong>
+            <span id="switchSub" style="font-size:0.85rem; color:var(--muted);">المراحل محمية بباسوورد المشرف</span>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="adminModeToggle" onchange="toggleAdminRequirement()" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 3. تغيير باسوورد وضع المشرف -->
+      <div class="card" id="pinChangeCard">
+        <h2 class="card-title">🛡️ 3. تغيير باسوورد وضع المشرف (مشفّرة)</h2>
+        <p class="card-desc">
+          حالة الحماية: <strong class="mono" id="currentPinDisplay" style="color:var(--success);">•••••••••••• (مشفّرة بـ SHA-256 + Salt)</strong><br />
+          <span style="font-size:0.82rem;">لأمانك، لا يتم عرض الباسوورد كنص صريح أبداً، ويُشترط إدخال الباسوورد الحالية واختيار باسوورد قوية (8 رموز فأكثر تحتوي على حروف وأرقام).</span>
+        </p>
+        <div class="row" style="margin-bottom:10px;">
+          <input type="password" id="verifyCurrentPinInput" class="input mono" placeholder="اكتب الباسوورد الحالية للتأكيد..." autocomplete="current-password" />
+        </div>
+        <div class="row">
+          <input type="password" id="newPinInput" class="input mono" placeholder="الباسوورد الجديدة (8 رموز فأكثر: حروف + أرقام)..." autocomplete="new-password" />
+          <button type="button" class="btn btn-ghost" onclick="togglePassVisibility('newPinInput', this)" title="إظهار / إخفاء">👁️</button>
+          <button type="button" class="btn btn-primary" onclick="updateAdminPassword()">حفظ الباسوورد الجديدة</button>
+        </div>
+      </div>
+
+      <!-- 4. المراقبة المباشرة -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+          <h2 class="card-title">📡 4. المتواجدون والمشرفون حالياً (مباشر)</h2>
+          <button type="button" class="btn btn-danger" onclick="kickAllAdmins()">طرد جميع المشرفين الآن 🚫</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-num" id="totalOnlineCount" style="color:var(--success);">0</div>
+            <div class="stat-label">إجمالي المتواجدين على المنصة الآن</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" id="loggedAdminsCount">0</div>
+            <div class="stat-label">عدد المشرفين الداخلين بالباسوورد الآن</div>
+          </div>
+        </div>
+
+        <div id="disabledNotice" style="display:none; padding:14px; border-radius:12px; background:var(--subtle); color:var(--muted); font-size:0.9rem; margin-bottom:10px;">
+          وضع المشرف مُلغى حالياً (كل المراحل مفتوحة للجميع).
+        </div>
+
+        <ul class="admin-list" id="loggedAdminsList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const RAW_FIREBASE_URL = "https://english-study-batu-default-rtdb.firebaseio.com/";
+    const DB_URL = RAW_FIREBASE_URL.replace(/\/+$/, "");
+
+    // [اختياري - أعلى مستوى حماية سيرفر]: ضع Web API Key الخاص بمشروع Firebase هنا لتفعيل الدخول بالبريد والباسوورد عبر Firebase Auth
+    const FIREBASE_API_KEY = "";
+
+
+    const PIN_SALT = "EC_BATU_2026_SHIELD::";
+    const DEFAULT_PIN_HASH = "1404135be5b064074eedb4419738e967cd261a63c3471c737fc37d2bc84ee79a";
+
+    function sha256Fallback(ascii) {
+      function rightRotate(value, amount) {
+        return (value >>> amount) | (value << (32 - amount));
+      }
+      const mathPow = Math.pow;
+      const maxWord = mathPow(2, 32);
+      let result = "";
+      const words = [];
+      const asciiBitLength = ascii.length * 8;
+      const hash = [];
+      const k = [];
+      let primeCounter = 0;
+      const isComposite = {};
+      for (let candidate = 2; primeCounter < 64; candidate++) {
+        if (!isComposite[candidate]) {
+          for (let i = 0; i < 313; i += candidate) isComposite[i] = candidate;
+          hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+          k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+        }
+      }
+      ascii += "\x80";
+      while ((ascii.length % 64) - 56) ascii += "\x00";
+      for (let i = 0; i < ascii.length; i++) {
+        const j = ascii.charCodeAt(i);
+        words[i >> 2] |= j << (((3 - i) % 4) * 8);
+      }
+      words[words.length] = (asciiBitLength / maxWord) | 0;
+      words[words.length] = asciiBitLength;
+      for (let j = 0; j < words.length; ) {
+        const w = words.slice(j, (j += 16));
+        const oldHash = hash.slice(0);
+        for (let i = 0; i < 64; i++) {
+          const w15 = w[i - 15], w2 = w[i - 2];
+          const a = hash[0], e = hash[4];
+          const temp1 =
+            hash[7] +
+            (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+            ((e & hash[5]) ^ (~e & hash[6])) +
+            k[i] +
+            (w[i] =
+              i < 16
+                ? w[i]
+                : (w[i - 16] +
+                    (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                    w[i - 7] +
+                    (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+                  0);
+          const temp2 =
+            (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+            ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+          hash.unshift((temp1 + temp2) | 0);
+          hash[4] = (hash[4] + temp1) | 0;
+          hash.pop();
+        }
+        for (let i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+      for (let i = 0; i < 8; i++) {
+        for (let j = 3; j + 1; j--) {
+          const b = (hash[i] >> (j * 8)) & 255;
+          result += (b < 16 ? "0" : "") + b.toString(16);
+        }
+      }
+      return result;
+    }
+
+    async function hashPin(pin, salt = PIN_SALT) {
+      const payload = String(salt) + String(pin);
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const enc = new TextEncoder().encode(payload);
+          const buf = await window.crypto.subtle.digest("SHA-256", enc);
+          return Array.from(new Uint8Array(buf))
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+        }
+      } catch (_) {}
+      const utf8Bytes = unescape(encodeURIComponent(payload));
+      return sha256Fallback(utf8Bytes);
+    }
+
+    function timingSafeEqual(a, b) {
+      if (typeof a !== "string" || typeof b !== "string" || a.length !== b.length) return false;
+      let diff = 0;
+      for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+      return diff === 0;
+    }
+
+
+    const DEFAULT_MAINT_MSG = "نقوم حالياً بإجراء تحديثات وتطوير المحتوى التعليمي على المنصة. سنعود للعمل خلال دقائق قليلة يا بشمهندس.";
+    const LOCKOUT_KEY = "ec_admin_lockout_v1";
+    const MAX_FAILED_ATTEMPTS = 5;
+    const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 دقائق
+    const IDLE_TIMEOUT_MS = 15 * 60 * 1000;    // 15 دقيقة خمول
+
+    let currentConfig = {
+      requireAdminPass: true,
+      maintenanceMode: false,
+      maintenanceMessage: DEFAULT_MAINT_MSG,
+      adminPinHash: DEFAULT_PIN_HASH,
+      pinSalt: PIN_SALT,
+      passVersion: 1
+    };
+    let legacyPlainPin = null;
+    let dbReady = false;
+    let isAuthenticated = false;
+    let firebaseIdToken = "";
+    let idleTimer = null;
+
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function togglePassVisibility(inputId, btn) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      const isHidden = inp.type === "password";
+      inp.type = isHidden ? "text" : "password";
+      if (btn) btn.textContent = isHidden ? "🙈" : "👁️";
+    }
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove("show"), 3400);
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      document.getElementById("themeBtn").textContent = next === "dark" ? "☀️ وضع النهار" : "🌙 الوضع الليلي";
+    }
+
+    function getGuardState() {
+      try {
+        return JSON.parse(localStorage.getItem(LOCKOUT_KEY) || '{"fails":0,"until":0}');
+      } catch (_) {
+        return { fails: 0, until: 0 };
+      }
+    }
+
+    function setGuardState(st) {
+      try {
+        localStorage.setItem(LOCKOUT_KEY, JSON.stringify(st));
+      } catch (_) {}
+    }
+
+    function resetIdleTimer() {
+      if (!isAuthenticated) return;
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        logoutAdmin("⏳ تم قفل لوحة التحكم تلقائياً بعد 15 دقيقة من عدم النشاط لحماية الحساب.");
+      }, IDLE_TIMEOUT_MS);
+    }
+
+    ["mousemove", "keydown", "click", "touchstart"].forEach((evt) => {
+      window.addEventListener(evt, resetIdleTimer, { passive: true });
+    });
+
+    function logoutAdmin(reasonMsg) {
+      isAuthenticated = false;
+      firebaseIdToken = "";
+      clearTimeout(idleTimer);
+      document.getElementById("dashboardArea").style.display = "none";
+      document.getElementById("loginCard").style.display = "block";
+      document.getElementById("lockPanelBtn").style.display = "none";
+      document.getElementById("loginPinInput").value = "";
+      if (reasonMsg) toast(reasonMsg);
+    }
+
+    function authQueryParam(prefix = "?") {
+      return firebaseIdToken ? `${prefix}auth=${encodeURIComponent(firebaseIdToken)}` : "";
+    }
+
+    async function checkDatabaseConnection() {
+      const banner = document.getElementById("connStatusBanner");
+      if (!DB_URL.startsWith("https://")) {
+        banner.className = "status-banner status-err";
+        banner.innerHTML = "❌ <strong>لم يتم وضع رابط Firebase بعد!</strong>";
+        return false;
+      }
+      try {
+        const res = await fetch(`${DB_URL}/config.json?t=${Date.now()}${authQueryParam("&")}`, { cache: "no-store" });
+        const data = await res.json();
+        if (data && data.error) {
+          banner.className = "status-banner status-err";
+          banner.innerHTML = `❌ <strong>قاعدة البيانات مقفولة (${escapeHtml(data.error)}):</strong> تأكد من صلاحيات Firebase Rules أو تسجيل الدخول.`;
+          return false;
+        }
+        if (data) {
+          legacyPlainPin = data.adminPin ? String(data.adminPin) : null;
+          currentConfig = {
+            requireAdminPass: data.requireAdminPass !== undefined ? Boolean(data.requireAdminPass) : true,
+            maintenanceMode: Boolean(data.maintenanceMode),
+            maintenanceMessage: data.maintenanceMessage ? String(data.maintenanceMessage) : DEFAULT_MAINT_MSG,
+            adminPinHash: data.adminPinHash ? String(data.adminPinHash) : DEFAULT_PIN_HASH,
+            pinSalt: data.pinSalt ? String(data.pinSalt) : PIN_SALT,
+            passVersion: data.passVersion || 1
+          };
+        }
+        dbReady = true;
+        banner.className = "status-banner status-ok";
+        banner.textContent = FIREBASE_API_KEY
+          ? "✅ متصل بقاعدة بيانات Firebase بنجاح — وضع الحماية القصوى (Firebase Auth) جاهز."
+          : "✅ متصل بقاعدة بيانات Firebase بنجاح — الحماية المشفرة (SHA-256 + Lockout) نشطة.";
+        return true;
+      } catch (err) {
+        banner.className = "status-banner status-err";
+        banner.textContent = "❌ تعذر الاتصال بـ Firebase. تأكد من اتصالك بالإنترنت.";
+        return false;
+      }
+    }
+
+    async function saveConfig(newCfg) {
+      // Never write plaintext adminPin to Firebase
+      const merged = {
+        requireAdminPass: currentConfig.requireAdminPass,
+        maintenanceMode: currentConfig.maintenanceMode,
+        maintenanceMessage: currentConfig.maintenanceMessage,
+        adminPinHash: currentConfig.adminPinHash,
+        pinSalt: currentConfig.pinSalt || PIN_SALT,
+        passVersion: currentConfig.passVersion || 1,
+        ...newCfg,
+        adminPin: null,
+        updatedAt: new Date().toISOString()
+      };
+      delete merged.adminPin;
+
+      const res = await fetch(`${DB_URL}/config.json${authQueryParam("?")}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(merged)
+      });
+      const out = await res.json();
+      if (out && out.error) {
+        toast("❌ فشل الحفظ: تأكد من صلاحيات Firebase Rules");
+        return false;
+      }
+      currentConfig = merged;
+      legacyPlainPin = null;
+      renderDashboardUI();
+      return true;
+    }
+
+    async function loginAdmin() {
+      const errEl = document.getElementById("loginErr");
+      const btn = document.getElementById("loginSubmitBtn");
+      errEl.style.display = "none";
+
+      // 1. Check brute-force lockout
+      const guard = getGuardState();
+      const now = Date.now();
+      if (guard.until && now < guard.until) {
+        const secs = Math.ceil((guard.until - now) / 1000);
+        errEl.textContent = `⛔ تم قفل الدخول مؤقتاً بسبب محاولات خاطئة متكررة. حاول بعد ${secs} ثانية.`;
+        errEl.style.display = "block";
+        return;
+      }
+
+      btn.disabled = true;
+      await new Promise((r) => setTimeout(r, 600)); // Anti-brute-force delay
+
+      try {
+        // Mode A: Full Firebase Authentication (Email + Password)
+        if (FIREBASE_API_KEY) {
+          const email = document.getElementById("loginEmailInput").value.trim();
+          const pass = document.getElementById("loginPinInput").value;
+          if (!email || !pass) {
+            errEl.textContent = "أدخل البريد الإلكتروني وكلمة المرور.";
+            errEl.style.display = "block";
+            return;
+          }
+          const authRes = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${encodeURIComponent(FIREBASE_API_KEY)}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password: pass, returnSecureToken: true })
+          });
+          const authData = await authRes.json();
+          if (!authRes.ok || !authData.idToken) {
+            registerFailedAttempt(errEl, "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.");
+            return;
+          }
+          firebaseIdToken = authData.idToken;
+          const ok = await checkDatabaseConnection();
+          if (!ok) {
+            errEl.textContent = "تم التحقق من الحساب، لكن تعذر الوصول لقاعدة البيانات.";
+            errEl.style.display = "block";
+            return;
+          }
+          setGuardState({ fails: 0, until: 0 });
+          completeAdminLogin();
+          return;
+        }
+
+        // Mode B: Salted SHA-256 PIN Verification
+        const ok = await checkDatabaseConnection();
+        if (!ok) {
+          errEl.textContent = "أصلح مشكلة الاتصال بـ Firebase الموضحة بالأعلى أولاً.";
+          errEl.style.display = "block";
+          return;
+        }
+
+        const entered = document.getElementById("loginPinInput").value.trim();
+        if (!entered) {
+          errEl.textContent = "أدخل رمز المرور أولاً.";
+          errEl.style.display = "block";
+          return;
+        }
+
+        const enteredHash = await hashPin(entered, currentConfig.pinSalt || PIN_SALT);
+        const matchesHash = timingSafeEqual(enteredHash, currentConfig.adminPinHash);
+        const matchesLegacy = legacyPlainPin && entered === legacyPlainPin;
+
+        if (matchesHash || matchesLegacy) {
+          setGuardState({ fails: 0, until: 0 });
+          // Auto-migrate legacy plaintext adminPin to salted SHA-256 hash in Firebase
+          const nextHash = matchesLegacy ? await hashPin(entered, PIN_SALT) : currentConfig.adminPinHash;
+          await saveConfig({ adminPinHash: nextHash, pinSalt: PIN_SALT });
+          completeAdminLogin();
+        } else {
+          registerFailedAttempt(errEl, "❌ الباسوورد غير صحيحة!");
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function registerFailedAttempt(errEl, baseMsg) {
+      const guard = getGuardState();
+      const fails = (guard.fails || 0) + 1;
+      if (fails >= MAX_FAILED_ATTEMPTS) {
+        setGuardState({ fails: 0, until: Date.now() + LOCKOUT_DURATION_MS });
+        errEl.textContent = "⛔ تم إدخال الباسوورد خطأ 5 مرات! تم قفل الدخول لمدة 5 دقائق.";
+      } else {
+        setGuardState({ fails, until: 0 });
+        errEl.textContent = `${baseMsg} (المحاولة ${fails} من ${MAX_FAILED_ATTEMPTS})`;
+      }
+      errEl.style.display = "block";
+    }
+
+    function completeAdminLogin() {
+      isAuthenticated = true;
+      document.getElementById("loginPinInput").value = "";
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("dashboardArea").style.display = "block";
+      document.getElementById("lockPanelBtn").style.display = "inline-flex";
+      if (FIREBASE_API_KEY) {
+        document.getElementById("pinChangeCard").style.display = "none";
+      }
+      resetIdleTimer();
+      renderDashboardUI();
+      refreshLiveStats();
+      toast("✅ تم تسجيل الدخول للوحة التحكم بأمان.");
+    }
+
+    function renderDashboardUI() {
+      const isMaint = Boolean(currentConfig.maintenanceMode);
+      document.getElementById("maintenanceToggle").checked = isMaint;
+      const maintCard = document.getElementById("maintenanceCard");
+      const maintBadge = document.getElementById("maintStatusBadge");
+      const msgInp = document.getElementById("maintMessageInput");
+      if (msgInp && !msgInp.value) {
+        msgInp.value = currentConfig.maintenanceMessage || DEFAULT_MAINT_MSG;
+      }
+
+      if (isMaint) {
+        maintCard.classList.add("maint-active");
+        maintBadge.textContent = "🚧 وضع الصيانة مُفعّل";
+        maintBadge.className = "badge badge-off";
+        document.getElementById("maintSwitchTitle").textContent = "المنصة مغلقة الآن تحت الصيانة";
+        document.getElementById("maintSwitchSub").textContent = "تظهر شاشة الصيانة لجميع الطلاب، ويمكن للمشرف فقط الدخول بالباسوورد.";
+      } else {
+        maintCard.classList.remove("maint-active");
+        maintBadge.textContent = "✅ متاحة للطلاب";
+        maintBadge.className = "badge badge-on";
+        document.getElementById("maintSwitchTitle").textContent = "المنصة مفتوحة وتعمل بشكل طبيعي";
+        document.getElementById("maintSwitchSub").textContent = "الطلاب يمكنهم تصفح المنصة والدراسة الآن.";
+      }
+
+      const isOn = currentConfig.requireAdminPass;
+      document.getElementById("adminModeToggle").checked = isOn;
+      document.getElementById("currentPinDisplay").textContent = "•••••••••••• (مشفّرة بـ SHA-256 + Salt)";
+
+      const badge = document.getElementById("modeStatusBadge");
+      if (isOn) {
+        badge.textContent = "مُفعّل (محمي بباسوورد)";
+        badge.className = "badge badge-on";
+        document.getElementById("switchTitle").textContent = "وضع المشرف مُفعّل";
+        document.getElementById("switchSub").textContent = "المراحل مقفولة بالتسلسل ولا تُفتح بالكامل إلا بباسوورد المشرف.";
+        document.getElementById("disabledNotice").style.display = "none";
+      } else {
+        badge.textContent = "مُلغى (مفتوح للجميع)";
+        badge.className = "badge badge-off";
+        document.getElementById("switchTitle").textContent = "وضع المشرف مُلغى — الوصول المفتوح للجميع";
+        document.getElementById("switchSub").textContent = "جميع المراحل السبعة مفتوحة تلقائياً لأي طالب بدون باسوورد.";
+        document.getElementById("disabledNotice").style.display = "block";
+      }
+    }
+
+    async function toggleMaintenanceMode() {
+      if (!isAuthenticated) return;
+      const checked = document.getElementById("maintenanceToggle").checked;
+      const customMsg = document.getElementById("maintMessageInput").value.trim() || DEFAULT_MAINT_MSG;
+      if (await saveConfig({ maintenanceMode: checked, maintenanceMessage: customMsg })) {
+        toast(checked ? "🚧 تم تفعيل وضع الصيانة وإغلاق المنصة عن الطلاب فوراً" : "✅ تم إيقاف وضع الصيانة وإعادة فتح المنصة للطلاب");
+      }
+    }
+
+    async function saveMaintenanceMessage() {
+      if (!isAuthenticated) return;
+      const customMsg = document.getElementById("maintMessageInput").value.trim() || DEFAULT_MAINT_MSG;
+      if (await saveConfig({ maintenanceMessage: customMsg })) {
+        toast("✅ تم تحديث رسالة الصيانة بنجاح");
+      }
+    }
+
+    async function toggleAdminRequirement() {
+      if (!isAuthenticated) return;
+      const checked = document.getElementById("adminModeToggle").checked;
+      if (await saveConfig({ requireAdminPass: checked })) {
+        toast(checked ? "✅ تم تفعيل وضع المشرف وقفل المراحل" : "🔓 تم إلغاء وضع المشرف وفتح كل شيء للجميع");
+      }
+    }
+
+    async function updateAdminPassword() {
+      if (!isAuthenticated) return;
+      const curPin = document.getElementById("verifyCurrentPinInput").value.trim();
+      const newPin = document.getElementById("newPinInput").value.trim();
+
+      if (!curPin) {
+        toast("⚠️ اكتب الباسوورد الحالية أولاً لتأكيد هويتك");
+        return;
+      }
+      const curHash = await hashPin(curPin, currentConfig.pinSalt || PIN_SALT);
+      if (!timingSafeEqual(curHash, currentConfig.adminPinHash)) {
+        toast("❌ الباسوورد الحالية غير صحيحة!");
+        return;
+      }
+      if (newPin.length < 8 || !/[a-zA-Z]/.test(newPin) || !/[0-9]/.test(newPin)) {
+        toast("⚠️ اختر باسوورد قوية: 8 رموز فأكثر وتحتوي على حروف إنجليزية وأرقام");
+        return;
+      }
+      if (newPin === curPin) {
+        toast("⚠️ الباسوورد الجديدة مطابقة للحالية!");
+        return;
+      }
+
+      const newSalt = "EC_" + Math.random().toString(36).slice(2, 10) + "_" + Date.now().toString(36) + "::";
+      const newHash = await hashPin(newPin, newSalt);
+
+      if (await saveConfig({
+        adminPinHash: newHash,
+        pinSalt: newSalt,
+        passVersion: (currentConfig.passVersion || 1) + 1
+      })) {
+        document.getElementById("verifyCurrentPinInput").value = "";
+        document.getElementById("newPinInput").value = "";
+        toast("✅ تم تشفير وحفظ الباسوورد الجديدة وطرد جميع الجلسات القديمة فوراً");
+      }
+    }
+
+    async function kickAllAdmins() {
+      if (!isAuthenticated) return;
+      if (await saveConfig({ passVersion: (currentConfig.passVersion || 1) + 1 })) {
+        toast("🚫 تم طرد جميع المشرفين المسجلين حالياً");
+        setTimeout(refreshLiveStats, 1500);
+      }
+    }
+
+    async function refreshLiveStats() {
+      if (!dbReady || !isAuthenticated) return;
+      try {
+        const res = await fetch(`${DB_URL}/presence.json?t=${Date.now()}${authQueryParam("&")}`, { cache: "no-store" });
+        const data = (await res.json()) || {};
+        if (data.error) return;
+        const now = Date.now();
+        const online = Object.values(data).filter((u) => u && (now - u.lastSeen) < 35000);
+        const admins = online.filter((u) => u.isAdmin);
+
+        document.getElementById("loggedAdminsCount").textContent = admins.length;
+        document.getElementById("totalOnlineCount").textContent = online.length;
+
+        const listEl = document.getElementById("loggedAdminsList");
+        listEl.innerHTML = admins.length === 0
+          ? `<li class="admin-item" style="color:var(--muted);">لا يوجد مشرفون مسجلون حالياً.</li>`
+          : admins.map((a, i) => `
+              <li class="admin-item">
+                <span><strong>${i + 1}. ${escapeHtml(a.name || "مشرف")}</strong> — في المرحلة ${Number(a.stage) || 1}</span>
+                <span class="badge badge-on">نشط الآن 🔑</span>
+              </li>
+            `).join("");
+      } catch (_) {}
+    }
+
+    if (FIREBASE_API_KEY) {
+      document.getElementById("firebaseEmailRow").style.display = "block";
+      document.getElementById("loginSubtitle").textContent = "سجّل الدخول ببريد وكلمة مرور المشرف المعتمدة في Firebase Authentication.";
+    }
+
+    checkDatabaseConnection();
+    setInterval(refreshLiveStats, 4000);
+  </script>
+</body>
+</html>
