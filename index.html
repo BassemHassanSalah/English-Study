@@ -1,0 +1,3478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <script data-goatcounter="https://bassemhassan.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>English Club | منصة اللغة الإنجليزية — التدريب الأكاديمي والميدترم</title>
+  <!-- Editorial & Academic Typography: Cairo (Arabic), Plus Jakarta Sans (English), Newsreader (Editorial Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. CALM EDITORIAL-ACADEMIC DESIGN TOKENS (LIGHT & DARK MODES — ZERO NEON)
+       ========================================================================== */
+    :root,
+    [data-theme="light"] {
+      --bg-canvas: #FAF9F6;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F3F1EC;
+      --bg-nav: rgba(250, 249, 246, 0.88);
+      --text-primary: #18181B;
+      --text-secondary: #52525B;
+      --text-muted: #71717A;
+      --border-color: #E4E2DD;
+      --border-strong: #D4D1C9;
+      --accent-primary: #1E3A8A;
+      --accent-primary-hover: #172554;
+      --accent-primary-soft: rgba(30, 58, 138, 0.08);
+      --accent-secondary: #0F766E;
+      --accent-secondary-soft: rgba(15, 118, 110, 0.09);
+      --accent-warm: #B45309;
+      --accent-warm-soft: rgba(180, 83, 9, 0.10);
+      --danger-color: #B91C1C;
+      --danger-soft: rgba(185, 28, 28, 0.09);
+      --success-color: #15803D;
+      --success-soft: rgba(21, 128, 61, 0.10);
+      --sketch-ink: #27272A;
+      --paper-grid: rgba(24, 24, 27, 0.045);
+      --shadow-sm: 0 1px 3px rgba(24, 24, 27, 0.05), 0 1px 2px rgba(24, 24, 27, 0.03);
+      --shadow-md: 0 8px 24px -6px rgba(24, 24, 27, 0.07), 0 2px 6px -1px rgba(24, 24, 27, 0.04);
+      --shadow-lg: 0 18px 40px -12px rgba(24, 24, 27, 0.11);
+      --radius-2xl: 22px;
+      --radius-xl: 16px;
+      --radius-lg: 12px;
+      --radius-md: 9px;
+    }
+
+    [data-theme="dark"] {
+      --bg-canvas: #111318;
+      --bg-surface: #181B22;
+      --bg-subtle: #20242E;
+      --bg-nav: rgba(17, 19, 24, 0.88);
+      --text-primary: #F4F4F5;
+      --text-secondary: #A1A1AA;
+      --text-muted: #71717A;
+      --border-color: #2A2F3D;
+      --border-strong: #373E50;
+      --accent-primary: #60A5FA;
+      --accent-primary-hover: #93C5FD;
+      --accent-primary-soft: rgba(96, 165, 250, 0.12);
+      --accent-secondary: #2DD4BF;
+      --accent-secondary-soft: rgba(45, 212, 191, 0.11);
+      --accent-warm: #FBBF24;
+      --accent-warm-soft: rgba(251, 191, 36, 0.12);
+      --danger-color: #F87171;
+      --danger-soft: rgba(248, 113, 113, 0.12);
+      --success-color: #4ADE80;
+      --success-soft: rgba(74, 222, 128, 0.12);
+      --sketch-ink: #D4D4D8;
+      --paper-grid: rgba(244, 244, 245, 0.04);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.28);
+      --shadow-md: 0 10px 26px -6px rgba(0, 0, 0, 0.42);
+      --shadow-lg: 0 20px 44px -12px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      line-height: 1.75;
+      scroll-behavior: smooth;
+      transition: background-color 0.28s ease, color 0.28s ease;
+    }
+
+    /* Subtle Architectural Drafting Paper Grid */
+    body {
+      min-height: 100vh;
+      background-image:
+        linear-gradient(to right, var(--paper-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--paper-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Bidirectional & Editorial Typography Helpers */
+    .en {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      direction: ltr;
+      unicode-bidi: isolate;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    .en-teal {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      direction: ltr;
+      unicode-bidi: isolate;
+      font-weight: 700;
+      color: var(--accent-secondary);
+    }
+    .editorial-serif {
+      font-family: 'Newsreader', Georgia, serif;
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+    .ltr-block {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    /* Graphite Pencil Sketch SVG Styling */
+    .pencil-art {
+      color: var(--sketch-ink);
+      transition: color 0.28s ease;
+      user-select: none;
+    }
+    .sketch-filtered {
+      filter: url(#pencil-sketch);
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       2. STICKY EDITORIAL NAVBAR & LIGHT/DARK MODE PILL TOGGLE
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 70;
+      background: var(--bg-nav);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.65rem 1rem;
+      transition: background-color 0.28s ease, border-color 0.28s ease;
+    }
+
+    .nav-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      cursor: pointer;
+    }
+
+    .brand-logo-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      color: var(--accent-primary);
+    }
+
+    .brand-text h1 {
+      font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+      font-size: 1.04rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-text span {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .nav-hud {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .hud-chip {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 999px;
+      padding: 0.26rem 0.72rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hud-chip.xp {
+      border-color: var(--accent-warm);
+      color: var(--accent-warm);
+      background: var(--accent-warm-soft);
+    }
+
+    .hud-chip.rank {
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      background: var(--accent-secondary-soft);
+    }
+
+    .hud-chip.admin-pill {
+      background: var(--accent-primary-soft);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    /* Tactile Theme Switcher Pill */
+    .theme-toggle-pill {
+      min-height: 38px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .theme-toggle-pill:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-surface);
+    }
+
+    /* ==========================================================================
+       3. TOUCH-FRIENDLY BUTTONS & INPUTS
+       ========================================================================== */
+    .btn {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      min-height: 44px;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+    [data-theme="dark"] .btn-primary {
+      color: #0F172A;
+    }
+    .btn-primary:hover {
+      background: var(--accent-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: var(--accent-secondary-soft);
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+    }
+    .btn-secondary:hover {
+      background: var(--accent-secondary);
+      color: #FFFFFF;
+    }
+    [data-theme="dark"] .btn-secondary:hover {
+      color: #0F172A;
+    }
+
+    .btn-subtle {
+      background: var(--bg-surface);
+      border-color: var(--border-color);
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-subtle:hover {
+      background: var(--bg-subtle);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .btn-warm {
+      background: var(--accent-warm);
+      color: #FFFFFF;
+    }
+    [data-theme="dark"] .btn-warm {
+      color: #18181B;
+    }
+
+    .btn-sm {
+      min-height: 38px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.78rem;
+      border-radius: var(--radius-md);
+    }
+
+    .editorial-input {
+      width: 100%;
+      min-height: 48px;
+      background: var(--bg-canvas);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 0.65rem 1rem;
+      color: var(--text-primary);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .editorial-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      background: var(--bg-surface);
+    }
+    .editorial-input.ltr-field {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ==========================================================================
+       4. MAIN LAYOUT SHELL & VIEWS
+       ========================================================================== */
+    .main-wrapper {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 4.5rem;
+    }
+
+    .page-view {
+      display: none;
+      animation: fadeSlideUp 0.32s ease;
+    }
+    .page-view.active {
+      display: block;
+    }
+
+    /* ==========================================================================
+       5. HERO SECTION WITH HAND-DRAWN GRAPHITE PENCIL SKETCH
+       ========================================================================== */
+    .hero-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-2xl);
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .academic-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--accent-primary-soft);
+      border: 1px solid rgba(30, 58, 138, 0.2);
+      color: var(--accent-primary);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    [data-theme="dark"] .academic-pill {
+      border-color: rgba(96, 165, 250, 0.28);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 1.65rem;
+      align-items: center;
+    }
+    @media (max-width: 820px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(1.55rem, 3.6vw, 2.2rem);
+      font-weight: 900;
+      line-height: 1.32;
+      color: var(--text-primary);
+      margin-bottom: 0.7rem;
+    }
+    .hero-title .accent-word {
+      color: var(--accent-primary);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-secondary);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+
+    .hero-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Stats Strip */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      margin: 1.2rem 0;
+    }
+    @media (max-width: 520px) {
+      .stats-strip { grid-template-columns: 1fr; }
+    }
+
+    .stat-tile {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 0.75rem 0.9rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+
+    /* Onboarding Welcome Gate */
+    .onboarding-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      margin-top: 1rem;
+    }
+    .onboarding-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.55rem;
+    }
+    .onboarding-row input {
+      flex: 1;
+      min-width: 205px;
+    }
+
+    /* Hand-Drawn Graphite Pencil Sketch Frame */
+    .sketchbook-frame {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1rem 0.85rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .sketchbook-caption {
+      margin-top: 0.5rem;
+      padding-top: 0.55rem;
+      border-top: 1px dashed var(--border-strong);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       6. SECTION HEADERS & 4 NUMBERED PILLARS
+       ========================================================================== */
+    .section-header {
+      margin: 2.25rem 0 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .section-header h2 {
+      font-size: 1.28rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-tag {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-secondary);
+      background: var(--accent-secondary-soft);
+      border: 1px solid rgba(15, 118, 110, 0.25);
+      padding: 0.2rem 0.68rem;
+      border-radius: 999px;
+      letter-spacing: 0.4px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.95rem;
+    }
+    @media (max-width: 680px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+    }
+
+    .pillar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .pillar-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .pillar-num {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pillar-card h3 {
+      font-size: 1.04rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: var(--text-primary);
+    }
+    .pillar-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       7. SEQUENTIAL 7-STAGE ROADMAP
+       ========================================================================== */
+    .overall-progress-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 0.65rem;
+      border: 1px solid var(--border-color);
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 999px;
+      transition: width 0.45s ease;
+    }
+
+    .stages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .stage-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stage-card.unlocked {
+      border-right: 4px solid var(--accent-primary);
+    }
+    .stage-card.unlocked:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .stage-card.completed {
+      border-right: 4px solid var(--accent-secondary);
+      background: var(--bg-surface);
+    }
+    .stage-card.locked {
+      opacity: 0.72;
+      background: var(--bg-subtle);
+      border-style: dashed;
+    }
+
+    .stage-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stage-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.72rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      margin-bottom: 0.38rem;
+      background: var(--accent-primary-soft);
+      color: var(--accent-primary);
+    }
+    .stage-card.completed .stage-pill {
+      background: var(--accent-secondary-soft);
+      color: var(--accent-secondary);
+    }
+    .stage-card.locked .stage-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    .stage-card h3 {
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: var(--text-primary);
+    }
+    .stage-en-sub {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      direction: ltr;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-secondary);
+      margin-bottom: 0.45rem;
+    }
+
+    .stage-formats-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.85rem;
+    }
+    .fmt-tag {
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 0.18rem 0.62rem;
+      border-radius: 8px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .locked-notice {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 11px;
+      padding: 0.62rem 0.9rem;
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    /* ==========================================================================
+       8. STAGE WORKSPACE (TABS, STUDY NOTES, INTERACTIVE EXAMS & BONUS)
+       ========================================================================== */
+    .ws-sticky-bar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ws-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    @media (max-width: 540px) {
+      .ws-tabs { grid-template-columns: 1fr; }
+    }
+
+    .ws-tab-btn {
+      min-height: 46px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      color: var(--text-secondary);
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+    .ws-tab-btn.active {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-sm);
+    }
+    [data-theme="dark"] .ws-tab-btn.active {
+      color: #0F172A;
+    }
+
+    .panel-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 1.3rem 1.15rem;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 0.95rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* Bilingual Study Rule Blocks */
+    .note-card {
+      background: var(--bg-subtle);
+      border-right: 4px solid var(--accent-primary);
+      border-radius: 13px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .note-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      margin-bottom: 0.4rem;
+    }
+    .note-card div, .note-card p {
+      font-size: 0.89rem;
+      color: var(--text-primary);
+    }
+    .formula-strip {
+      margin-top: 0.55rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 9px;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.84rem;
+      color: var(--accent-secondary);
+      font-weight: 600;
+    }
+
+    /* Pronouns Matrix Table */
+    .matrix-scroll {
+      overflow-x: auto;
+      margin-top: 0.65rem;
+      border-radius: 11px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+    }
+    .pronoun-table {
+      width: 100%;
+      border-collapse: collapse;
+      direction: ltr;
+      text-align: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+    }
+    .pronoun-table th {
+      background: var(--accent-primary-soft);
+      color: var(--accent-primary);
+      padding: 0.55rem 0.45rem;
+      font-weight: 800;
+    }
+    .pronoun-table td {
+      padding: 0.5rem 0.45rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    /* Interactive IT Glossary Cards */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+      gap: 0.8rem;
+    }
+    .term-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 13px;
+      padding: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .term-card:hover, .term-card.open {
+      border-color: var(--accent-primary);
+      background: var(--bg-surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .term-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      direction: ltr;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      color: var(--accent-primary);
+      font-size: 0.94rem;
+    }
+    .term-body {
+      display: none;
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px dashed var(--border-strong);
+      font-size: 0.84rem;
+    }
+    .term-card.open .term-body {
+      display: block;
+    }
+
+    /* Exam Question Cards */
+    .exam-item-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      padding: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .q-type-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.18rem 0.65rem;
+      border-radius: 999px;
+      background: var(--accent-secondary-soft);
+      color: var(--accent-secondary);
+      margin-bottom: 0.55rem;
+    }
+
+    .q-text-en {
+      direction: ltr;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.8rem;
+      line-height: 1.65;
+    }
+
+    .q-text-ar {
+      direction: rtl;
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.8rem;
+      line-height: 1.75;
+    }
+
+    .mcq-options {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .mcq-btn {
+      width: 100%;
+      min-height: 48px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: 11px;
+      padding: 0.62rem 0.95rem;
+      direction: ltr;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      transition: all 0.16s ease;
+    }
+    .mcq-btn:hover:not(:disabled) {
+      border-color: var(--accent-primary);
+      background: var(--accent-primary-soft);
+    }
+    .mcq-btn.correct {
+      background: var(--success-soft);
+      border-color: var(--success-color);
+      color: var(--success-color);
+    }
+    .mcq-btn.wrong {
+      background: var(--danger-soft);
+      border-color: var(--danger-color);
+      color: var(--danger-color);
+    }
+
+    .feedback-strip {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 0.75rem 0.95rem;
+      border-radius: 11px;
+      font-size: 0.85rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+    }
+    .feedback-strip.show {
+      display: block;
+      animation: fadeSlideUp 0.2s ease;
+    }
+
+    .typed-action-row {
+      display: flex;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      margin-top: 0.6rem;
+    }
+    .typed-action-row input, .typed-action-row textarea {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    /* Editorial Serif Reading Passage Box */
+    .passage-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-left: 4px solid var(--accent-secondary);
+      border-radius: 14px;
+      padding: 1.15rem;
+      direction: ltr;
+      text-align: left;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.04rem;
+      line-height: 1.85;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Essay Writing Studio */
+    .vocab-chips-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0.65rem 0;
+      direction: ltr;
+    }
+    .chip-insert {
+      background: var(--accent-primary-soft);
+      border: 1px solid rgba(30, 58, 138, 0.25);
+      color: var(--accent-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.72rem;
+      border-radius: 999px;
+      cursor: pointer;
+      min-height: 36px;
+    }
+    .chip-insert:hover {
+      background: var(--accent-primary);
+      color: #FFFFFF;
+    }
+    [data-theme="dark"] .chip-insert:hover {
+      color: #0F172A;
+    }
+
+    .essay-textarea {
+      width: 100%;
+      min-height: 165px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: 13px;
+      padding: 0.9rem;
+      color: var(--text-primary);
+      direction: ltr;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.94rem;
+      line-height: 1.75;
+      resize: vertical;
+    }
+    .essay-textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    /* Golden Bonus Box */
+    .bonus-panel {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--accent-warm);
+      border-radius: var(--radius-xl);
+      padding: 1.3rem 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Live Timer Bar in Stage 7 */
+    .timer-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .timer-readout {
+      font-family: 'Plus Jakarta Sans', monospace;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-primary);
+      direction: ltr;
+    }
+
+    /* ==========================================================================
+       9. FAQ ACCORDION & REFERENCES
+       ========================================================================== */
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-q {
+      width: 100%;
+      min-height: 50px;
+      padding: 0.85rem 1.1rem;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+    .faq-a {
+      display: none;
+      padding: 0.75rem 1.1rem 0.95rem;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+    }
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    .ref-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-right: 3px solid var(--accent-secondary);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.86rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ==========================================================================
+       10. CERTIFICATE, TOAST & MODALS
+       ========================================================================== */
+    .cert-wrapper {
+      background: var(--bg-surface);
+      border: 3px double var(--accent-warm);
+      box-shadow: var(--shadow-lg);
+      border-radius: 20px;
+      padding: 2rem 1.35rem;
+      text-align: center;
+      margin-top: 1.1rem;
+    }
+
+    .cheer-toast {
+      position: fixed;
+      bottom: 1.1rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      z-index: 95;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--accent-primary);
+      box-shadow: var(--shadow-lg);
+      border-radius: 14px;
+      padding: 0.75rem 1.1rem;
+      max-width: 92vw;
+      width: 440px;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      transition: transform 0.3s ease;
+    }
+    .cheer-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.62);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-2xl);
+      width: 100%;
+      max-width: 500px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 2.5rem;
+    }
+
+    @media print {
+      .navbar, .no-print, footer { display: none !important; }
+      body { background: #FFFFFF !important; color: #18181B !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Global SVG Definitions: Graphite Pencil Sketch Filter & Cross-Hatching Pattern -->
+  <svg width="0" height="0" style="position:absolute;pointer-events:none;" aria-hidden="true">
+    <defs>
+      <filter id="pencil-sketch" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.038" numOctaves="3" seed="11" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.1" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+      <pattern id="graphite-hatch" width="6" height="6" patternTransform="rotate(42 0 0)" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="0.7" stroke-opacity="0.24" />
+      </pattern>
+    </defs>
+  </svg>
+
+  <!-- ========================================================================
+       STICKY EDITORIAL NAVBAR + LIGHT/DARK THEME TOGGLE
+       ======================================================================== -->
+  <header class="navbar no-print">
+    <div class="nav-container">
+      <div class="brand-box" onclick="navigateToHome()">
+        <!-- Bespoke Geometric-Editorial Brand Emblem (Open Book + Architectural Compass / Fountain Pen Nib) -->
+        <div class="brand-logo-wrap" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="28" height="28" fill="none">
+            <!-- Architectural Octagonal Frame -->
+            <rect x="3" y="3" width="34" height="34" rx="8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.35"/>
+            <!-- Drafting Compass / Fountain Pen Nib forming "A" Apex -->
+            <path d="M20 7L11.5 27.5M20 7L28.5 27.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+            <line x1="14.5" y1="21" x2="25.5" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="20" cy="14.5" r="1.6" fill="currentColor"/>
+            <!-- Open Book Pages at Base -->
+            <path d="M8.5 29.5C12.5 27.8 16.8 28.2 20 31C23.2 28.2 27.5 27.8 31.5 29.5" stroke="var(--accent-secondary)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>English Club</h1>
+          <span>منصة اللغة الإنجليزية &bull; الأكاديمية التفاعلية</span>
+        </div>
+      </div>
+
+      <div class="nav-hud">
+        <span class="hud-chip">🎯 <span id="navStageCounter">1/7</span> مراحل</span>
+        <span class="hud-chip xp">⭐ <span id="navXp">0</span> XP</span>
+        <span class="hud-chip rank" id="navRank">🎓 طالب مستجد</span>
+        <span class="hud-chip admin-pill" id="navAdminPill" style="display:none;">🛡️ Admin Mode</span>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Tactile Light / Dark Theme Toggle Pill -->
+        <button class="theme-toggle-pill" id="themeToggleNavBtn" onclick="toggleThemeMode()" title="التبديل بين الوضع النهاري والليلي">
+          <span id="themeToggleIcon">🌙</span>
+          <span id="themeToggleLabel">الوضع الليلي</span>
+        </button>
+        <button class="btn btn-subtle btn-sm" onclick="scrollToSection('refsSection')">📚 المراجع</button>
+        <button id="adminModalBtn" class="btn btn-subtle btn-sm" onclick="openModal('adminModal')" title="بوابة المشرف">🔑</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <!-- ======================================================================
+         MAIN LANDING & SEQUENTIAL ROADMAP VIEW
+         ====================================================================== -->
+    <section id="homeRoadmapView" class="page-view active">
+      <!-- HERO SECTION -->
+      <div class="hero-card">
+        <div class="hero-top-meta">
+          <div class="academic-pill">
+            <span>TECHNOLOGICAL ENGLISH ACADEMY</span>
+            <span>&bull;</span>
+            <span>ENGLISH CLUB</span>
+          </div>
+          <button class="theme-toggle-pill" onclick="toggleThemeMode()">
+            <span id="heroThemeIcon">🌙</span>
+            <span id="heroThemeText">تبديل لـ الوضع الليلي</span>
+          </button>
+        </div>
+
+        <div class="hero-grid">
+          <div>
+            <h2 class="hero-title">
+              دليلك الأكاديمي المتكامل لإتقان <span class="accent-word">اللغة الإنجليزية</span> واجتياز الميدترم يا بشمهندس
+            </h2>
+            <p class="hero-subtitle">
+              منصة تعليمية هادئة ومنظمة مبنية بالكامل على محاضرات اللغة الإنجليزية ونماذج امتحانات الميدترم الرسمية (Model A &amp; B) — تشمل القواعد، مصطلحات الحاسب، تصحيح الأخطاء، إعادة الصياغة، الترجمة، قطع الفهم، والمقالي.
+            </p>
+
+            <!-- Stats Strip -->
+            <div class="stats-strip">
+              <div class="stat-tile">
+                <div class="stat-num">7</div>
+                <div class="stat-label">مراحل متدرجة بالتسلسل</div>
+              </div>
+              <div class="stat-tile">
+                <div class="stat-num">+115</div>
+                <div class="stat-label">تدريب وسؤال ميدترم</div>
+              </div>
+              <div class="stat-tile">
+                <div class="stat-num">4</div>
+                <div class="stat-label">أنماط الامتحان الكاملة</div>
+              </div>
+            </div>
+
+            <!-- Guided Onboarding Name Gate -->
+            <div class="onboarding-box" id="onboardingGate">
+              <div style="font-size:0.88rem;font-weight:800;color:var(--accent-primary);">
+                ✍️ أهلاً بك يا بشمهندس! اكتب اسمك لتخصيص خطتك الدراسية وشهادة الإتمام:
+              </div>
+              <div class="onboarding-row">
+                <input type="text" id="studentNameField" class="editorial-input" placeholder="اكتب اسمك هنا (مثال: يوسف طارق)" maxlength="36" />
+                <button class="btn btn-primary" onclick="saveStudentAndStart()">
+                  ابدأ الدراسة الآن &larr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hand-Drawn Graphite Pencil-Sketch Architectural & Academic Illustration -->
+          <div class="sketchbook-frame">
+            <svg viewBox="0 0 340 275" width="100%" style="max-width:330px;height:auto;" class="pencil-art" role="img" aria-label="رسم هندسي بقلم الرصاص لبرج ساعة جامعي بريطاني ودفتر هندسي وفرجار">
+              <!-- Architectural Drafting Construction Lines (Faint Pencil) -->
+              <g stroke="currentColor" stroke-width="0.7" stroke-dasharray="4 4" opacity="0.32">
+                <line x1="18" y1="236" x2="322" y2="236" />
+                <line x1="92" y1="14" x2="92" y2="255" />
+                <line x1="35" y1="88" x2="155" y2="88" />
+                <circle cx="92" cy="88" r="30" fill="none" />
+                <line x1="175" y1="145" x2="310" y2="145" />
+              </g>
+
+              <!-- Hand-Drawn Sketch Group (Filtered for authentic graphite pencil grain) -->
+              <g class="sketch-filtered" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Classic British University Clock Tower Silhouette (Left) -->
+                <!-- Spire -->
+                <path d="M92 18 L73 56 L111 56 Z" stroke-width="1.6" />
+                <path d="M92 18 L75 56 M92 18 L109 56" stroke-width="0.8" opacity="0.45" />
+                <line x1="92" y1="9" x2="92" y2="19" stroke-width="1.6" />
+                <!-- Upper Belfry -->
+                <rect x="69" y="56" width="46" height="14" stroke-width="1.4" />
+                <line x1="78" y1="56" x2="78" y2="70" stroke-width="1" />
+                <line x1="92" y1="56" x2="92" y2="70" stroke-width="1" />
+                <line x1="106" y1="56" x2="106" y2="70" stroke-width="1" />
+                <!-- Clock Housing & Graphite Cross-Hatch Shading -->
+                <rect x="64" y="70" width="56" height="44" stroke-width="1.7" />
+                <rect x="64" y="70" width="12" height="44" fill="url(#graphite-hatch)" stroke="none" />
+                <!-- Clock Dial -->
+                <circle cx="92" cy="92" r="16" stroke-width="1.6" />
+                <circle cx="92" cy="92" r="13.5" stroke-width="0.7" stroke-dasharray="2 2" />
+                <line x1="92" y1="92" x2="92" y2="81" stroke-width="1.6" />
+                <line x1="92" y1="92" x2="100" y2="92" stroke-width="1.5" />
+                <!-- Tower Shaft with Vertical Architectural Fluting & Pencil Hatching -->
+                <rect x="68" y="114" width="48" height="122" stroke-width="1.6" />
+                <rect x="68" y="114" width="13" height="122" fill="url(#graphite-hatch)" stroke="none" />
+                <line x1="81" y1="118" x2="81" y2="232" stroke-width="1" opacity="0.75" />
+                <line x1="92" y1="118" x2="92" y2="232" stroke-width="1" opacity="0.75" />
+                <line x1="103" y1="118" x2="103" y2="232" stroke-width="1" opacity="0.75" />
+                <!-- Gothic Arched Windows -->
+                <path d="M85 142 Q92 134 99 142 L99 156 L85 156 Z" stroke-width="1.1" />
+                <path d="M85 178 Q92 170 99 178 L99 192 L85 192 Z" stroke-width="1.1" />
+
+                <!-- Open Engineering Notebook (Bottom Right) -->
+                <path d="M136 226 C168 214, 198 216, 222 229 C246 216, 278 214, 310 226 L304 176 C274 166, 245 168, 222 180 C199 168, 170 166, 142 176 Z" stroke-width="1.7" />
+                <!-- Notebook Spine & Secondary Sketch Stroke -->
+                <line x1="222" y1="180" x2="222" y2="229" stroke-width="1.5" />
+                <path d="M133 230 C166 219, 197 221, 222 233 C247 221, 279 219, 313 230" stroke-width="1.2" opacity="0.7" />
+                <!-- Ruled Notebook Lines -->
+                <line x1="154" y1="188" x2="208" y2="189" stroke-width="0.9" opacity="0.65" />
+                <line x1="152" y1="198" x2="208" y2="199" stroke-width="0.9" opacity="0.65" />
+                <line x1="150" y1="208" x2="206" y2="209" stroke-width="0.9" opacity="0.65" />
+                <line x1="236" y1="189" x2="290" y2="188" stroke-width="0.9" opacity="0.65" />
+                <line x1="236" y1="199" x2="292" y2="198" stroke-width="0.9" opacity="0.65" />
+                <line x1="238" y1="209" x2="294" y2="208" stroke-width="0.9" opacity="0.65" />
+
+                <!-- Architectural Drafting Compass (Upper Right) -->
+                <circle cx="212" cy="64" r="5" stroke-width="1.6" />
+                <line x1="212" y1="53" x2="212" y2="59" stroke-width="1.7" />
+                <line x1="209" y1="68" x2="184" y2="146" stroke-width="1.7" />
+                <line x1="215" y1="68" x2="240" y2="146" stroke-width="1.7" />
+                <path d="M194 112 Q212 119 230 112" stroke-width="1.2" />
+
+                <!-- Classic Fountain Pen Resting Diagonally -->
+                <path d="M254 156 L296 74 L304 78 L262 160 Z" stroke-width="1.5" />
+                <path d="M254 156 L250 168 L262 160" stroke-width="1.5" />
+                <line x1="255" y1="161" x2="258" y2="155" stroke-width="1" />
+              </g>
+            </svg>
+            <div class="sketchbook-caption">
+              ✏️ <strong>رسم تخطيطي بقلم الرصاص:</strong> العمارة الأكاديمية البريطانية وأدوات المهندس التكنولوجي
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           SEQUENTIAL 7-STAGE ROADMAP SECTION
+           ==================================================================== -->
+      <div class="section-header" id="roadmapSection">
+        <h2>🗺️ خريطة المراحل السبعة (مسار المذاكرة المتدرج)</h2>
+        <span class="section-tag">SEQUENTIAL CURRICULUM &bull; 01 &rarr; 07</span>
+      </div>
+
+      <div class="overall-progress-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+          <div>
+            <strong style="font-size:1rem;color:var(--text-primary);" id="engineerWelcomeHeading">أهلاً بك يا بشمهندس!</strong>
+            <div style="font-size:0.84rem;color:var(--text-secondary);" id="roadmapHintText">
+              المرحلة الأولى مفتوحة الآن. اجتز اختبار كل مرحلة بنسبة 60% فأكثر لتُفتح المرحلة التالية تلقائياً.
+            </div>
+          </div>
+          <button class="btn btn-subtle btn-sm" onclick="openModal('resetModal')">🔄 إعادة ضبط التقدم</button>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="overallProgressFill"></div>
+        </div>
+      </div>
+
+      <div class="stages-list" id="stagesRoadmapContainer"></div>
+
+      <!-- ====================================================================
+           NUMBERED PILLARS GRID (01. to 04.)
+           ==================================================================== -->
+      <div class="section-header">
+        <h2>🏛️ محاور المنهج الأربعة (وفق محاضرات الدكاترة)</h2>
+        <span class="section-tag">ACADEMIC PILLARS</span>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-num">
+            <span>01.</span>
+            <!-- Fine Pencil-Sketch Open Book Vignette -->
+            <svg viewBox="0 0 36 28" width="28" height="22" fill="none" stroke="currentColor" stroke-width="1.5" class="pencil-art sketch-filtered">
+              <path d="M3 22C8 19 14 20 18 23C22 20 28 19 33 22V6C28 3 22 4 18 7C14 4 8 3 3 6V22Z"/>
+              <line x1="18" y1="7" x2="18" y2="23"/>
+            </svg>
+          </div>
+          <h3>القواعد والأزمنة والضمائر</h3>
+          <p>شرح منظم للمضارع البسيط والمستمر، أفعال الحالة (Stative Verbs)، الماضي والمستقبل، التام، المبني للمجهول، قاعدة If، وجدول الضمائر وحروف الجر.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">
+            <span>02.</span>
+            <!-- Fine Pencil-Sketch Drafting Compass Vignette -->
+            <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" class="pencil-art sketch-filtered">
+              <circle cx="16" cy="7" r="2.5"/>
+              <line x1="14.5" y1="9" x2="8" y2="27"/>
+              <line x1="17.5" y1="9" x2="24" y2="27"/>
+              <path d="M10 20Q16 23 22 20"/>
+            </svg>
+          </div>
+          <h3>مصطلحات الـ IT وهندسة الحاسب</h3>
+          <p>بطاقات تفاعلية لأهم 15 مصطلح وردوا في نماذج الميدترم (Model A &amp; B): Hardware, Software, Closed/Open Source, Peripheral, Database, Data, Network, Supervisor Program.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">
+            <span>03.</span>
+            <!-- Fine Pencil-Sketch Fountain Pen Nib Vignette -->
+            <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" class="pencil-art sketch-filtered">
+              <path d="M16 4L7 22L16 28L25 22L16 4Z"/>
+              <line x1="16" y1="4" x2="16" y2="17"/>
+              <circle cx="16" cy="18" r="1.8"/>
+            </svg>
+          </div>
+          <h3>تصحيح الأخطاء وإعادة الصياغة</h3>
+          <p>تدريبات عملية على استخراج الخطأ وتصحيحه (Find the Mistake &amp; Correct) وتحويل الجمل بين الأزمنة (Rewrite Sentences) لتجنب فخاخ الامتحان.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-num">
+            <span>04.</span>
+            <!-- Fine Pencil-Sketch Architectural Arch Vignette -->
+            <svg viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" class="pencil-art sketch-filtered">
+              <path d="M6 27V14C6 8.5 10.5 5 16 5C21.5 5 26 8.5 26 14V27"/>
+              <line x1="3" y1="27" x2="29" y2="27"/>
+              <path d="M11 27V15C11 12 13.2 10 16 10C18.8 10 21 12 21 15V27"/>
+            </svg>
+          </div>
+          <h3>الترجمة وقطع الفهم والمقالي</h3>
+          <p>معمل الترجمة الأكاديمية (EN&harr;AR)، 4 قطع فهم كاملة بأسئلة صح/غلط ومقالي، وورشة كتابة البراجراف مع التقييم الفوري ونماذج Band-A.</p>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           FAQ ACCORDION (الأسئلة الشائعة)
+           ==================================================================== -->
+      <div class="section-header">
+        <h2>❓ الأسئلة الشائعة (FAQ)</h2>
+        <span class="section-tag">STUDENT GUIDE</span>
+      </div>
+
+      <div id="faqContainer">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>1. كيف يعمل نظام القفل التسلسلي للمراحل؟</span>
+            <span>+</span>
+          </button>
+          <div class="faq-a">
+            تبدأ المنصة بفتح <strong>المرحلة الأولى</strong> فقط حتى تركز على كل جزء بالترتيب الصحيح. بمجرد اجتياز اختبار المرحلة بنسبة <strong>60% فأكثر</strong>، تُفتح المرحلة التالية تلقائياً وتُضاف نقاط الخبرة (XP) إلى رصيدك.
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>2. هل الأسئلة والتدريبات مطابقة لامتحانات الميدترم؟</span>
+            <span>+</span>
+          </button>
+          <div class="faq-a">
+            نعم، جميع القواعد، مصطلحات الحاسب، جمل الترجمة الثمانية، وقطع الفهم مأخوذة ومُدققة من ملخصات المحاضرات ونماذج امتحانات الميدترم الرسمية (Model A &amp; B).
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>3. كيف أحصل على شهادة الإتمام باسمي؟</span>
+            <span>+</span>
+          </button>
+          <div class="faq-a">
+            سجّل اسمك في خانة الترحيب أعلى الصفحة، وعند وصولك إلى <strong>المرحلة السابعة</strong> واجتياز محاكي امتحان الميدترم الشامل (25 سؤالاً)، ستظهر لك شهادة إتمام البرنامج الرسمية باسمك وجاهزة للطباعة أو الحفظ كملف PDF.
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ACADEMIC REFERENCES SECTION (المراجع العلمية المعتمدة)
+           ==================================================================== -->
+      <div class="section-header" id="refsSection">
+        <h2>📚 المراجع العلمية والمصادر المعتمدة</h2>
+        <span class="section-tag">ACADEMIC REFERENCES</span>
+      </div>
+
+      <div class="ref-card">
+        <strong>1. المنهج الأكاديمي للغة الإنجليزية الهندسية والتكنولوجية</strong><br>
+        <span style="color:var(--text-secondary);font-size:0.82rem;">First-Year Engineering &amp; IT English Curriculum</span>
+      </div>
+      <div class="ref-card">
+        <strong>2. نماذج امتحانات الميدترم الرسمية (Midterm Exam Models A &amp; B)</strong><br>
+        <span style="color:var(--text-secondary);font-size:0.82rem;">شاملة أسئلة الاختيارات (MCQs)، مصطلحات الحاسب، وقطع Application Development</span>
+      </div>
+      <div class="ref-card">
+        <strong>3. ملخصات محاضرات القواعد والضمائر (Grammar &amp; Pronouns Lecture Summaries 1–6)</strong><br>
+        <span style="color:var(--text-secondary);font-size:0.82rem;">تشمل جدول الضمائر، أفعال الحالة (Stative Verbs)، المبني للمجهول، وتحويل الأزمنة</span>
+      </div>
+      <div class="ref-card">
+        <strong>4. مذكرة الترجمة الهندسية وقطع الفهم والمقالي (Technical Translation &amp; Reading Compendium)</strong><br>
+        <span style="color:var(--text-secondary);font-size:0.82rem;">تشمل ترجمات التكنولوجيا والمتحف المصري الكبير وقطع Car of the Future &amp; Storing Electricity</span>
+      </div>
+      <div class="ref-card">
+        <strong>5. المراجع الأكاديمية الدولية الداعمة (Oxford &amp; Cambridge)</strong><br>
+        <span style="color:var(--text-secondary);font-size:0.82rem;" class="ltr-block">Oxford English for Information Technology (Glendinning &amp; McEwan) &bull; Cambridge English for Engineering (Mark Ibbotson)</span>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         ACTIVE STAGE WORKSPACE VIEW
+         ====================================================================== -->
+    <section id="stageWorkspaceView" class="page-view">
+      <div class="ws-sticky-bar">
+        <button class="btn btn-subtle btn-sm" onclick="navigateToHome()">&rarr; العودة للخريطة</button>
+        <div style="font-weight:900;font-size:0.95rem;color:var(--text-primary);" id="wsStageHeading">المرحلة 1</div>
+        <div style="display:flex;align-items:center;gap:0.45rem;">
+          <button class="theme-toggle-pill" onclick="toggleThemeMode()" title="تبديل المظهر">
+            <span id="wsThemeIcon">🌙</span>
+          </button>
+          <!-- Admin-Only Skip Button -->
+          <button class="btn btn-primary btn-sm" id="wsAdminSkipBtn" style="display:none;" onclick="adminSkipStage()">
+            تخطي المرحلة (Skip) &larr;
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Clean Stage Mode Tabs -->
+      <div class="ws-tabs">
+        <button class="ws-tab-btn active" id="tabBtnStudy" onclick="switchStageTab('study')">
+          📘 1. شرح القواعد والملاحظات
+        </button>
+        <button class="ws-tab-btn" id="tabBtnExam" onclick="switchStageTab('exam')">
+          ✍️ 2. الاختبار والتدريبات
+        </button>
+        <button class="ws-tab-btn" id="tabBtnBonus" onclick="switchStageTab('bonus')">
+          ⭐ 3. سؤال البونص (+30 XP)
+        </button>
+      </div>
+
+      <div id="wsTabStudy" class="ws-tab-pane"></div>
+      <div id="wsTabExam" class="ws-tab-pane" style="display:none;"></div>
+      <div id="wsTabBonus" class="ws-tab-pane" style="display:none;"></div>
+    </section>
+  </main>
+
+  <!-- Encouraging Toast -->
+  <div class="cheer-toast no-print" id="cheerToast">
+    <span style="font-size:1.35rem;">📐</span>
+    <div style="font-size:0.85rem;font-weight:700;line-height:1.45;color:var(--text-primary);" id="cheerToastBody"></div>
+  </div>
+
+  <!-- ========================================================================
+       SECRET ADMIN ACCESS MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="adminModal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;">
+        <h3 style="font-size:1.05rem;font-weight:900;">🔑 بوابة المشرف (Admin Access)</h3>
+        <button class="btn btn-subtle btn-sm" onclick="closeModal('adminModal')">✕</button>
+      </div>
+      <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:0.85rem;">
+        أدخل رمز الوصول الخاص بمشرف المنصة لفتح جميع المراحل السبعة وتفعيل أزرار التخطي.
+      </p>
+      <input type="password" id="adminCodeInput" class="editorial-input ltr-field" inputmode="numeric" placeholder="•••••••••••" style="margin-bottom:0.8rem;" />
+      <div id="adminErrText" style="display:none;color:var(--danger-color);font-size:0.83rem;font-weight:700;margin-bottom:0.75rem;">
+        الرمز غير صحيح. تظل المراحل مقفولة بالتسلسل للطلاب.
+      </div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <button class="btn btn-primary" style="flex:1;" onclick="submitAdminCode()">تفعيل وضع المشرف</button>
+        <button class="btn btn-subtle" id="deactivateAdminBtn" style="display:none;" onclick="turnOffAdminMode()">إيقاف وضع المشرف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       CUSTOM CONFIRM RESET MODAL (NO confirm() USED)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="resetModal">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;">
+        <h3 style="font-size:1.05rem;font-weight:900;">🔄 إعادة ضبط التقدم</h3>
+        <button class="btn btn-subtle btn-sm" onclick="closeModal('resetModal')">✕</button>
+      </div>
+      <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.1rem;">
+        هل تريد تصفير النقاط والعودة للمرحلة الأولى من البداية يا بشمهندس؟
+      </p>
+      <div style="display:flex;gap:0.65rem;">
+        <button class="btn btn-primary" style="flex:1;" onclick="executeProgressReset()">نعم، ابدأ من جديد</button>
+        <button class="btn btn-subtle" style="flex:1;" onclick="closeModal('resetModal')">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="no-print">
+    <strong>English Club</strong> &bull; منصة تعليمية مستقلة للمساعدة والمراجعة ولا تتبع أي جهة رسمية<br>
+   منصة تعليمية أكاديمية مُعدّة وفق محاضرات اللغة الإنجليزية ونماذج امتحانات الميدترم
+  </footer>
+
+  <script>
+    /* ========================================================================
+       1. COMPLETE 7-STAGE CURRICULUM DATA (ALL MIDTERM CONTENT)
+       ======================================================================== */
+    const CURRICULUM = [
+      /* ----------------------------------------------------------------------
+         STAGE 1: Present & Past Tenses + Stative Verbs
+         ---------------------------------------------------------------------- */
+      {
+        id: 1,
+        badge: "المرحلة 1 من 7",
+        title: "الأزمنة الأساسية وأفعال الحالة",
+        titleEn: "Present, Past & Stative Verbs",
+        formats: ["8 اختيارات MCQ", "5 تصحيح أخطاء", "سؤال بونص +30 XP"],
+        summary: "شرح منظم لقواعد المضارع البسيط والمستمر، أفعال الحالة (Stative Verbs) التي لا تقبل -ing، والماضي البسيط والمستمر من ملخصات المحاضرات.",
+        notes: [
+          {
+            title: "1. المضارع البسيط (Present Simple — Habits & Scientific Facts)",
+            body: "• يُستخدم للعادات المتكررة (<span class='en-teal'>always, usually, every morning</span>) والحقائق العلمية الثابتة.<br>• مع المفرد (<span class='en'>He / She / It</span>) نضيف <span class='en'>-s / -es</span> للفعل.<br>• في النفي والسؤال نستخدم <span class='en'>doesn't / does</span> مع المفرد و <span class='en'>don't / do</span> مع الجمع، ويأتي بعدهما <strong>المصدر بدون إضافات</strong>.",
+            formula: "The earth goes round the sun. | Heba doesn't usually have breakfast."
+          },
+          {
+            title: "2. المضارع المستمر (Present Continuous — Happening Now)",
+            body: "• يُستخدم لحدث يقع لحظة الكلام (<span class='en-teal'>now, at the moment, Listen!, this year</span>).<br>• التكوين: <span class='en'>am / is / are + V-ing</span>.",
+            formula: "Listen! Someone is singing in the next room. | You are doing well this year."
+          },
+          {
+            title: "3. تنبيه مهم في الامتحان: أفعال الحالة (Stative Verbs)",
+            body: "أفعال الإدراك والشعور والملكية والتكلفة مثل: <span class='en'>know, cost, understand, like, love, want, need, believe</span> <strong>لا تأتي في المضارع المستمر (-ing)</strong> حتى لو دلّ المعنى على الوقت الحاضر؛ بل تُوضع في المضارع البسيط.",
+            formula: "Incorrect: I am knowing / It are costing  ->  Correct: I know the answer. / It costs a lot of money."
+          },
+          {
+            title: "4. الماضي البسيط والمستمر (Past Simple & Past Continuous)",
+            body: "• <strong>الماضي البسيط (<span class='en'>V2 / -ed</span>):</strong> حدث انتهى في الماضي (<span class='en-teal'>yesterday, last week, ago</span>). النفي بـ <span class='en'>didn't + مصدر</span> (مثل <span class='en'>didn't go</span> وليس <span class='en'>didn't went</span>).<br>• <strong>الماضي المستمر (<span class='en'>was/were + V-ing</span>):</strong> حدث كان مستمراً في الماضي وقطعه ماضي بسيط مع <span class='en'>While / When</span>.",
+            formula: "They didn't go to the lecture yesterday. | While I was studying, the power went out."
+          }
+        ],
+        mcqs: [
+          { q: "A lot of people all over the world ____ English.", opts: ["speaks", "speak", "are speaking", "speaking"], ans: 1, exp: "الفاعل جمع (A lot of people) وحقيقة عامة = مضارع بسيط بدون s (speak)." },
+          { q: "The earth ____ round the sun.", opts: ["go", "going", "goes", "went"], ans: 2, exp: "حقيقة علمية ثابتة والفاعل مفرد (The earth) = goes." },
+          { q: "It ____ a lot of money to stay at luxury hotels.", opts: ["cost", "costs", "is costing", "are costing"], ans: 1, exp: "الفعل cost من أفعال الحالة (Stative Verbs) ويأخذ s مع المفرد It = costs." },
+          { q: "Listen! Someone ____ in the next room.", opts: ["sings", "sang", "is singing", "sing"], ans: 2, exp: "كلمة Listen! تدل على حدث يقع الآن = مضارع مستمر (is singing)." },
+          { q: "Heba and Mona always ____ TV in the evening.", opts: ["watches", "watch", "watching", "is watching"], ans: 1, exp: "Heba and Mona فاعل جمع مع always = مضارع بسيط بدون إضافات (watch)." },
+          { q: "Where ____ your parent live?", opts: ["do", "does", "is", "are"], ans: 1, exp: "الفاعل مفرد (your parent) والفعل في المصدر (live) = نستخدم does." },
+          { q: "You ____ well at your university this year.", opts: ["do", "does", "are doing", "did"], ans: 2, exp: "عبارة this year تدل على حدث مستمر خلال الفترة الحالية = are doing." },
+          { q: "Every morning, my mother ____ the food for us.", opts: ["prepare", "prepares", "preparing", "prepared"], ans: 1, exp: "Every morning عادة متكررة و my mother مفرد = prepares." }
+        ],
+        corrections: [
+          { badSentence: "He go to university every day.", targetMistake: "go", correctAnswer: "goes", exp: "الفاعل مفرد (He) مع every day فيأخذ الفعل -es: goes." },
+          { badSentence: "I am knowing the answer.", targetMistake: "am knowing", correctAnswer: "know", exp: "الفعل know من أفعال الحالة (Stative Verbs) لا يأخذ -ing: know." },
+          { badSentence: "They didn't went to the lecture.", targetMistake: "went", correctAnswer: "go", exp: "بعد didn't يعود الفعل للمصدر الأصلي: go." },
+          { badSentence: "Food is expensive. It are costing a lot of money.", targetMistake: "are costing", correctAnswer: "costs", exp: "It مفرد والفعل cost فعل حالة لا يقبل الاستمرار: costs." },
+          { badSentence: "Heba doesn't usually has breakfast.", targetMistake: "has", correctAnswer: "have", exp: "بعد doesn't يعود الفعل للمصدر (have وليس has)." }
+        ],
+        bonus: {
+          q: "While the engineer ____ the circuit, the electricity suddenly went off.",
+          opts: ["tests", "was testing", "tested", "is testing"],
+          ans: 1,
+          exp: "بعد While يأتي ماضي مستمر (was testing) لحدث كان مستمراً حين قطعه الماضي البسيط (went off)."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 2: Future, Perfect Tenses, Used To & Passive Voice
+         ---------------------------------------------------------------------- */
+      {
+        id: 2,
+        badge: "المرحلة 2 من 7",
+        title: "المستقبل، الأزمنة التامة، والمبني للمجهول",
+        titleEn: "Future, Perfect Tenses, Used To & Passive Voice",
+        formats: ["8 اختيارات MCQ", "5 إعادة صياغة Rewrite", "سؤال بونص +30 XP"],
+        summary: "إتقان أزمنة المستقبل (will / going to / Future Continuous & Perfect)، المضارع والماضي التام، قاعدة Used to، والمبني للمجهول (Passive Voice).",
+        notes: [
+          {
+            title: "1. المبني للمجهول (Passive Voice — التركيز على الحدث أو الآلة)",
+            body: "• <strong>المضارع البسيط المجهول:</strong> <span class='en'>am / is / are + P.P. (التصريف الثالث)</span>.<br>• <strong>الماضي البسيط المجهول:</strong> <span class='en'>was / were + P.P.</span>.<br>• <strong>المضارع المستمر المجهول:</strong> <span class='en'>am / is / are + being + P.P.</span>.",
+            formula: "English is spoken all over the world. | This article was written. | A new hospital is being built."
+          },
+          {
+            title: "2. المضارع التام والمستقبل التام (Present & Future Perfect)",
+            body: "• <strong>المضارع التام (<span class='en'>have/has + P.P.</span>):</strong> حدث وقع وله أثر الآن أو مع <span class='en'>since / for / just / already / yet</span>.<br>• <strong>المستقبل التام (<span class='en'>will have + P.P.</span>):</strong> حدث سيكتمل قبل وقت محدد في المستقبل (<span class='en-teal'>By 5 PM, By next year</span>).",
+            formula: "She has lost her keys. | By 5 PM, I will have finished my homework."
+          },
+          {
+            title: "3. قاعدة اعتاد أن (Used to + Infinitive) وقاعدة If الثانية",
+            body: "• <span class='en'>used to + مصدر</span>: عادة كانت تحدث في الماضي وانتهت الآن.<br>• <strong>قاعدة If الحالة الثانية:</strong> <span class='en'>If + Past Simple -> would + مصدر</span>.",
+            formula: "I used to play football when I was young. | If it rained, the streets would be wet."
+          }
+        ],
+        mcqs: [
+          { q: "The internet ____ by many people all over the world.", opts: ["uses", "is used", "used", "using"], ans: 1, exp: "الإنترنت يُستخدم (مبني للمجهول في المضارع البسيط) = is used." },
+          { q: "English ____ all over the world by millions of people.", opts: ["speaks", "is spoken", "spoke", "speaking"], ans: 1, exp: "اللغة الإنجليزية تُتحدث (Passive) = is spoken." },
+          { q: "She ____ her keys. She can't find them anywhere.", opts: ["loses", "has lost", "was losing", "lose"], ans: 1, exp: "حدث في الماضي ونتيجته مستمرة الآن (لا تجد مفاتيحها) = مضارع تام (has lost)." },
+          { q: "Someone wrote this article. -> This article ____ by someone.", opts: ["is written", "was written", "wrote", "has written"], ans: 1, exp: "الفعل الأصلي wrote في الماضي البسيط، فالمبني للمجهول = was written." },
+          { q: "They are building a new hospital. -> A new hospital ____.", opts: ["is built", "was built", "is being built", "builds"], ans: 2, exp: "المضارع المستمر المبني للمجهول يتكون من: is being + P.P. = is being built." },
+          { q: "By 5 PM, I ____ my homework.", opts: ["finish", "will have finished", "finished", "am finishing"], ans: 1, exp: "وجود By 5 PM يدل على اكتمال الحدث قبل وقت مستقبلي = مستقبل تام (will have finished)." },
+          { q: "I ____ play football every day when I was young.", opts: ["use to", "used to", "am used to", "using to"], ans: 1, exp: "عادة في الماضي مع مصدر الفعل (play) = used to." },
+          { q: "If it rained, the streets ____ wet.", opts: ["will be", "would be", "are", "were being"], ans: 1, exp: "قاعدة If الحالة الثانية: ماضي بسيط (rained) يقابله would + مصدر (would be)." }
+        ],
+        rewrites: [
+          {
+            prompt: "She is studying English now.",
+            instruction: "Change to Present Simple (حول إلى المضارع البسيط)",
+            acceptedAnswers: ["she studies english", "she studies english every day", "she always studies english"],
+            modelAnswer: "She studies English every day.",
+            exp: "نحذف is ونعيد الفعل للمصدر ونضيف -ies مع الفاعل المفرد She ليصبح studies."
+          },
+          {
+            prompt: "I didn't go to work yesterday.",
+            instruction: "Change to Present Continuous (حول إلى المضارع المستمر)",
+            acceptedAnswers: ["i am not going to work now", "i'm not going to work now", "i am not going to work", "i'm not going to work right now"],
+            modelAnswer: "I am not going to work now.",
+            exp: "نستبدل didn't بـ am not ونضيف -ing للفعل (going) ونغير yesterday إلى now."
+          },
+          {
+            prompt: "We will travel to London next month.",
+            instruction: "Change to Past Simple (حول إلى الماضي البسيط)",
+            acceptedAnswers: ["we traveled to london last month", "we travelled to london last month", "we traveled to london", "we travelled to london"],
+            modelAnswer: "We traveled to London last month.",
+            exp: "نحذف will ونحول travel للماضي (traveled) ونغير next month إلى last month."
+          },
+          {
+            prompt: "He plays the guitar every evening.",
+            instruction: "Change to Past Continuous (حول إلى الماضي المستمر)",
+            acceptedAnswers: ["he was playing the guitar yesterday evening", "he was playing the guitar", "he was playing the guitar last evening"],
+            modelAnswer: "He was playing the guitar yesterday evening.",
+            exp: "مع المفرد He نضع was + V-ing (was playing)."
+          },
+          {
+            prompt: "They watched a movie last night.",
+            instruction: "Change to Future Simple (حول إلى المستقبل البسيط)",
+            acceptedAnswers: ["they will watch a movie tomorrow night", "they will watch a movie tonight", "they will watch a movie"],
+            modelAnswer: "They will watch a movie tomorrow night.",
+            exp: "نضع will + مصدر الفعل (will watch) ونغير last night إلى tomorrow night."
+          }
+        ],
+        bonus: {
+          q: "After the engineers ____ the system, they tested the output.",
+          opts: ["have installed", "had installed", "install", "will install"],
+          ans: 1,
+          exp: "الحدث الأول في الماضي (تركيب النظام) قبل الحدث الثاني (الاختبار tested) يُوضع في الماضي التام: had installed."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 3: Pronouns, Prepositions + Gerund & Comparatives
+         ---------------------------------------------------------------------- */
+      {
+        id: 3,
+        badge: "المرحلة 3 من 7",
+        title: "الضمائر، حروف الجر، وصيغ المقارنة",
+        titleEn: "Pronouns Matrix, Gerunds & Comparatives",
+        formats: ["8 اختيارات MCQ", "5 تصحيح أخطاء", "سؤال بونص +30 XP"],
+        summary: "الجدول الكامل للضمائر (الفاعل، المفعول، صفات وضمائر الملكية، المنعكسة، والوصل)، قاعدة (حرف جر + V-ing)، وصيغ المقارنة من نماذج الميدترم.",
+        notes: [
+          {
+            title: "1. جدول الضمائر الشامل (Complete Pronouns Matrix — Lecture 6)",
+            body: "فرّق دائماً بين <strong>صفة الملكية</strong> (يأتي بعدها اسم: <span class='en'>my phone</span>) و<strong>ضمير الملكية</strong> (يأتي مستقلاً بدون اسم بعده: <span class='en'>mine / hers / theirs</span>):",
+            tableHtml: `
+              <div class="matrix-scroll">
+                <table class="pronoun-table">
+                  <thead>
+                    <tr>
+                      <th>Subject (فاعل)</th>
+                      <th>Object (مفعول)</th>
+                      <th>Possessive Adj (+Noun)</th>
+                      <th>Possessive Pronoun</th>
+                      <th>Reflexive (منعكس)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>I</td><td>me</td><td>my</td><td>mine</td><td>myself</td></tr>
+                    <tr><td>He</td><td>him</td><td>his</td><td>his</td><td>himself</td></tr>
+                    <tr><td>She</td><td>her</td><td>her</td><td>hers</td><td>herself</td></tr>
+                    <tr><td>It</td><td>it</td><td>its</td><td>—</td><td>itself</td></tr>
+                    <tr><td>We</td><td>us</td><td>our</td><td>ours</td><td>ourselves</td></tr>
+                    <tr><td>You</td><td>you</td><td>your</td><td>yours</td><td>yourself/ves</td></tr>
+                    <tr><td>They</td><td>them</td><td>their</td><td>theirs</td><td>themselves</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `
+          },
+          {
+            title: "2. قاعدة حروف الجر وأفعال الاستمتاع + (V-ing)",
+            body: "• بعد أي حرف جر (<span class='en'>After, Before, in, on, by, for</span>) وكذلك عبارة <span class='en'>look forward to</span> يأتي الفعل مضافاً له <span class='en'>-ing</span>.<br>• بعد أفعال مثل <span class='en'>enjoy / love / like</span> يأتي <span class='en'>V-ing</span>.",
+            formula: "After installing the fan... | Before answering... | I look forward to inputting data."
+          },
+          {
+            title: "3. المقارنة والاختلاف (Comparatives & Contrast)",
+            body: "• الصفة الطويلة في المقارنة: <span class='en'>more + adjective + than</span>.<br>• لإظهار الاختلاف بين جهازين: نستخدم <span class='en'>unlike</span> (على عكس).",
+            formula: "Your smart phone is more expensive than my phone. | Conventional camera uses film unlike digital camera."
+          }
+        ],
+        mcqs: [
+          { q: "Your smart mobile phone is ____ than my mobile phone.", opts: ["expensive", "more expensive", "most expensive", "as expensive"], ans: 1, exp: "وجود than مع صفة طويلة (expensive) يتطلب more expensive." },
+          { q: "The conventional camera uses film ____ the digital camera.", opts: ["like", "unlike", "similar", "same"], ans: 1, exp: "لإظهار التناقض والاختلاف بين الكاميرا التقليدية والرقمية نستخدم unlike." },
+          { q: "I look forward to ____ data by voice.", opts: ["input", "inputting", "inputs", "inputted"], ans: 1, exp: "تعبير look forward to يتبعه دائماً اسم أو V-ing = inputting." },
+          { q: "The teacher gave ____ a good grade.", opts: ["I", "my", "me", "mine"], ans: 2, exp: "بعد الفعل gave نحتاج ضمير مفعول (Object Pronoun) = me." },
+          { q: "This car is not mine, it is ____.", opts: ["her", "hers", "she", "herself"], ans: 1, exp: "ضمير ملكية مستقل بدون اسم بعده = hers." },
+          { q: "The children decorated the room all by ____.", opts: ["them", "their", "themselves", "theirs"], ans: 2, exp: "تعبير by + ضمير منعكس للجمع (The children) = themselves." },
+          { q: "____ did you see at the cinema?", opts: ["Who", "Whom", "Whose", "Which"], ans: 1, exp: "للسؤال عن المفعول العاقل (رأيت من؟) نستخدم Whom." },
+          { q: "The cat is cleaning ____ paws.", opts: ["it", "it's", "its", "itself"], ans: 2, exp: "صفة الملكية لغير العاقل بدون فاصلة عليا = its (أما it's فهي اختصار it is)." }
+        ],
+        corrections: [
+          { badSentence: "After install the fan, install the RAM.", targetMistake: "install", correctAnswer: "installing", exp: "بعد حرف الجر After يأتي الفعل مضافاً له -ing: installing." },
+          { badSentence: "Before answer the questions, read them well.", targetMistake: "answer", correctAnswer: "answering", exp: "بعد حرف الجر Before يأتي الفعل + ing: answering." },
+          { badSentence: "The tour guide enjoys go on a boat trip.", targetMistake: "go", correctAnswer: "going", exp: "الفعل enjoys يتبعه دائماً V-ing: going." },
+          { badSentence: "The pilot loves meet people.", targetMistake: "meet", correctAnswer: "meeting", exp: "الفعل loves يتبعه V-ing: meeting." },
+          { badSentence: "This is my phone. -> Identify the pronoun type of 'my':", targetMistake: "my", correctAnswer: "Possessive Adjective", exp: "كلمة my متبوعة باسم (phone) فهي صفة ملكية: Possessive Adjective." }
+        ],
+        bonus: {
+          q: "The engineer ____ designed this smart circuit won the national innovation award.",
+          opts: ["which", "who", "whose", "whom"],
+          ans: 1,
+          exp: "ضمير وصل يحل محل الفاعل العاقل (The engineer) = who."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 4: IT & Computer Terminology Mastery
+         ---------------------------------------------------------------------- */
+      {
+        id: 4,
+        badge: "المرحلة 4 من 7",
+        title: "مصطلحات الحاسب وتكنولوجيا المعلومات",
+        titleEn: "IT & Engineering Terminology (Midterm Models A & B)",
+        formats: ["10 اختيارات MCQ", "4 تصحيح مصطلحات", "سؤال بونص +30 XP"],
+        summary: "إتقان جميع تعريفات ومصطلحات الكمبيوتر والبرمجيات التي وردت بالنص في امتحانات الميدترم (Model A & Model B) مع بطاقات دراسة تفاعلية.",
+        glossary: [
+          { term: "Application Software", ar: "برمجيات التطبيقات", def: "A software program which allows a user to perform specific tasks such as word processing or spreadsheets." },
+          { term: "Hardware", ar: "المكونات المادية للحاسب", def: "Physical things that make up a computer (monitor, keyboard, motherboard, CPU)." },
+          { term: "Software", ar: "البرمجيات", def: "Any program or set of instructions designed to run on a computer." },
+          { term: "Closed Source", ar: "البرمجيات مغلقة المصدر", def: "Software in which the license stipulates that the user cannot see, edit, or manipulate the source code." },
+          { term: "Open Source", ar: "البرمجيات مفتوحة المصدر", def: "Software whose source code is freely available for users to view, modify, and distribute." },
+          { term: "Internet", ar: "شبكة الإنترنت", def: "The largest known public network in the world connecting millions of computers globally." },
+          { term: "Database", ar: "قاعدة البيانات", def: "An organized, electronic collection of information consisting of rows, columns, and indexes." },
+          { term: "Data", ar: "البيانات الخام", def: "Literally meaning 'that which is given', referring to raw, unprocessed information." },
+          { term: "Peripheral", ar: "الوحدات الطرفية الملحقة", def: "An external computer add-on such as a printer, scanner, or mouse." },
+          { term: "Computer", ar: "الحاسب الآلي", def: "An electronic digital device that stores and processes information." },
+          { term: "Network", ar: "الشبكة", def: "A group of connected computers which share resources and data." },
+          { term: "Input Units", ar: "وحدات الإدخال", def: "Devices used to enter raw data into the computer (keyboard, scanner, microphone)." },
+          { term: "Supervisor Program", ar: "البرنامج المشرف", def: "The most important program in the operating system that manages the entire OS." },
+          { term: "Hard Drive", ar: "القرص الصلب", def: "A huge magnetic or solid-state memory where files and operating systems are stored." },
+          { term: "Reduce Waste / Advanced", ar: "تقليل الهدر / متطور", def: "Key engineering terms from the Food Technology reading passage: modern scientific preservation." }
+        ],
+        mcqs: [
+          { q: "A software program which allows a user to perform specific tasks such as word processing or spreadsheets is ____.", opts: ["Hardware", "Application Software", "Peripheral", "Database"], ans: 1, exp: "التعريف الرسمي لـ Application Software في نماذج الميدترم." },
+          { q: "Physical things that make up a computer are called ____.", opts: ["Software", "Hardware", "Data", "Network"], ans: 1, exp: "المكونات المادية الملموسة هي Hardware." },
+          { q: "Software in which the license stipulates that the user cannot see or edit the source code is ____.", opts: ["Open Source", "Closed Source", "Freeware", "Hardware"], ans: 1, exp: "Closed Source يمنع المستخدم من رؤية أو تعديل الكود المصدري." },
+          { q: "An organized, electronic collection of information consisting of rows, columns, and indexes is a ____.", opts: ["Peripheral", "Database", "Monitor", "Supervisor"], ans: 1, exp: "قاعدة البيانات (Database) تتكون من صفوف وأعمدة وفهارس." },
+          { q: "Literally meaning 'that which is given', referring to raw information is ____.", opts: ["Data", "Hardware", "Network", "Output"], ans: 0, exp: "كلمة Data تعني حرفياً البيانات المعطاة الخام." },
+          { q: "An external computer add-on such as a printer or scanner is a ____.", opts: ["CPU", "Peripheral", "Database", "Software"], ans: 1, exp: "الوحدات الخارجية الملحقة بالحاسب تسمى Peripheral." },
+          { q: "The largest known public network in the world is the ____.", opts: ["Intranet", "Internet", "Hard Drive", "LAN"], ans: 1, exp: "الإنترنت (Internet) هو أكبر شبكة عامة معروفة في العالم." },
+          { q: "An electronic digital device that stores and processes information is a ____.", opts: ["Scanner", "Computer", "Printer", "Cable"], ans: 1, exp: "الحاسب الآلي (Computer) جهاز رقمي إلكتروني يخزن ويعالج المعلومات." },
+          { q: "The program in the operating system that manages the entire operating system is the ____.", opts: ["Application", "Supervisor Program", "Peripheral", "Database"], ans: 1, exp: "البرنامج المشرف (Supervisor Program) يدير نظام التشغيل بالكامل." },
+          { q: "A huge magnetic memory where files are permanently stored is the ____.", opts: ["RAM", "Hard Drive", "CPU", "Keyboard"], ans: 1, exp: "القرص الصلب (Hard Drive) هو وحدة التخزين المغناطيسية الضخمة للملفات." }
+        ],
+        corrections: [
+          { badSentence: "Software is physical things that make up a computer.", targetMistake: "Software", correctAnswer: "Hardware", exp: "المكونات المادية هي Hardware وليس Software." },
+          { badSentence: "Hardware is any program designed to run on a computer.", targetMistake: "Hardware", correctAnswer: "Software", exp: "البرامج المصممة للعمل على الحاسب هي Software." },
+          { badSentence: "Data is a software program which allows a user to perform specific tasks.", targetMistake: "Data", correctAnswer: "Application Software", exp: "البرنامج الذي يؤدي مهام محددة هو Application Software." },
+          { badSentence: "Software is a group of connected computers which share resources.", targetMistake: "Software", correctAnswer: "Network", exp: "مجموعة الحواسيب المتصلة لمشاركة الموارد هي Network." }
+        ],
+        bonus: {
+          q: "Which component is considered the 'brain' of the computer that works out solutions to problems?",
+          opts: ["Hard Drive", "Central Processing Unit (CPU)", "Peripheral", "Printer"],
+          ans: 1,
+          exp: "وحدة المعالجة المركزية (CPU) هي عقل الحاسب الذي ينفذ العمليات ويعالج البيانات."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 5: Translation Lab (English <-> Arabic)
+         ---------------------------------------------------------------------- */
+      {
+        id: 5,
+        badge: "المرحلة 5 من 7",
+        title: "معمل الترجمة الأكاديمية والتقنية",
+        titleEn: "Translation Lab: AR ↔ EN (All 8 Official Passages)",
+        formats: ["4 ترجمة عربي لإنجليزي", "4 ترجمة إنجليزي لعربي", "سؤال بونص +30 XP"],
+        summary: "تدريب عملي تفاعلي على جميع جمل الترجمة الثمانية الواردة في ملخصات الدكاترة ونماذج الميدترم مع تقييم الكلمات المفتاحية وعرض الترجمة النموذجية.",
+        notes: [
+          {
+            title: "1. قواعد الترجمة من العربية إلى الإنجليزية (AR -> EN)",
+            body: "• ابدأ دائماً بـ <strong>الفاعل ثم الفعل</strong> (لا تبدأ بالفعل كما في العربية).<br>• الأسماء العلم تُكتب بحرف كبير (<span class='en'>Technological Universities</span> / <span class='en'>Grand Egyptian Museum</span>).<br>• استخدم روابط أكاديمية دقيقة مثل <span class='en'>therefore</span> (لذلك) و <span class='en'>because</span> (لأن).",
+            formula: "تعتبر الجامعات التكنولوجية... -> Technological universities are considered among the leading..."
+          },
+          {
+            title: "2. قواعد الترجمة من الإنجليزية إلى العربية (EN -> AR)",
+            body: "• ابدأ الجملة العربية بـ <strong>الفعل</strong> أو أسلوب توكيد أنيق، وتجنب الترجمة الحرفية.<br>• ترجم المصطلحات بدقة: <span class='en'>supervisor program</span> = البرنامج المشرف، <span class='en'>input units</span> = وحدات الإدخال، <span class='en'>inauguration</span> = افتتاح.",
+            formula: "An operating system has three main functions... -> لنظام التشغيل ثلاث وظائف رئيسية..."
+          }
+        ],
+        translations: [
+          {
+            dir: "AR → EN",
+            source: "تعتبر الجامعات التكنولوجية من المؤسسات التعليمية الرائدة في مجال التعليم التكنولوجي؛ لذلك تهتم الحكومة بهذا النوع من التعليم.",
+            hints: ["Technological universities", "are considered", "leading", "educational institutions", "therefore", "government"],
+            keywords: ["technological", "universities", "leading", "education", "government"],
+            model: "Technological universities are considered among the leading educational institutions in the field of technological education; therefore, the government pays great attention to this type of education."
+          },
+          {
+            dir: "AR → EN",
+            source: "نعتمد على التكنولوجيا في جميع مجالات حياتنا اليومية لأنها مهمة جداً ولا يستطيع أحد أن يستغني عنها.",
+            hints: ["depend on", "technology", "daily life", "because", "important", "do without"],
+            keywords: ["depend", "rely", "technology", "daily", "life", "important"],
+            model: "We depend on technology in all fields of our daily life because it is very important and no one can do without it."
+          },
+          {
+            dir: "AR → EN",
+            source: "التكنولوجيا الحديثة جعلت حياتنا اليومية أسهل وأسرع، ونحن نستخدم التكنولوجيا في تحسين مستوى التعليم في مصر.",
+            hints: ["Modern technology", "has made", "easier and faster", "improve", "education", "Egypt"],
+            keywords: ["modern", "technology", "easier", "faster", "education", "egypt"],
+            model: "Modern technology has made our daily life easier and faster, and we use technology to improve the standard of education in Egypt."
+          },
+          {
+            dir: "AR → EN",
+            source: "من أرض مصر الطيبة.. مهد الحضارة الإنسانية، أرحب بضيوفنا من قادة العالم ورموزه الكبار، لنشهد سوياً افتتاح المتحف المصري الكبير.",
+            hints: ["good land of Egypt", "cradle of human civilization", "welcome", "world leaders", "witness", "inauguration", "Grand Egyptian Museum"],
+            keywords: ["egypt", "civilization", "welcome", "leaders", "museum"],
+            model: "From the good land of Egypt, the cradle of human civilization, I welcome our guests from world leaders and prominent figures to witness together the inauguration of the Grand Egyptian Museum."
+          },
+          {
+            dir: "EN → AR",
+            source: "The most important program in the operating system, the program that manages the operating system is the supervisor program. An operating system has three main functions: manage the computer's resources such as the central processing unit.",
+            hints: ["أهم برنامج", "نظام التشغيل", "البرنامج المشرف", "ثلاث وظائف رئيسية", "موارد الحاسب", "وحدة المعالجة المركزية"],
+            keywords: ["برنامج", "نظام", "التشغيل", "المشرف", "وظائف", "المعالجة"],
+            model: "إن أهم برنامج في نظام التشغيل، وهو البرنامج الذي يدير نظام التشغيل، هو البرنامج المشرف. ولنظام التشغيل ثلاث وظائف رئيسية: إدارة موارد الحاسب الآلي مثل وحدة المعالجة المركزية."
+          },
+          {
+            dir: "EN → AR",
+            source: "Her brain is the processor that works out the solutions to the problems. The computer consists of input units, memory, processing and output units.",
+            hints: ["دماغها / عقلها", "المعالج", "الحلول للمشكلات", "يتكون الحاسب من", "وحدات الإدخال", "الذاكرة", "وحدات الإخراج"],
+            keywords: ["المعالج", "الحاسب", "الإدخال", "الذاكرة", "الإخراج"],
+            model: "يُعد عقلها بمثابة المعالج الذي يستنبط الحلول للمشكلات. ويتكون الحاسب الآلي من وحدات الإدخال، والذاكرة، ووحدات المعالجة، ووحدات الإخراج."
+          },
+          {
+            dir: "EN → AR",
+            source: "A computer is an electronic machine that processes information—in other words, an information processor: it takes in raw information (or data) at one end, stores it until it's ready to work on it.",
+            hints: ["آلة إلكترونية", "تعالج المعلومات", "معالج للمعلومات", "البيانات الخام", "يخزنها"],
+            keywords: ["إلكترونية", "المعلومات", "البيانات", "يخزن"],
+            model: "الحاسب الآلي هو آلة إلكترونية تعالج المعلومات — وبعبارة أخرى، هو معالج للمعلومات: حيث يستقبل المعلومات الخام (أو البيانات) من طرف، ويخزنها حتى تصبح جاهزة للعمل عليها."
+          },
+          {
+            dir: "EN → AR",
+            source: "The inauguration of the museum shall be a source of pride to every believer in the unity of humanity and in the values of peace, love, and cooperation among nations.",
+            hints: ["افتتاح المتحف", "مصدر فخر", "وحدة الإنسانية", "قيم السلام", "المحبة والتعاون بين الأمم"],
+            keywords: ["افتتاح", "المتحف", "فخر", "الإنسانية", "السلام", "التعاون"],
+            model: "سيكون افتتاح المتحف مصدر فخر لكل مؤمن بوحدة الإنسانية وبقيم السلام والمحبة والتعاون بين الأمم."
+          }
+        ],
+        bonus: {
+          q: "Choose the most accurate English translation for: 'تُعد الأتمتة الصناعية عنصراً أساسياً في المصانع الحديثة.'",
+          opts: [
+            "Industrial automation is an essential element in modern factories.",
+            "Industrial pollution is a bad problem in old houses.",
+            "Modern factories refuse industrial automation.",
+            "Automation was stopped in all factories."
+          ],
+          ans: 0,
+          exp: "Industrial automation = الأتمتة الصناعية، essential element = عنصر أساسي، modern factories = المصانع الحديثة."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 6: Reading Comprehension (4 Passages) & Essay Writing Studio
+         ---------------------------------------------------------------------- */
+      {
+        id: 6,
+        badge: "المرحلة 6 من 7",
+        title: "قطع الفهم وورشة الكتابة المقالية",
+        titleEn: "Reading Comprehension (4 Passages) & Guided Essay Workshop",
+        formats: ["4 قطع فهم شاملة", "ورشة المقالي + تقييم فوري", "سؤال بونص +30 XP"],
+        summary: "تدرب على جميع قطع الفهم الأربعة من امتحانات الميدترم والملخصات + اكتب مقالك الإنجليزي بأدوات مساعدة وتقييم بنيوي فوري.",
+        passages: [
+          {
+            title: "Passage 1: Application Development (Midterm Model A & B)",
+            text: "Application development is the process of creating a computer program or a set of programs to perform the different tasks that a business requires. From calculating monthly expenses to scheduling sales reports, applications help businesses automate processes and increase efficiency. Every app-building process follows the same steps: gathering requirements, designing prototypes, testing, implementation, and integration. High-quality software engineering ensures user security and fast performance.",
+            questions: [
+              { type: "mcq", q: "1. True or False: Application development is the process of creating programs to perform tasks that a business requires.", opts: ["True", "False"], ans: 0, exp: "True — مذكورة بالنص في السطر الأول." },
+              { type: "mcq", q: "2. True or False: Applications prevent businesses from automating processes and reduce efficiency.", opts: ["True", "False"], ans: 1, exp: "False — العكس تماماً: applications help businesses automate processes and increase efficiency." },
+              { type: "mcq", q: "3. True or False: Gathering requirements and designing prototypes are part of the app-building steps.", opts: ["True", "False"], ans: 0, exp: "True — مذكورة في خطوات بناء التطبيقات." },
+              { type: "mcq", q: "4. True or False: Testing and implementation are skipped in modern application development.", opts: ["True", "False"], ans: 1, exp: "False — الاختبار والتنفيذ خطوات أساسية في بناء التطبيقات." },
+              { type: "mcq", q: "5. True or False: High-quality software engineering helps ensure user security and fast performance.", opts: ["True", "False"], ans: 0, exp: "True — مذكورة في الجملة الأخيرة من القطعة." }
+            ]
+          },
+          {
+            title: "Passage 2: The Car of the Future",
+            text: "The car of the future will be completely different from today's vehicles. First, it will be much easier to drive—in fact, most future cars will be self-driving using artificial intelligence and smart sensors. Second, engineers are developing special road surface materials that can charge electric batteries while the car is moving. Unlike today's gasoline cars that pollute the air, the car of the future will run cleanly on electric and solar energy, offering zero emissions and higher safety.",
+            questions: [
+              { type: "mcq", q: "1. How will driving the car of the future be different?", opts: ["It will be harder and slower", "It will be much easier and mostly self-driving", "It will require two drivers", "It will have no sensors"], ans: 1, exp: "ستكون أسهل بكثير وذاتية القيادة باستخدام الذكاء الاصطناعي والحساسات." },
+              { type: "mcq", q: "2. What is special about future road surface materials?", opts: ["They are made of wood", "They can charge electric batteries while the car moves", "They stop cars from moving", "They use gasoline"], ans: 1, exp: "مواد سطح الطريق تشحن البطاريات الكهربائية أثناء حركة السيارة." },
+              { type: "mcq", q: "3. What energy sources will the car of the future rely on?", opts: ["Coal and wood", "Electric and solar energy", "Gasoline only", "Steam power"], ans: 1, exp: "ستعمل بالطاقة الكهربائية والطاقة الشمسية بدون انبعاثات." },
+              { type: "mcq", q: "4. How does the future car differ from today's vehicles?", opts: ["It pollutes more", "It produces zero emissions and offers higher safety", "It is louder", "It uses more fuel"], ans: 1, exp: "تتميز بانعدام الانبعاثات وارتفاع مستوى الأمان." }
+            ]
+          },
+          {
+            title: "Passage 3: Storing Electricity & Renewable Energy",
+            text: "One of the biggest challenges of renewable energy, such as solar and wind power, is storing electricity when the sun is not shining or the wind is not blowing. Engineers consider gravity to be the most abundant and reliable power source for energy storage. Historically, ancient civilizations like the Romans used gravity in aqueducts for water irrigation. Today, modern engineers store energy using pumped water pressure, compressed air in underground caves, and even giant towers of hot sand in Finland that retain heat for months.",
+            questions: [
+              { type: "mcq", q: "1. What is the main challenge facing renewable energy?", opts: ["Too much sunlight", "Storing electricity when sun or wind is unavailable", "Lack of wind turbines", "High water pressure"], ans: 1, exp: "التحدي الأكبر هو تخزين الكهرباء عند غياب الشمس أو الرياح." },
+              { type: "mcq", q: "2. What do engineers consider the most abundant power source for storage?", opts: ["Gasoline", "Gravity", "Coal", "Plastic"], ans: 1, exp: "الجاذبية (Gravity) هي المصدر الأكثر وفرة وموثوقية." },
+              { type: "mcq", q: "3. How did the Romans utilize gravity in the past?", opts: ["In electric batteries", "In aqueducts for water irrigation", "In hot sand towers", "In wind turbines"], ans: 1, exp: "استخدم الرومان الجاذبية في القنوات المائية (aqueducts) لري المحاصيل." },
+              { type: "mcq", q: "4. Which innovative storage method is currently used in Finland?", opts: ["Ice blocks", "Giant towers of hot sand", "Nuclear ships", "Steam trains"], ans: 1, exp: "تستخدم فنلندا أبراج الرمال الساخنة لتخزين الطاقة الحرارية لشهور." }
+            ]
+          },
+          {
+            title: "Passage 4: Modern Food Technology & Honesty",
+            text: "Modern food technology uses advanced scientific methods to preserve nutrition, reduce food waste, and ensure safety for growing populations. Through smart packaging and cold-chain sensors, engineers can monitor food freshness in real time. However, ethical honesty in labeling ingredients remains essential so consumers can trust the quality and safety of what they eat.",
+            questions: [
+              { type: "mcq", q: "1. Why does modern food technology use scientific methods?", opts: ["To increase waste", "To preserve nutrition, reduce waste, and ensure safety", "To hide ingredients", "To raise prices"], ans: 1, exp: "للحفاظ على القيمة الغذائية وتقليل الهدر وضمان السلامة الغذائية." },
+              { type: "mcq", q: "2. How do engineers monitor food freshness in real time?", opts: ["By guessing", "Through smart packaging and cold-chain sensors", "By turning off refrigerators", "By removing labels"], ans: 1, exp: "عبر التغليف الذكي وحساسات سلسلة التبريد." },
+              { type: "mcq", q: "3. Why is honesty important in food technology?", opts: ["So consumers can trust the quality and safety of food", "To make boxes heavier", "To avoid using sensors", "To stop farming"], ans: 0, exp: "الأمانة في كتابة المكونات تبني ثقة المستهلك في جودة وسلامة الغذاء." },
+              { type: "mcq", q: "4. In the passage, the word 'advanced' is closest in meaning to ____.", opts: ["primitive", "modern / developed", "broken", "simple"], ans: 1, exp: "كلمة advanced تعني متطور أو حديث (modern / developed)." }
+            ]
+          }
+        ],
+        essayTopics: [
+          {
+            title: "1. The Role of Modern Technology in Education and Daily Life",
+            chips: ["modern technology", "daily life", "crucial role", "distance learning", "efficiency", "Furthermore,", "Therefore,", "improve", "students"],
+            keywords: ["technology", "education", "life", "students", "improve"],
+            model: "Modern technology plays a crucial role in both education and our daily life. Today, students use computers, smart platforms, and the internet to access information quickly and improve their skills. Furthermore, technology has made communication and work much faster and more efficient. Therefore, we must use modern technology wisely to build a bright future for our country."
+          },
+          {
+            title: "2. Technological Universities and Practical Education in Egypt",
+            chips: ["Technological universities", "leading institutions", "practical skills", "labor market", "engineers", "innovation", "Therefore,", "Egypt"],
+            keywords: ["technological", "universities", "education", "skills", "egypt"],
+            model: "Technological universities are considered among the leading educational institutions in Egypt. They focus on combining theoretical knowledge with hands-on practical training in engineering and information technology. Furthermore, these institutions prepare qualified engineers to meet the needs of the modern labor market. Therefore, technological education is the key to industrial development in Egypt."
+          },
+          {
+            title: "3. Hardware and Software: The Pillars of Modern Computers",
+            chips: ["computer", "hardware", "software", "CPU", "input units", "operating system", "perform tasks", "In addition,", "essential"],
+            keywords: ["hardware", "software", "computer", "data", "system"],
+            model: "A modern computer relies on two essential pillars: hardware and software. Hardware includes physical components such as the CPU, monitor, keyboard, and hard drive. In addition, software consists of the operating system and applications that allow users to perform specific tasks. Without both hardware and software working together, a computer cannot process data efficiently."
+          }
+        ],
+        bonus: {
+          q: "Which transition phrase is best used to start the final paragraph of an academic essay?",
+          opts: ["On the other hand,", "In conclusion,", "For example,", "However,"],
+          ans: 1,
+          exp: "عبارة In conclusion, (وفي الختام) هي الأنسب لبدء الفقرة الختامية للمقال الأكاديمي."
+        }
+      },
+
+      /* ----------------------------------------------------------------------
+         STAGE 7: Comprehensive 25-Question Timed Midterm Simulator + Certificate
+         ---------------------------------------------------------------------- */
+      {
+        id: 7,
+        badge: "المرحلة 7 من 7 (النهائية)",
+        title: "محاكي امتحان الميدترم الشامل (25 سؤال) + الشهادة",
+        titleEn: "Comprehensive 25-Question Midterm Simulator & Official Certificate",
+        formats: ["10 اختيارات", "5 تصحيح وتحويل", "5 قطعة فهم", "5 ترجمة وتعبير"],
+        summary: "الامتحان الشامل النهائي المكون من 25 سؤالاً بمؤقت زمني مباشر يجمع الأنماط الأربعة بالكامل، مع تقرير تفصيلي لكل قسم وشهادة إتمام معتمدة باسمك.",
+        mockSections: {
+          mcqs: [
+            { q: "1. The earth ____ round the sun.", opts: ["go", "goes", "is going", "went"], ans: 1, exp: "حقيقة علمية = مضارع بسيط (goes)." },
+            { q: "2. Listen! Someone ____ in the next room.", opts: ["sings", "is singing", "sang", "sing"], ans: 1, exp: "Listen! تدل على المضارع المستمر (is singing)." },
+            { q: "3. Food is expensive. It ____ a lot of money.", opts: ["cost", "costs", "is costing", "are costing"], ans: 1, exp: "cost فعل حالة لا يقبل -ing = costs." },
+            { q: "4. English ____ all over the world by millions of people.", opts: ["speaks", "is spoken", "spoke", "speaking"], ans: 1, exp: "مبني للمجهول في المضارع البسيط = is spoken." },
+            { q: "5. They are building a new hospital. -> A new hospital ____.", opts: ["is built", "is being built", "was built", "builds"], ans: 1, exp: "مضارع مستمر مبني للمجهول = is being built." },
+            { q: "6. I look forward to ____ data by voice.", opts: ["input", "inputting", "inputs", "inputted"], ans: 1, exp: "look forward to يتبعها V-ing = inputting." },
+            { q: "7. Your smart mobile phone is ____ than my mobile phone.", opts: ["expensive", "more expensive", "most expensive", "as expensive"], ans: 1, exp: "مقارنة مع than = more expensive." },
+            { q: "8. Physical things that make up a computer are called ____.", opts: ["Software", "Hardware", "Data", "Application"], ans: 1, exp: "المكونات المادية للحاسب هي Hardware." },
+            { q: "9. Software in which the user cannot see or edit the source code is ____.", opts: ["Open Source", "Closed Source", "Peripheral", "Database"], ans: 1, exp: "Closed Source يمنع رؤية أو تعديل الكود." },
+            { q: "10. An external computer add-on such as a printer or scanner is a ____.", opts: ["CPU", "Peripheral", "Database", "Supervisor"], ans: 1, exp: "الوحدات الملحقة الخارجية تسمى Peripheral." }
+          ],
+          correctionsAndRewrites: [
+            { kind: "correction", prompt: "11. Find & Correct: 'I am knowing the answer.'", correct: "know", exp: "know فعل حالة لا يقبل الاستمرار: know." },
+            { kind: "correction", prompt: "12. Find & Correct: 'They didn't went to the lecture.'", correct: "go", exp: "بعد didn't نستخدم المصدر: go." },
+            { kind: "correction", prompt: "13. Find & Correct: 'After install the fan, install the RAM.'", correct: "installing", exp: "بعد حرف الجر After نضع V-ing: installing." },
+            { kind: "rewrite", prompt: "14. Rewrite in Past Simple: 'We will travel to London next month.'", accepted: ["we traveled to london last month", "we travelled to london last month", "we traveled to london", "we travelled to london"], model: "We traveled to London last month.", exp: "نحول will travel إلى traveled و next month إلى last month." },
+            { kind: "rewrite", prompt: "15. Rewrite in Present Simple: 'She is studying English now.'", accepted: ["she studies english", "she studies english every day", "she always studies english"], model: "She studies English every day.", exp: "المضارع البسيط مع She = studies." }
+          ],
+          readingPassage: {
+            title: "Mock Exam Reading Passage: Smart Operating Systems & Cloud Databases",
+            text: "An operating system is the core software that manages computer hardware and software resources. Its supervisor program controls the central processing unit (CPU), memory, and input/output peripherals. Today, modern companies also rely on cloud databases—organized electronic collections of rows, columns, and indexes—to store massive data securely and allow engineers to collaborate from anywhere in the world.",
+            questions: [
+              { q: "16. True or False: An operating system manages both hardware and software resources.", opts: ["True", "False"], ans: 0, exp: "True — مذكورة في السطر الأول." },
+              { q: "17. True or False: The supervisor program controls the CPU, memory, and peripherals.", opts: ["True", "False"], ans: 0, exp: "True — مذكورة بالنص." },
+              { q: "18. True or False: A database is a physical hardware cable inside the monitor.", opts: ["True", "False"], ans: 1, exp: "False — قاعدة البيانات هي مجموعة إلكترونية منظمة من الصفوف والأعمدة." },
+              { q: "19. What do cloud databases consist of?", opts: ["Rows, columns, and indexes", "Printers and scanners", "Gasoline engines", "Paper books"], ans: 0, exp: "تتكون من rows, columns, and indexes." },
+              { q: "20. How do cloud databases help engineers today?", opts: ["They stop internet access", "They allow engineers to store data securely and collaborate globally", "They replace all computers", "They delete files"], ans: 1, exp: "تتيح تخزين البيانات بأمان والتعاون الهندسي من أي مكان." }
+            ]
+          },
+          translationsAndEssay: [
+            { dir: "AR → EN", prompt: "21. Translate into English: 'تعتبر الجامعات التكنولوجية من المؤسسات الرائدة في مجال التعليم التكنولوجي.'", keywords: ["technological", "universities", "leading", "education"], model: "Technological universities are considered among the leading institutions in the field of technological education." },
+            { dir: "AR → EN", prompt: "22. Translate into English: 'نعتمد على التكنولوجيا في جميع مجالات حياتنا اليومية لأنها مهمة جداً.'", keywords: ["depend", "rely", "technology", "daily", "life", "important"], model: "We depend on technology in all fields of our daily life because it is very important." },
+            { dir: "EN → AR", prompt: "23. Translate into Arabic: 'A computer is an electronic machine that processes information and stores raw data.'", keywords: ["الحاسب", "إلكترونية", "المعلومات", "البيانات"], model: "الحاسب الآلي هو آلة إلكترونية تعالج المعلومات وتخزن البيانات الخام." },
+            { dir: "EN → AR", prompt: "24. Translate into Arabic: 'The inauguration of the Grand Egyptian Museum is a source of pride for all Egyptians.'", keywords: ["افتتاح", "المتحف", "المصري", "فخر"], model: "يُعد افتتاح المتحف المصري الكبير مصدر فخر لجميع المصريين." },
+            { dir: "ESSAY", prompt: "25. Write a short paragraph (at least 25 words) about: 'Why Technology is Important for Engineering Students.'", keywords: ["technology", "students", "engineering", "learn", "skills", "future"], model: "Technology is very important for engineering students today. It helps us learn practical skills, design smart prototypes, and solve real industrial problems. Therefore, mastering technology prepares us for a successful future." }
+          ]
+        },
+        bonus: {
+          q: "Final Excellence Bonus (+30 XP): Which sentence is 100% grammatically and technically correct?",
+          opts: [
+            "After installing the CPU, the computer processes data efficiently.",
+            "After install the CPU, the computer are processing data.",
+            "Hardware is a software program that runs on monitors.",
+            "She didn't went to the technological lab yesterday."
+          ],
+          ans: 0,
+          exp: "إجابة نموذجية يا بشمهندس: After + V-ing (installing) + مضارع بسيط صحيح (processes)."
+        }
+      }
+    ];
+
+    /* ========================================================================
+       2. STATE MANAGEMENT, THEME PERSISTENCE & ADMIN CONTROLS
+       ======================================================================== */
+    const ADMIN_PASSCODE = "262010302008";
+
+    const legacySavedState = localStorage.getItem("batuEnglishClubEditorialV1");
+    const currentSavedState = localStorage.getItem("englishClubEditorialV1");
+    let state = JSON.parse(currentSavedState || legacySavedState || "null") || {
+      theme: "light",
+      studentName: "",
+      xp: 0,
+      unlockedStage: 1,
+      completedStages: {},
+      bonusClaimed: {},
+      adminMode: false,
+      mockExamScore: null
+    };
+    if (!currentSavedState && legacySavedState) {
+      localStorage.setItem("englishClubEditorialV1", JSON.stringify(state));
+    }
+
+    function computeGenuineUnlockedStage() {
+      let maxUnlocked = 1;
+      for (let i = 1; i < CURRICULUM.length; i++) {
+        if (state.completedStages && state.completedStages[i]) {
+          maxUnlocked = i + 1;
+        } else {
+          break;
+        }
+      }
+      return maxUnlocked;
+    }
+
+    // Heal any leftover unlockedStage=7 caused by a previous admin login on this device
+    state.unlockedStage = computeGenuineUnlockedStage();
+    localStorage.setItem("englishClubEditorialV1", JSON.stringify(state));
+
+    let remoteConfig = {
+      requireAdminPass: true,
+      adminPin: ADMIN_PASSCODE,
+      passVersion: 1
+    };
+
+    function isStageUnlocked(stageId) {
+      if (!remoteConfig.requireAdminPass) return true;
+      return Boolean(state.adminMode) || stageId <= state.unlockedStage || Boolean(state.completedStages[stageId]);
+    }
+
+    let currentStageId = 1;
+    let activeTab = "study";
+    let stageEarnedPoints = {};
+    let mockTimerInterval = null;
+    let mockSecondsRemaining = 45 * 60; // 45-minute realistic midterm timer
+
+    function applyTheme(themeName) {
+      const mode = themeName === "dark" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", mode);
+      state.theme = mode;
+
+      const isDark = mode === "dark";
+      const navIcon = document.getElementById("themeToggleIcon");
+      const navLbl = document.getElementById("themeToggleLabel");
+      const heroIcon = document.getElementById("heroThemeIcon");
+      const heroTxt = document.getElementById("heroThemeText");
+      const wsIcon = document.getElementById("wsThemeIcon");
+
+      if (navIcon) navIcon.textContent = isDark ? "☀️" : "🌙";
+      if (navLbl) navLbl.textContent = isDark ? "وضع النهار" : "الوضع الليلي";
+      if (heroIcon) heroIcon.textContent = isDark ? "☀️" : "🌙";
+      if (heroTxt) heroTxt.textContent = isDark ? "تبديل لـ وضع النهار" : "تبديل لـ الوضع الليلي";
+      if (wsIcon) wsIcon.textContent = isDark ? "☀️" : "🌙";
+    }
+
+    function toggleThemeMode() {
+      const next = state.theme === "dark" ? "light" : "dark";
+      applyTheme(next);
+      saveState();
+    }
+
+    function saveState() {
+      localStorage.setItem("englishClubEditorialV1", JSON.stringify(state));
+      updateNavbarHUD();
+    }
+
+    function getEngineerTitle() {
+      const n = (state.studentName || "").trim();
+      if (!n) return "يا بشمهندس";
+      if (n.startsWith("بشمهندس") || n.startsWith("المهندس") || n.startsWith("م/")) return n;
+      return `يا بشمهندس ${n}`;
+    }
+
+    function getCertificateName() {
+      const n = (state.studentName || "").trim();
+      if (!n) return "المهندس / طالب الهندسة والتكنولوجيا";
+      return `المهندس / ${n}`;
+    }
+
+    function getRankLabel(xp) {
+      if (xp >= 700) return "🏆 مهندس متميز";
+      if (xp >= 350) return "📐 مهندس متمكن";
+      return "🎓 طالب مستجد";
+    }
+
+    function updateNavbarHUD() {
+      const completedCount = Object.keys(state.completedStages).filter(k => state.completedStages[k]).length;
+      const shownStages = (state.adminMode || !remoteConfig.requireAdminPass) ? 7 : Math.min(7, state.unlockedStage);
+      document.getElementById("navStageCounter").textContent = `${shownStages}/7`;
+      document.getElementById("navXp").textContent = state.xp;
+      document.getElementById("navRank").textContent = getRankLabel(state.xp);
+
+      const adminPill = document.getElementById("navAdminPill");
+      const deactBtn = document.getElementById("deactivateAdminBtn");
+      if (state.adminMode) {
+        adminPill.style.display = "inline-flex";
+        deactBtn.style.display = "inline-flex";
+      } else {
+        adminPill.style.display = "none";
+        deactBtn.style.display = "none";
+      }
+
+      const pct = Math.round((completedCount / CURRICULUM.length) * 100);
+      const fillEl = document.getElementById("overallProgressFill");
+      if (fillEl) fillEl.style.width = `${pct}%`;
+    }
+
+    let toastTimeout = null;
+    function triggerCheerToast(htmlMsg) {
+      const toast = document.getElementById("cheerToast");
+      document.getElementById("cheerToastBody").innerHTML = htmlMsg;
+      toast.classList.add("show");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.remove("show"), 3500);
+    }
+
+    /* ========================================================================
+       3. HOME / ROADMAP RENDERING & ONBOARDING
+       ======================================================================== */
+    function saveStudentAndStart() {
+      const val = document.getElementById("studentNameField").value.trim();
+      if (val) {
+        state.studentName = val;
+      }
+      saveState();
+      renderHomeAndRoadmap();
+      triggerCheerToast(`أهلاً بك <strong>${getEngineerTitle()}</strong>! تم تجهيز مسارك الدراسي، ابدأ بالمرحلة الأولى.`);
+      scrollToSection("roadmapSection");
+    }
+
+    function navigateToHome() {
+      stopMockTimer();
+      document.getElementById("stageWorkspaceView").classList.remove("active");
+      document.getElementById("homeRoadmapView").classList.add("active");
+      renderHomeAndRoadmap();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function scrollToSection(id) {
+      if (!document.getElementById("homeRoadmapView").classList.contains("active")) {
+        navigateToHome();
+      }
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 70);
+    }
+
+    function renderHomeAndRoadmap() {
+      updateNavbarHUD();
+      const nameField = document.getElementById("studentNameField");
+      if (state.studentName && !nameField.value) {
+        nameField.value = state.studentName;
+      }
+
+      const engTitle = getEngineerTitle();
+      document.getElementById("engineerWelcomeHeading").textContent = `أهلاً بك ${engTitle}!`;
+
+      const completedCount = Object.keys(state.completedStages).filter(k => state.completedStages[k]).length;
+      if (state.adminMode) {
+        document.getElementById("roadmapHintText").innerHTML =
+          `🛡️ <strong>وضع المشرف مفعّل:</strong> جميع المراحل السبعة مفتوحة لك بالكامل مع صلاحية التخطي.`;
+      } else if (!remoteConfig.requireAdminPass) {
+        document.getElementById("roadmapHintText").innerHTML =
+          `🔓 <strong>الوصول المفتوح مفعّل:</strong> جميع المراحل السبعة مفتوحة الآن لكل الطلاب بدون قفل.`;
+      } else {
+        document.getElementById("roadmapHintText").textContent =
+          `أتممت ${completedCount} من 7 مراحل. تُفتح كل مرحلة تالية تلقائياً بعد اجتياز المرحلة السابقة بنسبة 60% فأكثر.`;
+      }
+
+      const listEl = document.getElementById("stagesRoadmapContainer");
+      listEl.innerHTML = CURRICULUM.map(st => {
+        const isDone = !!state.completedStages[st.id];
+        const isUnlocked = isStageUnlocked(st.id);
+        const cardState = isDone ? "completed" : (isUnlocked ? "unlocked" : "locked");
+
+        return `
+          <div class="stage-card ${cardState}">
+            <div class="stage-top-row">
+              <div>
+                <span class="stage-pill">
+                  ${isDone ? "✅ مكتملة" : (isUnlocked ? "📖 متاحة للدراسة" : "🔒 مقفولة")} &bull; ${st.badge}
+                </span>
+                <h3>${st.title}</h3>
+                <div class="stage-en-sub">${st.titleEn}</div>
+              </div>
+              <div style="font-size:1.45rem;">
+                ${isDone ? "🏅" : (isUnlocked ? "📐" : "🔒")}
+              </div>
+            </div>
+
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:0.75rem;">
+              ${st.summary}
+            </p>
+
+            <div class="stage-formats-tags">
+              ${st.formats.map(f => `<span class="fmt-tag">${f}</span>`).join("")}
+            </div>
+
+            ${isUnlocked ? `
+              <button class="btn ${isDone ? 'btn-secondary' : 'btn-primary'}" style="width:100%;" onclick="openStageWorkspace(${st.id})">
+                ${isDone ? "مراجعة المرحلة أو إعادة التدريب" : `ادخل ${st.badge} الآن &larr;`}
+              </button>
+            ` : `
+              <div class="locked-notice">
+                <span>🔒</span>
+                <span>تُفتح تلقائياً بعد اجتياز المرحلة السابقة (المرحلة ${st.id - 1}) يا بشمهندس</span>
+              </div>
+            `}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle("open");
+    }
+
+    /* ========================================================================
+       4. STAGE WORKSPACE RENDERER (STUDY GUIDE, PRACTICE & EXAM, BONUS)
+       ======================================================================== */
+    function openStageWorkspace(stageId) {
+      const isAllowed = isStageUnlocked(stageId);
+      if (!isAllowed) {
+        triggerCheerToast("🔒 تُفتح تلقائياً بعد اجتياز المرحلة السابقة يا بشمهندس.");
+        return;
+      }
+
+      stopMockTimer();
+      currentStageId = stageId;
+      stageEarnedPoints[stageId] = { correct: 0, total: 0, answeredIds: {}, sectionScores: {} };
+
+      const stage = CURRICULUM.find(s => s.id === stageId);
+      document.getElementById("wsStageHeading").textContent = `${stage.badge}: ${stage.title}`;
+      document.getElementById("wsAdminSkipBtn").style.display = state.adminMode ? "inline-flex" : "none";
+
+      document.getElementById("homeRoadmapView").classList.remove("active");
+      document.getElementById("stageWorkspaceView").classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      buildStageStudyPane(stage);
+      buildStageExamPane(stage);
+      buildStageBonusPane(stage);
+      switchStageTab("study");
+    }
+
+    function switchStageTab(tabName) {
+      activeTab = tabName;
+      ["study", "exam", "bonus"].forEach(t => {
+        document.getElementById(`tabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.toggle("active", t === tabName);
+        document.getElementById(`wsTab${t.charAt(0).toUpperCase() + t.slice(1)}`).style.display = (t === tabName) ? "block" : "none";
+      });
+
+      if (currentStageId === 7 && tabName === "exam") {
+        startMockTimer();
+      } else {
+        stopMockTimer();
+      }
+    }
+
+    /* --- Live Timer for Stage 7 Midterm Simulator --- */
+    function startMockTimer() {
+      if (mockTimerInterval) return;
+      mockTimerInterval = setInterval(() => {
+        if (mockSecondsRemaining > 0) {
+          mockSecondsRemaining--;
+          const mins = String(Math.floor(mockSecondsRemaining / 60)).padStart(2, "0");
+          const secs = String(mockSecondsRemaining % 60).padStart(2, "0");
+          const el = document.getElementById("mockTimerDisplay");
+          if (el) el.textContent = `${mins}:${secs}`;
+        } else {
+          stopMockTimer();
+          triggerCheerToast("⏰ انتهى الوقت المقترح للامتحان! يمكنك اعتماد نتيجتك الآن.");
+        }
+      }, 1000);
+    }
+
+    function stopMockTimer() {
+      if (mockTimerInterval) {
+        clearInterval(mockTimerInterval);
+        mockTimerInterval = null;
+      }
+    }
+
+    function resetMockTimer() {
+      mockSecondsRemaining = 45 * 60;
+      const el = document.getElementById("mockTimerDisplay");
+      if (el) el.textContent = "45:00";
+    }
+
+    /* --- TAB 1: STUDY GUIDE & GLOSSARY --- */
+    function buildStageStudyPane(stage) {
+      const el = document.getElementById("wsTabStudy");
+      let html = "";
+
+      if (stage.notes) {
+        html += `
+          <div class="panel-box">
+            <div class="panel-title">
+              <span>📘 شرح القواعد والملاحظات (${stage.titleEn})</span>
+            </div>
+            ${stage.notes.map(n => `
+              <div class="note-card">
+                <h4>${n.title}</h4>
+                <div>${n.body}</div>
+                ${n.tableHtml || ""}
+                ${n.formula ? `<div class="formula-strip ltr-block">${n.formula}</div>` : ""}
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      if (stage.glossary) {
+        html += `
+          <div class="panel-box">
+            <div class="panel-title">
+              <span>💻 بطاقات مصطلحات الـ IT والكمبيوتر (اضغط على البطاقة لعرض التعريف)</span>
+              <span class="section-tag">15 OFFICIAL TERMS</span>
+            </div>
+            <div class="glossary-grid">
+              ${stage.glossary.map((g, i) => `
+                <div class="term-card" id="gterm_${i}" onclick="this.classList.toggle('open')">
+                  <div class="term-head">
+                    <span>${g.term}</span>
+                    <span style="font-size:0.74rem;color:var(--accent-secondary);">عرض التعريف</span>
+                  </div>
+                  <div class="term-body">
+                    <div style="font-weight:800;color:var(--accent-secondary);margin-bottom:0.3rem;">${g.ar}</div>
+                    <div class="ltr-block" style="color:var(--text-secondary);font-size:0.8rem;">${g.def}</div>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      if (stage.id === 6) {
+        html += `
+          <div class="panel-box">
+            <div class="panel-title"><span>🧠 منهجية حل قطع الفهم وكتابة المقال الأكاديمي</span></div>
+            <div class="note-card">
+              <h4>1. طريقة التعامل مع أسئلة قطع الفهم (True/False &amp; Comprehension)</h4>
+              <div>قارن كل عبارة بالنص الأصلي بدقة؛ استبدال كلمة واحدة بعكسها (مثل <span class="en">prevent</span> بدلاً من <span class="en">help</span> أو <span class="en">reduce</span> بدلاً من <span class="en">increase</span>) يجعل الجملة <strong>False</strong> مباشرة.</div>
+            </div>
+            <div class="note-card">
+              <h4>2. خطة بناء الفقرة الإنجليزية (Paragraph Blueprint)</h4>
+              <div>ابدأ بجملة رئيسية واضحة (<span class="en">Topic Sentence</span>)، ثم ادعمها بفكرتين مستخدماً روابط أكاديمية (<span class="en">Furthermore, / In addition,</span>)، واختم بجملة استنتاجية تبدأ بـ (<span class="en">Therefore,</span>).</div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (stage.id === 7) {
+        html += `
+          <div class="panel-box">
+            <div class="panel-title"><span>🎯 هيكل محاكي امتحان الميدترم الشامل (25 سؤالاً)</span></div>
+            <div class="note-card">
+              <h4>توزيع درجات وأقسام الامتحان</h4>
+              <div>
+                • <strong>القسم الأول (10 أسئلة):</strong> اختيارات من متعدد (Grammar &amp; IT Terminology).<br>
+                • <strong>القسم الثاني (5 أسئلة):</strong> استخراج الخطأ وتصحيحه + إعادة صياغة الجمل (Rewrite).<br>
+                • <strong>القسم الثالث (5 أسئلة):</strong> قطعة فهم تكنولوجية (True/False + Comprehension).<br>
+                • <strong>القسم الرابع (5 أسئلة):</strong> ترجمة (AR &harr; EN) + كتابة براجراف قصير.<br>
+                • <strong>الاجتياز واستلام الشهادة:</strong> تحقيق 15 نقطة من 25 (60%) أو أكثر يُصدر شهادة التخرج باسمك فوراً.
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      html += `
+        <button class="btn btn-primary" style="width:100%;" onclick="switchStageTab('exam')">
+          انتقل الآن إلى الاختبار والتدريبات &larr;
+        </button>
+      `;
+      el.innerHTML = html;
+    }
+
+    /* --- TAB 2: PRACTICE & EXAM --- */
+    function buildStageExamPane(stage) {
+      const el = document.getElementById("wsTabExam");
+      let totalItems = 0;
+      let html = "";
+
+      const renderMcqBlock = (qObj, uniqueKey, badgeText, secKey = "general") => {
+        totalItems++;
+        return `
+          <div class="exam-item-card" id="card_${uniqueKey}">
+            <span class="q-type-badge">${badgeText}</span>
+            <div class="q-text-en">${qObj.q}</div>
+            <div class="mcq-options">
+              ${qObj.opts.map((opt, idx) => `
+                <button class="mcq-btn" id="btn_${uniqueKey}_${idx}" onclick="handleMcqPick('${uniqueKey}', ${idx}, ${qObj.ans}, '${escapeJsStr(qObj.exp)}', '${secKey}')">
+                  <span>${String.fromCharCode(65 + idx)}. ${opt}</span>
+                  <span id="ico_${uniqueKey}_${idx}"></span>
+                </button>
+              `).join("")}
+            </div>
+            <div class="feedback-strip" id="fb_${uniqueKey}"></div>
+          </div>
+        `;
+      };
+
+      // Stage 1-4 MCQs
+      if (stage.mcqs) {
+        html += `<div class="panel-box"><div class="panel-title"><span>📝 أولاً: أسئلة الاختيار من متعدد (MCQs)</span></div>`;
+        stage.mcqs.forEach((m, idx) => {
+          html += renderMcqBlock(m, `s${stage.id}_mcq_${idx}`, `MCQ #${idx + 1}`);
+        });
+        html += `</div>`;
+      }
+
+      // Stage 1, 3, 4 Corrections
+      if (stage.corrections) {
+        html += `<div class="panel-box"><div class="panel-title"><span>🛠️ ثانياً: استخرج الخطأ واكتب التصحيح (Find the Mistake &amp; Correct)</span></div>`;
+        stage.corrections.forEach((c, idx) => {
+          totalItems++;
+          const key = `s${stage.id}_corr_${idx}`;
+          html += `
+            <div class="exam-item-card" id="card_${key}">
+              <span class="q-type-badge">Correction #${idx + 1}</span>
+              <div class="q-text-en">${c.badSentence}</div>
+              <div style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:0.45rem;">
+                اكتب الكلمة أو الإجابة الصحيحة مكان (<span class="en">${c.targetMistake}</span>):
+              </div>
+              <div class="typed-action-row">
+                <input type="text" id="inp_${key}" class="editorial-input ltr-field" placeholder="Type the correction here..." />
+                <button class="btn btn-primary" id="sub_${key}" onclick="handleCorrectionSubmit('${key}', '${escapeJsStr(c.correctAnswer)}', '${escapeJsStr(c.exp)}')">
+                  تحقق
+                </button>
+              </div>
+              <div class="feedback-strip" id="fb_${key}"></div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      // Stage 2 Sentence Rewrites
+      if (stage.rewrites) {
+        html += `<div class="panel-box"><div class="panel-title"><span>🔄 ثانياً: أعد صياغة الجمل حسب المطلوب (Rewrite Sentences)</span></div>`;
+        stage.rewrites.forEach((rw, idx) => {
+          totalItems++;
+          const key = `s${stage.id}_rw_${idx}`;
+          html += `
+            <div class="exam-item-card" id="card_${key}">
+              <span class="q-type-badge">Rewrite #${idx + 1} &bull; ${rw.instruction}</span>
+              <div class="q-text-en">"${rw.prompt}"</div>
+              <div class="typed-action-row">
+                <input type="text" id="inp_${key}" class="editorial-input ltr-field" placeholder="Write the transformed sentence..." />
+                <button class="btn btn-primary" id="sub_${key}" onclick="handleRewriteSubmit('${key}', ${idx})">
+                  تصحيح الجملة
+                </button>
+              </div>
+              <div class="feedback-strip" id="fb_${key}"></div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      // Stage 5 Translation Lab
+      if (stage.translations) {
+        html += `<div class="panel-box"><div class="panel-title"><span>🌐 معمل الترجمة التفاعلي (8 نصوص من نماذج الميدترم)</span></div>`;
+        stage.translations.forEach((tr, idx) => {
+          totalItems++;
+          const key = `s5_tr_${idx}`;
+          const isArToEn = tr.dir.startsWith("AR");
+          html += `
+            <div class="exam-item-card" id="card_${key}">
+              <span class="q-type-badge">Translation #${idx + 1} (${tr.dir})</span>
+              <div class="${isArToEn ? 'q-text-ar' : 'q-text-en'}">${tr.source}</div>
+              <div style="font-size:0.78rem;color:var(--accent-secondary);margin-bottom:0.45rem;font-weight:700;">
+                كلمات مساعدة: ${tr.hints.join(" • ")}
+              </div>
+              <textarea id="inp_${key}" class="editorial-input ${isArToEn ? 'ltr-field' : ''}" style="min-height:84px;margin-bottom:0.55rem;" placeholder="${isArToEn ? 'Write your English translation here...' : 'اكتب ترجمتك العربية هنا...'}"></textarea>
+              <button class="btn btn-primary btn-sm" id="sub_${key}" onclick="handleTranslationSubmit('${key}', ${idx})">
+                تقييم الترجمة وعرض النموذج المعتمد
+              </button>
+              <div class="feedback-strip" id="fb_${key}"></div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      // Stage 6 Reading Passages + Essay Workshop
+      if (stage.passages) {
+        stage.passages.forEach((psg, pIdx) => {
+          html += `
+            <div class="panel-box">
+              <div class="panel-title"><span>📄 ${psg.title}</span></div>
+              <div class="passage-box">${psg.text}</div>
+              ${psg.questions.map((pq, qIdx) => renderMcqBlock(pq, `s6_p${pIdx}_q${qIdx}`, `Passage ${pIdx + 1} • Q${qIdx + 1}`)).join("")}
+            </div>
+          `;
+        });
+
+        totalItems++;
+        html += `
+          <div class="panel-box">
+            <div class="panel-title"><span>✍️ ورشة الكتابة المقالية (Essay &amp; Paragraph Workshop)</span></div>
+            <label style="display:block;font-size:0.85rem;font-weight:800;margin-bottom:0.4rem;">اختر موضوع المقال:</label>
+            <select id="essayTopicSelect" class="editorial-input ltr-field" onchange="loadEssayTopic(this.value)" style="margin-bottom:0.75rem;">
+              ${stage.essayTopics.map((et, i) => `<option value="${i}">${et.title}</option>`).join("")}
+            </select>
+
+            <div style="font-size:0.8rem;color:var(--text-secondary);">اضغط على أي مفردة مساعدة لإدراجها في النص:</div>
+            <div class="vocab-chips-bar" id="essayChipsBar"></div>
+
+            <textarea id="essayEditorArea" class="essay-textarea" oninput="updateEssayWordCount()" placeholder="Start writing your English paragraph here (aim for 35+ words)..."></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin:0.5rem 0 0.85rem;font-size:0.82rem;color:var(--text-secondary);">
+              <span>عدد الكلمات: <strong id="essayWordCounter" style="color:var(--accent-primary);">0</strong> كلمة</span>
+              <span>الحد الأدنى المقترح: 35 كلمة</span>
+            </div>
+
+            <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="evaluateStudentEssay()">تقييم المقال واحتساب النقاط</button>
+              <button class="btn btn-secondary" onclick="toggleModelEssay()">عرض نموذج Band-A</button>
+            </div>
+
+            <div class="feedback-strip" id="essayEvalFeedback"></div>
+            <div class="feedback-strip" id="essayModelBox"></div>
+          </div>
+        `;
+      }
+
+      // Stage 7 Comprehensive 25-Question Timed Mock Exam
+      if (stage.mockSections) {
+        const ms = stage.mockSections;
+        resetMockTimer();
+        html += `
+          <div class="timer-banner">
+            <div style="font-size:0.86rem;font-weight:800;color:var(--text-primary);">
+              ⏱️ مؤقت محاكي امتحان الميدترم الشامل (25 سؤالاً)
+            </div>
+            <div style="display:flex;align-items:center;gap:0.65rem;">
+              <span class="timer-readout" id="mockTimerDisplay">45:00</span>
+              <button class="btn btn-subtle btn-sm" onclick="resetMockTimer()">إعادة ضبط الوقت</button>
+            </div>
+          </div>
+        `;
+
+        html += `<div class="panel-box"><div class="panel-title"><span>القسم الأول (10 أسئلة): اختيارات القواعد ومصطلحات الحاسب</span></div>`;
+        ms.mcqs.forEach((m, i) => {
+          html += renderMcqBlock(m, `s7_mcq_${i}`, `Section 1 • Q${i + 1}`, "sec1");
+        });
+        html += `</div>`;
+
+        html += `<div class="panel-box"><div class="panel-title"><span>القسم الثاني (5 أسئلة): استخراج الخطأ وإعادة الصياغة</span></div>`;
+        ms.correctionsAndRewrites.forEach((item, i) => {
+          totalItems++;
+          const key = `s7_cr_${i}`;
+          html += `
+            <div class="exam-item-card" id="card_${key}">
+              <span class="q-type-badge">Section 2 • Q${11 + i}</span>
+              <div class="q-text-en">${item.prompt}</div>
+              <div class="typed-action-row">
+                <input type="text" id="inp_${key}" class="editorial-input ltr-field" placeholder="Write your answer here..." />
+                <button class="btn btn-primary" id="sub_${key}" onclick="handleMockSectionB('${key}', ${i})">تحقق</button>
+              </div>
+              <div class="feedback-strip" id="fb_${key}"></div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+
+        html += `
+          <div class="panel-box">
+            <div class="panel-title"><span>القسم الثالث (5 أسئلة): قطعة الفهم التكنولوجية</span></div>
+            <div class="passage-box"><strong>${ms.readingPassage.title}</strong><br><br>${ms.readingPassage.text}</div>
+            ${ms.readingPassage.questions.map((rq, i) => renderMcqBlock(rq, `s7_rd_${i}`, `Section 3 • Q${16 + i}`, "sec3")).join("")}
+          </div>
+        `;
+
+        html += `<div class="panel-box"><div class="panel-title"><span>القسم الرابع (5 أسئلة): الترجمة والكتابة المقالية</span></div>`;
+        ms.translationsAndEssay.forEach((te, i) => {
+          totalItems++;
+          const key = `s7_te_${i}`;
+          const isEnToAr = te.dir === "EN → AR";
+          html += `
+            <div class="exam-item-card" id="card_${key}">
+              <span class="q-type-badge">Section 4 • ${te.dir}</span>
+              <div class="q-text-en">${te.prompt}</div>
+              <textarea id="inp_${key}" class="editorial-input ${isEnToAr ? '' : 'ltr-field'}" style="min-height:84px;margin-bottom:0.55rem;" placeholder="${isEnToAr ? 'اكتب الترجمة بالعربية...' : 'Write your English answer here...'}"></textarea>
+              <button class="btn btn-primary btn-sm" id="sub_${key}" onclick="handleMockSectionD('${key}', ${i})">تقييم الإجابة</button>
+              <div class="feedback-strip" id="fb_${key}"></div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      // Stage Checkpoint Summary & Unlock Card
+      stageEarnedPoints[stage.id] = {
+        correct: 0,
+        total: totalItems,
+        answeredIds: {},
+        sectionScores: { sec1: 0, sec2: 0, sec3: 0, sec4: 0 }
+      };
+
+      html += `
+        <div class="panel-box" style="border-color:var(--accent-primary);text-align:center;" id="stageCheckoutCard">
+          <h3 style="font-size:1.12rem;font-weight:900;margin-bottom:0.35rem;">🏁 اعتماد نتيجة ${stage.badge}</h3>
+          <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.9rem;">
+            أجبت على <strong id="stAnsweredCount">0</strong> من <strong>${totalItems}</strong> سؤال | الإجابات الصحيحة: <strong id="stCorrectCount" style="color:var(--success-color);">0</strong>
+          </p>
+          <button class="btn btn-primary" style="width:100%;max-width:440px;" onclick="finalizeStageCheckpoint(${stage.id})">
+            ${stage.id === 7 ? "اعتماد النتيجة واستخراج شهادة الإتمام 🎓" : `اعتماد النتيجة وفتح المرحلة ${stage.id + 1} &larr;`}
+          </button>
+          <div id="stageCheckpointResult" style="margin-top:1rem;"></div>
+        </div>
+      `;
+
+      el.innerHTML = html;
+
+      if (stage.id === 6) {
+        loadEssayTopic(0);
+      }
+    }
+
+    /* --- TAB 3: GOLDEN BONUS (+30 XP) --- */
+    function buildStageBonusPane(stage) {
+      const el = document.getElementById("wsTabBonus");
+      const claimed = !!state.bonusClaimed[stage.id];
+      el.innerHTML = `
+        <div class="bonus-panel">
+          <div style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent-warm-soft);color:var(--accent-warm);padding:0.25rem 0.8rem;border-radius:999px;font-size:0.78rem;font-weight:800;margin-bottom:0.75rem;">
+            ⭐ سؤال البونص الذهبي (+30 Bonus XP)
+          </div>
+          <h3 style="font-size:1.06rem;font-weight:900;margin-bottom:0.4rem;">
+            تحدي التميز الخاص بـ ${stage.badge}
+          </h3>
+          <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:0.9rem;">
+            أجب على هذا السؤال بشكل صحيح للحصول على <strong>30 نقطة إضافية (Bonus XP)</strong> لترقية رتبتك الأكاديمية.
+          </p>
+          <div class="q-text-en" style="background:var(--bg-subtle);padding:0.95rem;border-radius:11px;border-left:4px solid var(--accent-warm);">
+            ${stage.bonus.q}
+          </div>
+          <div class="mcq-options">
+            ${stage.bonus.opts.map((opt, idx) => `
+              <button class="mcq-btn" id="bonusBtn_${idx}" ${claimed ? "disabled" : ""} onclick="claimStageBonus(${idx})">
+                <span>${String.fromCharCode(65 + idx)}. ${opt}</span>
+                <span id="bonusIco_${idx}">${claimed && idx === stage.bonus.ans ? "✅" : ""}</span>
+              </button>
+            `).join("")}
+          </div>
+          <div class="feedback-strip ${claimed ? 'show' : ''}" id="bonusFeedbackStrip">
+            ${claimed ? `<strong>تم الحصول على البونص (+30 XP)!</strong> ${stage.bonus.exp}` : ""}
+          </div>
+        </div>
+      `;
+    }
+
+    /* ========================================================================
+       5. INTERACTIVE GRADING HANDLERS
+       ======================================================================== */
+    function escapeJsStr(str) {
+      return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    }
+
+    function normalizeText(str) {
+      return String(str || "")
+        .toLowerCase()
+        .replace(/[.,!?;:'"()\-–—]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function recordItemResult(key, isCorrect, secKey = "general") {
+      const tracker = stageEarnedPoints[currentStageId];
+      if (!tracker || tracker.answeredIds[key]) return;
+      tracker.answeredIds[key] = true;
+      if (isCorrect) {
+        tracker.correct++;
+        if (tracker.sectionScores && tracker.sectionScores[secKey] !== undefined) {
+          tracker.sectionScores[secKey]++;
+        }
+        state.xp += 10;
+        saveState();
+      }
+      const ansCount = Object.keys(tracker.answeredIds).length;
+      const ansEl = document.getElementById("stAnsweredCount");
+      const corEl = document.getElementById("stCorrectCount");
+      if (ansEl) ansEl.textContent = ansCount;
+      if (corEl) corEl.textContent = tracker.correct;
+    }
+
+    function handleMcqPick(key, pickedIdx, correctIdx, exp, secKey = "general") {
+      const tracker = stageEarnedPoints[currentStageId];
+      if (tracker && tracker.answeredIds[key]) return;
+
+      const isCorrect = pickedIdx === correctIdx;
+      const card = document.getElementById(`card_${key}`);
+      const buttons = card.querySelectorAll(".mcq-btn");
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === correctIdx) {
+          btn.classList.add("correct");
+          document.getElementById(`ico_${key}_${idx}`).textContent = "✅";
+        } else if (idx === pickedIdx && !isCorrect) {
+          btn.classList.add("wrong");
+          document.getElementById(`ico_${key}_${idx}`).textContent = "❌";
+        }
+      });
+
+      recordItemResult(key, isCorrect, secKey);
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = `<strong>${isCorrect ? "✅ أحسنت يا بشمهندس!" : "💡 التوضيح:"}</strong> ${exp}`;
+      fb.classList.add("show");
+
+      if (isCorrect) {
+        triggerCheerToast(`أحسنت ${getEngineerTitle()}! إجابة صحيحة (+10 XP)`);
+      } else {
+        triggerCheerToast(`استمر ${getEngineerTitle()}، راجع التوضيح لتثبيت القاعدة.`);
+      }
+    }
+
+    function handleCorrectionSubmit(key, correctAnswer, exp) {
+      const inputEl = document.getElementById(`inp_${key}`);
+      const userVal = normalizeText(inputEl.value);
+      const targetVal = normalizeText(correctAnswer);
+      if (!userVal) {
+        triggerCheerToast("اكتب التصحيح في الخانة أولاً يا بشمهندس.");
+        return;
+      }
+
+      const isCorrect = userVal === targetVal || userVal.includes(targetVal);
+      inputEl.disabled = true;
+      document.getElementById(`sub_${key}`).disabled = true;
+      recordItemResult(key, isCorrect);
+
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = isCorrect
+        ? `✅ <strong>إجابة صحيحة (${correctAnswer}) يا بشمهندس.</strong><br>${exp}`
+        : `💡 <strong>الإجابة النموذجية: <span class="en-teal">${correctAnswer}</span></strong><br>${exp}`;
+      fb.classList.add("show");
+
+      if (isCorrect) triggerCheerToast(`تصحيح دقيق ${getEngineerTitle()}! (+10 XP)`);
+    }
+
+    function handleRewriteSubmit(key, rwIdx) {
+      const stage = CURRICULUM.find(s => s.id === currentStageId);
+      const rw = stage.rewrites[rwIdx];
+      const inputEl = document.getElementById(`inp_${key}`);
+      const userVal = normalizeText(inputEl.value);
+      if (!userVal) {
+        triggerCheerToast("اكتب الجملة بعد التحويل أولاً يا بشمهندس.");
+        return;
+      }
+
+      const isCorrect = rw.accepted.some(acc => userVal.includes(normalizeText(acc)) || (normalizeText(acc).includes(userVal) && userVal.length > 10));
+      inputEl.disabled = true;
+      document.getElementById(`sub_${key}`).disabled = true;
+      recordItemResult(key, isCorrect);
+
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = `
+        <strong>${isCorrect ? "✅ تحويل صحيح يا بشمهندس!" : "💡 راجع الصياغة النموذجية:"}</strong><br>
+        <div class="ltr-block" style="color:var(--accent-secondary);font-weight:700;margin:0.3rem 0;">Model Answer: ${rw.modelAnswer}</div>
+        <div>${rw.exp}</div>
+      `;
+      fb.classList.add("show");
+      if (isCorrect) triggerCheerToast(`صياغة ممتازة ${getEngineerTitle()}! (+10 XP)`);
+    }
+
+    function handleTranslationSubmit(key, trIdx) {
+      const stage = CURRICULUM.find(s => s.id === 5);
+      const tr = stage.translations[trIdx];
+      const inputEl = document.getElementById(`inp_${key}`);
+      const rawVal = inputEl.value.trim();
+      if (!rawVal) {
+        triggerCheerToast("اكتب ترجمتك أولاً لعرض التقييم والترجمة النموذجية.");
+        return;
+      }
+
+      const norm = normalizeText(rawVal);
+      const hits = tr.keywords.filter(kw => norm.includes(normalizeText(kw))).length;
+      const isGood = hits >= Math.max(2, Math.ceil(tr.keywords.length * 0.4));
+
+      inputEl.disabled = true;
+      document.getElementById(`sub_${key}`).disabled = true;
+      recordItemResult(key, isGood);
+
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = `
+        <strong>${isGood ? "✅ ترجمة دقيقة وموفقة يا بشمهندس!" : "💡 قارن ترجمتك بالترجمة النموذجية المعتمدة:"}</strong>
+        <div style="margin-top:0.4rem;padding:0.65rem;background:var(--bg-subtle);border-radius:9px;color:var(--accent-secondary);font-weight:700;" class="${tr.dir.startsWith('AR') ? 'ltr-block' : ''}">
+          ${tr.model}
+        </div>
+      `;
+      fb.classList.add("show");
+      if (isGood) triggerCheerToast(`ترجمة أكاديمية ممتازة ${getEngineerTitle()}! (+10 XP)`);
+    }
+
+    /* --- Stage 6 Essay Studio Logic --- */
+    function loadEssayTopic(idx) {
+      const stage6 = CURRICULUM.find(s => s.id === 6);
+      const topic = stage6.essayTopics[Number(idx)];
+      const chipsBar = document.getElementById("essayChipsBar");
+      chipsBar.innerHTML = topic.chips.map(ch =>
+        `<button type="button" class="chip-insert" onclick="insertEssayChip('${escapeJsStr(ch)}')">+ ${ch}</button>`
+      ).join("");
+      document.getElementById("essayModelBox").classList.remove("show");
+      document.getElementById("essayEvalFeedback").classList.remove("show");
+    }
+
+    function insertEssayChip(word) {
+      const ta = document.getElementById("essayEditorArea");
+      const spacer = ta.value && !ta.value.endsWith(" ") ? " " : "";
+      ta.value += spacer + word + " ";
+      ta.focus();
+      updateEssayWordCount();
+    }
+
+    function updateEssayWordCount() {
+      const text = document.getElementById("essayEditorArea").value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      document.getElementById("essayWordCounter").textContent = words;
+    }
+
+    function evaluateStudentEssay() {
+      const idx = Number(document.getElementById("essayTopicSelect").value);
+      const topic = CURRICULUM.find(s => s.id === 6).essayTopics[idx];
+      const text = document.getElementById("essayEditorArea").value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+
+      if (words < 12) {
+        triggerCheerToast("اكتب على الأقل جملتين أو ثلاث جمل (حوالي 25-35 كلمة) يا بشمهندس.");
+        return;
+      }
+
+      const norm = normalizeText(text);
+      const kwHits = topic.keywords.filter(k => norm.includes(k)).length;
+      const hasTransition = /(furthermore|therefore|in addition|however|first|second)/i.test(text);
+      const passedEssay = words >= 25 && kwHits >= 2;
+
+      recordItemResult("s6_essay_task", passedEssay);
+
+      const fb = document.getElementById("essayEvalFeedback");
+      fb.innerHTML = `
+        <strong>${passedEssay ? "✅ تقييم ممتاز للفقرة المقالية يا بشمهندس!" : "💡 ملاحظات لتحسين الدرجة:"}</strong><br>
+        • عدد الكلمات: <strong>${words}</strong> كلمة ${words >= 35 ? "(طول مثالي)" : "(يُفضّل الوصول إلى 35+ كلمة)"}<br>
+        • توظيف المصطلحات الأساسية للموضوع: <strong>${kwHits} / ${topic.keywords.length}</strong><br>
+        • استخدام الروابط الأكاديمية (<span class="en">Furthermore / Therefore</span>): ${hasTransition ? "ممتاز" : "أضف رابطاً مثل Therefore أو Furthermore لربط الأفكار."}
+      `;
+      fb.classList.add("show");
+      if (passedEssay) triggerCheerToast(`فقرة مقالية متميزة ${getEngineerTitle()}! (+10 XP)`);
+    }
+
+    function toggleModelEssay() {
+      const idx = Number(document.getElementById("essayTopicSelect").value);
+      const topic = CURRICULUM.find(s => s.id === 6).essayTopics[idx];
+      const box = document.getElementById("essayModelBox");
+      box.innerHTML = `
+        <strong>نموذج إجابة Band-A للمراجعة:</strong>
+        <div class="ltr-block" style="margin-top:0.4rem;line-height:1.75;color:var(--accent-secondary);font-weight:600;">${topic.model}</div>
+      `;
+      box.classList.toggle("show");
+    }
+
+    /* --- Stage 7 Mock Exam Section 2 & 4 Handlers --- */
+    function handleMockSectionB(key, idx) {
+      const item = CURRICULUM.find(s => s.id === 7).mockSections.correctionsAndRewrites[idx];
+      const inp = document.getElementById(`inp_${key}`);
+      const val = normalizeText(inp.value);
+      if (!val) {
+        triggerCheerToast("اكتب إجابتك أولاً يا بشمهندس.");
+        return;
+      }
+
+      let ok = false;
+      let modelShow = "";
+      if (item.kind === "correction") {
+        ok = val === normalizeText(item.correct) || val.includes(normalizeText(item.correct));
+        modelShow = item.correct;
+      } else {
+        ok = item.accepted.some(a => val.includes(normalizeText(a)) || (normalizeText(a).includes(val) && val.length > 10));
+        modelShow = item.model;
+      }
+
+      inp.disabled = true;
+      document.getElementById(`sub_${key}`).disabled = true;
+      recordItemResult(key, ok, "sec2");
+
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = `<strong>${ok ? "✅ إجابة صحيحة!" : "💡 الإجابة النموذجية:"}</strong> <span class="en-teal">${modelShow}</span><br>${item.exp}`;
+      fb.classList.add("show");
+    }
+
+    function handleMockSectionD(key, idx) {
+      const item = CURRICULUM.find(s => s.id === 7).mockSections.translationsAndEssay[idx];
+      const inp = document.getElementById(`inp_${key}`);
+      const raw = inp.value.trim();
+      if (!raw) {
+        triggerCheerToast("اكتب إجابتك أولاً يا بشمهندس.");
+        return;
+      }
+
+      const norm = normalizeText(raw);
+      const hits = item.keywords.filter(k => norm.includes(normalizeText(k))).length;
+      const ok = item.dir === "ESSAY" ? (raw.split(/\s+/).length >= 20 && hits >= 2) : (hits >= 2);
+
+      inp.disabled = true;
+      document.getElementById(`sub_${key}`).disabled = true;
+      recordItemResult(key, ok, "sec4");
+
+      const fb = document.getElementById(`fb_${key}`);
+      fb.innerHTML = `
+        <strong>${ok ? "✅ إجابة ممتازة!" : "💡 الإجابة النموذجية المعتمدة:"}</strong>
+        <div style="margin-top:0.35rem;color:var(--accent-secondary);font-weight:700;" class="${item.dir === 'EN → AR' ? '' : 'ltr-block'}">${item.model}</div>
+      `;
+      fb.classList.add("show");
+    }
+
+    /* --- Golden Bonus Handler --- */
+    function claimStageBonus(pickedIdx) {
+      const stage = CURRICULUM.find(s => s.id === currentStageId);
+      if (state.bonusClaimed[stage.id]) return;
+
+      const isCorrect = pickedIdx === stage.bonus.ans;
+      stage.bonus.opts.forEach((_, idx) => {
+        const btn = document.getElementById(`bonusBtn_${idx}`);
+        btn.disabled = true;
+        if (idx === stage.bonus.ans) {
+          btn.classList.add("correct");
+          document.getElementById(`bonusIco_${idx}`).textContent = "✅";
+        } else if (idx === pickedIdx && !isCorrect) {
+          btn.classList.add("wrong");
+          document.getElementById(`bonusIco_${idx}`).textContent = "❌";
+        }
+      });
+
+      const fb = document.getElementById("bonusFeedbackStrip");
+      fb.classList.add("show");
+
+      if (isCorrect) {
+        state.bonusClaimed[stage.id] = true;
+        state.xp += 30;
+        saveState();
+        fb.innerHTML = `⭐ <strong>أحسنت ${getEngineerTitle()}! حصلت على +30 Bonus XP.</strong><br>${stage.bonus.exp}`;
+        triggerCheerToast(`بونص ذهبي +30 XP! أحسنت ${getEngineerTitle()}.`);
+      } else {
+        fb.innerHTML = `💡 <strong>التوضيح الأكاديمي:</strong><br>${stage.bonus.exp}`;
+        triggerCheerToast("راجع التوضيح الأكاديمي لتثبيت الفكرة يا بشمهندس.");
+      }
+    }
+
+    /* ========================================================================
+       6. STAGE CHECKPOINT FINALIZATION, SECTION REPORT & CERTIFICATE
+       ======================================================================== */
+    function finalizeStageCheckpoint(stageId) {
+      const tracker = stageEarnedPoints[stageId] || { correct: 0, total: 1, sectionScores: {} };
+      const pct = Math.round((tracker.correct / tracker.total) * 100);
+      const passed = pct >= 60;
+      const engTitle = getEngineerTitle();
+      const resBox = document.getElementById("stageCheckpointResult");
+
+      if (!passed) {
+        resBox.innerHTML = `
+          <div style="background:var(--danger-soft);border:1px solid var(--danger-color);border-radius:13px;padding:1rem;">
+            <strong style="color:var(--danger-color);">حصلت على ${tracker.correct} من ${tracker.total} (${pct}%) يا بشمهندس</strong><br>
+            <span style="font-size:0.85rem;color:var(--text-secondary);">مطلوب تحقيق 60% على الأقل لفتح المرحلة التالية. استكمل باقي أسئلة المرحلة أعلاه ثم اضغط اعتماد النتيجة مرة أخرى.</span>
+          </div>
+        `;
+        triggerCheerToast(`استكمل باقي الأسئلة للوصول إلى 60% وفتح المرحلة التالية ${engTitle}.`);
+        return;
+      }
+
+      state.completedStages[stageId] = true;
+      if (stageId < CURRICULUM.length && state.unlockedStage <= stageId) {
+        state.unlockedStage = stageId + 1;
+      }
+      state.xp += 50;
+      if (stageId === 7) {
+        state.mockExamScore = pct;
+        stopMockTimer();
+      }
+      saveState();
+
+      if (stageId === 7) {
+        const s = tracker.sectionScores || { sec1: 0, sec2: 0, sec3: 0, sec4: 0 };
+        resBox.innerHTML = `
+          <div style="margin-top:0.75rem;">
+            <h3 style="font-size:1.2rem;font-weight:900;color:var(--success-color);">
+              تهانينا ${engTitle}! اجتزت محاكي امتحان الميدترم الشامل بنسبة ${pct}%
+            </h3>
+
+            <!-- Detailed Section-by-Section Score Report -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.55rem;margin:0.9rem 0;text-align:center;">
+              <div class="stat-tile">
+                <div style="font-size:0.75rem;color:var(--text-secondary);">القسم 1 (الاختيارات)</div>
+                <div style="font-weight:800;color:var(--accent-primary);">${s.sec1} / 10</div>
+              </div>
+              <div class="stat-tile">
+                <div style="font-size:0.75rem;color:var(--text-secondary);">القسم 2 (التصحيح والتحويل)</div>
+                <div style="font-weight:800;color:var(--accent-primary);">${s.sec2} / 5</div>
+              </div>
+              <div class="stat-tile">
+                <div style="font-size:0.75rem;color:var(--text-secondary);">القسم 3 (قطعة الفهم)</div>
+                <div style="font-weight:800;color:var(--accent-primary);">${s.sec3} / 5</div>
+              </div>
+              <div class="stat-tile">
+                <div style="font-size:0.75rem;color:var(--text-secondary);">القسم 4 (الترجمة والمقالي)</div>
+                <div style="font-weight:800;color:var(--accent-primary);">${s.sec4} / 5</div>
+              </div>
+            </div>
+
+            <!-- Official Printable Graduation Certificate with Custom Brand Emblem -->
+            <div class="cert-wrapper" id="officialCertificate">
+              <div style="display:flex;justify-content:center;margin-bottom:0.5rem;color:var(--accent-primary);">
+                <svg viewBox="0 0 40 40" width="44" height="44" fill="none">
+                  <rect x="3" y="3" width="34" height="34" rx="8" stroke="currentColor" stroke-width="1.6" stroke-opacity="0.4"/>
+                  <path d="M20 7L11.5 27.5M20 7L28.5 27.5" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+                  <line x1="14.5" y1="21" x2="25.5" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <circle cx="20" cy="14.5" r="1.6" fill="currentColor"/>
+                  <path d="M8.5 29.5C12.5 27.8 16.8 28.2 20 31C23.2 28.2 27.5 27.8 31.5 29.5" stroke="var(--accent-secondary)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div style="font-size:0.78rem;color:var(--accent-primary);font-weight:800;letter-spacing:0.8px;">
+                ENGINEERING &amp; TECHNOLOGY &bull; ENGLISH CLUB ACADEMY
+              </div>
+              <h2 style="font-size:1.35rem;font-weight:900;color:var(--text-primary);margin-top:0.35rem;">
+                🎓 شهادة إتمام البرنامج الأكاديمي للغة الإنجليزية
+              </h2>
+              <p style="font-size:0.86rem;color:var(--text-secondary);margin-top:0.5rem;">
+                تشهد منصة نادي اللغة الإنجليزية (English Club) بأن:
+              </p>
+              <div style="font-size:1.45rem;font-weight:900;color:var(--accent-warm);margin:0.45rem 0;">
+                ${getCertificateName()}
+              </div>
+              <p style="font-size:0.85rem;color:var(--text-secondary);max-width:480px;margin:0 auto 0.85rem;">
+                قد أتم بنجاح جميع المراحل السبعة للتأهيل الأكاديمي والتكنولوجي في اللغة الإنجليزية (القواعد، مصطلحات الحاسب، التصحيح وإعادة الصياغة، الترجمة، قطع الفهم، والمقالي) وحصل على رتبة <strong>${getRankLabel(state.xp)}</strong> بمجموع <strong>${state.xp} XP</strong>.
+              </p>
+              <div style="font-size:0.78rem;color:var(--accent-secondary);font-weight:800;">
+                النتيجة النهائية: ${tracker.correct} / ${tracker.total} (${pct}%) &bull; اعتماد English Club Academy
+              </div>
+            </div>
+
+            <div style="display:flex;gap:0.65rem;justify-content:center;flex-wrap:wrap;margin-top:1.1rem;" class="no-print">
+              <button class="btn btn-warm" onclick="window.print()">🖨️ طباعة / حفظ الشهادة PDF</button>
+              <button class="btn btn-subtle" onclick="navigateToHome()">🗺️ العودة للرئيسية</button>
+            </div>
+          </div>
+        `;
+        triggerCheerToast(`مبروك الإتمام ${engTitle}! شهادتك المعتمدة جاهزة للطباعة.`);
+        return;
+      }
+
+      resBox.innerHTML = `
+        <div style="background:var(--success-soft);border:1px solid var(--success-color);border-radius:14px;padding:1.1rem;">
+          <h4 style="font-size:1.05rem;font-weight:900;color:var(--success-color);">
+            أحسنت ${engTitle}! حققت ${pct}% (+50 XP) وتم فتح المرحلة ${stageId + 1}.
+          </h4>
+          <div style="display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:0.85rem;">
+            <button class="btn btn-primary" onclick="openStageWorkspace(${stageId + 1})">
+              انتقل للمرحلة ${stageId + 1} الآن &larr;
+            </button>
+            <button class="btn btn-subtle" onclick="navigateToHome()">🗺️ خريطة المراحل</button>
+          </div>
+        </div>
+      `;
+      triggerCheerToast(`أحسنت ${engTitle}! تم فتح المرحلة ${stageId + 1} بنجاح.`);
+    }
+
+    /* ========================================================================
+       7. SECRET ADMIN UNLOCK & SKIP CONTROLS
+       ======================================================================== */
+    function openModal(id) {
+      document.getElementById(id).classList.add("open");
+      if (id === "adminModal") {
+        document.getElementById("adminCodeInput").value = "";
+        document.getElementById("adminErrText").style.display = "none";
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove("open");
+    }
+
+    function submitAdminCode() {
+      const code = document.getElementById("adminCodeInput").value.trim();
+      if (code === ADMIN_PASSCODE) {
+        state.adminMode = true;
+        saveState();
+        closeModal("adminModal");
+        renderHomeAndRoadmap();
+        if (document.getElementById("stageWorkspaceView").classList.contains("active")) {
+          document.getElementById("wsAdminSkipBtn").style.display = "inline-flex";
+        }
+        triggerCheerToast("تم تفعيل وضع المشرف وفتح جميع المراحل السبعة.");
+      } else {
+        document.getElementById("adminErrText").style.display = "block";
+      }
+    }
+
+    function turnOffAdminMode() {
+      state.adminMode = false;
+      state.unlockedStage = computeGenuineUnlockedStage();
+      saveState();
+      closeModal("adminModal");
+      navigateToHome();
+      triggerCheerToast("تم الرجوع لوضع الطالب (القفل التسلسلي مفعّل).");
+    }
+
+    function adminSkipStage() {
+      if (!state.adminMode) return;
+      state.completedStages[currentStageId] = true;
+      if (currentStageId < CURRICULUM.length) {
+        state.unlockedStage = Math.max(state.unlockedStage, currentStageId + 1);
+        saveState();
+        triggerCheerToast(`تم تخطي المرحلة ${currentStageId} بوضع المشرف.`);
+        openStageWorkspace(currentStageId + 1);
+      } else {
+        saveState();
+        navigateToHome();
+        triggerCheerToast("تم تخطي جميع المراحل السبعة بنجاح.");
+      }
+    }
+
+    function executeProgressReset() {
+      const preservedName = state.studentName;
+      const preservedTheme = state.theme;
+      state = {
+        theme: preservedTheme,
+        studentName: preservedName,
+        xp: 0,
+        unlockedStage: 1,
+        completedStages: {},
+        bonusClaimed: {},
+        adminMode: false,
+        mockExamScore: null
+      };
+      saveState();
+      closeModal("resetModal");
+      navigateToHome();
+      triggerCheerToast("تم إعادة ضبط التقدم بنجاح! ابدأ من المرحلة الأولى.");
+    }
+
+    /* ========================================================================
+       8. INITIAL BOOT
+       ======================================================================== */
+    (function bootPlatform() {
+      applyTheme(state.theme || "light");
+      renderHomeAndRoadmap();
+    })();
+</script>
+  <script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const RAW_FIREBASE_URL = "https://english-study-batu-default-rtdb.firebaseio.com/";
+    const DB_URL = RAW_FIREBASE_URL.replace(/\/+$/, "");
+
+    if (!DB_URL.startsWith("https://")) return;
+
+    const SESSION_ID = sessionStorage.getItem("ec_sid") || ("sid_" + Math.random().toString(36).slice(2, 11));
+    sessionStorage.setItem("ec_sid", SESSION_ID);
+
+    let localPassVersion = parseInt(sessionStorage.getItem("ec_pass_ver") || "1", 10);
+
+    function refreshCurrentView() {
+      renderHomeAndRoadmap();
+      if (document.getElementById("stageWorkspaceView").classList.contains("active")) {
+        const skipBtn = document.getElementById("wsAdminSkipBtn");
+        if (skipBtn) skipBtn.style.display = state.adminMode ? "inline-flex" : "none";
+      }
+    }
+
+    async function syncPlatformControl() {
+      try {
+        const res = await fetch(`${DB_URL}/config.json?t=${Date.now()}`, { cache: "no-store" });
+        const cfg = await res.json();
+        if (!cfg || cfg.error) return;
+
+        const prevRequire = remoteConfig.requireAdminPass;
+        remoteConfig = {
+          requireAdminPass: cfg.requireAdminPass !== undefined ? Boolean(cfg.requireAdminPass) : true,
+          adminPin: cfg.adminPin ? String(cfg.adminPin) : ADMIN_PASSCODE,
+          passVersion: cfg.passVersion || 1
+        };
+
+        const keyBtn = document.getElementById("adminModalBtn");
+
+        if (!remoteConfig.requireAdminPass) {
+          state.adminMode = false;
+          if (keyBtn) keyBtn.style.display = "none";
+          if (prevRequire !== false) {
+            saveState();
+            refreshCurrentView();
+          }
+        } else {
+          if (keyBtn) keyBtn.style.display = "inline-flex";
+
+          if (state.adminMode && localPassVersion < remoteConfig.passVersion) {
+            state.adminMode = false;
+            saveState();
+            refreshCurrentView();
+            triggerCheerToast("🔒 تم إنهاء جلسة المشرف لتحديث الباسوورد من لوحة التحكم.");
+            return;
+          }
+
+          if (prevRequire === false) {
+            refreshCurrentView();
+          }
+        }
+      } catch (_) {}
+    }
+
+    window.submitAdminCode = async function () {
+      await syncPlatformControl();
+      const entered = document.getElementById("adminCodeInput").value.trim();
+      const validPin = remoteConfig.adminPin || ADMIN_PASSCODE;
+
+      if (entered === validPin) {
+        localPassVersion = remoteConfig.passVersion || 1;
+        sessionStorage.setItem("ec_pass_ver", String(localPassVersion));
+        state.adminMode = true;
+        saveState();
+        closeModal("adminModal");
+        refreshCurrentView();
+        sendHeartbeat();
+        triggerCheerToast("🔓 تم تفعيل وضع المشرف وفتح جميع المراحل السبعة.");
+      } else {
+        document.getElementById("adminErrText").style.display = "block";
+      }
+    };
+
+    async function sendHeartbeat() {
+      try {
+        await fetch(`${DB_URL}/presence/${SESSION_ID}.json`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: (state.studentName || "").trim() || "طالب زائر",
+            isAdmin: Boolean(state.adminMode && remoteConfig.requireAdminPass),
+            stage: currentStageId || 1,
+            lastSeen: Date.now()
+          })
+        });
+      } catch (_) {}
+    }
+
+    const origSaveStudentAndStart = window.saveStudentAndStart;
+    window.saveStudentAndStart = function () {
+      origSaveStudentAndStart();
+      sendHeartbeat();
+    };
+
+    const origOpenStageWorkspace = window.openStageWorkspace;
+    window.openStageWorkspace = function (stageId) {
+      origOpenStageWorkspace(stageId);
+      sendHeartbeat();
+    };
+
+    syncPlatformControl().then(() => {
+      refreshCurrentView();
+      sendHeartbeat();
+    });
+
+    setInterval(() => {
+      syncPlatformControl();
+      sendHeartbeat();
+    }, 5000);
+  });
+</script>
+</body>
+</html>
