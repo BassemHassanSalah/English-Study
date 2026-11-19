@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SYMVOX // ORBITAL COMMAND DECK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05050A;
+  --panel: rgba(13, 14, 24, 0.72);
+  --panel-solid: #0D0E18;
+  --panel-2: rgba(24, 26, 44, 0.65);
+  --border: rgba(124, 77, 255, 0.25);
+  --border-glow: rgba(0, 240, 255, 0.4);
+  --text: #F4F5FF;
+  --muted: #8E92B2;
+  --accent: #7C4DFF;
+  --cyan: #00F0FF;
+  --accent-soft: #B9A7FF;
+  --danger: #FF3366;
+  --success: #00E676;
+  --warn: #FFAB00;
+  --font: 'Cairo', sans-serif;
+  --hud: 'Orbitron', 'Cairo', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+[data-theme="light"] {
+  --bg: #EAEBF5;
+  --panel: rgba(255, 255, 255, 0.85);
+  --panel-solid: #FFFFFF;
+  --panel-2: rgba(235, 237, 248, 0.9);
+  --border: rgba(124, 77, 255, 0.22);
+  --border-glow: rgba(124, 77, 255, 0.5);
+  --text: #0A0B14;
+  --muted: #525675;
+  --cyan: #5B21B6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background .35s, color .35s;
+}
+/* Cosmic Grid & Starfield Canvas */
+#space-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,240,255,0.018) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+button, input, textarea, select { font-family: inherit; color: inherit; }
+button { cursor: pointer; }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; }
+.hud-font { font-family: var(--hud); letter-spacing: 0.06em; }
+
+/* HUD CORNER BRACKETS */
+.hud-box {
+  position: relative;
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 0 20px rgba(124, 77, 255, 0.05);
+}
+.hud-box::before, .hud-box::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--cyan);
+  border-style: solid;
+  pointer-events: none;
+  opacity: 0.75;
+}
+.hud-box::before { top: -1px; inset-inline-start: -1px; border-width: 2px 0 0 2px; border-start-start-radius: 8px; }
+.hud-box::after { bottom: -1px; inset-inline-end: -1px; border-width: 0 2px 2px 0; border-end-end-radius: 8px; }
+
+/* ==================== LOGIN VIEW ==================== */
+#login-view {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 36px 30px;
+}
+.login-orbit {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  border: 2px dashed var(--cyan);
+  display: grid;
+  place-items: center;
+  animation: spinSlow 14s linear infinite;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+}
+.login-orbit-core {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--cyan), var(--accent));
+  box-shadow: 0 0 18px var(--accent);
+}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+.login-card h1 { font-size: 24px; font-weight: 900; text-align: center; margin-bottom: 6px; }
+.login-card p { color: var(--muted); font-size: 13px; text-align: center; margin-bottom: 24px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: var(--accent-soft); }
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  font-size: 14px;
+  outline: none;
+  transition: .25s;
+}
+.field input:focus, .field textarea:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  background: linear-gradient(135deg, var(--accent), #5227CC);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  transition: .25s;
+  box-shadow: 0 4px 18px rgba(124, 77, 255, 0.35);
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0, 240, 255, 0.4); border-color: var(--cyan); }
+.btn.full { width: 100%; }
+.btn.ghost { background: var(--panel-2); border-color: var(--border); color: var(--text); box-shadow: none; }
+.btn.ghost:hover { border-color: var(--cyan); }
+.btn.danger { background: rgba(255, 51, 102, 0.14); color: var(--danger); border-color: rgba(255, 51, 102, 0.4); box-shadow: none; }
+.btn.sm { padding: 7px 12px; font-size: 12px; border-radius: 8px; }
+
+/* ==================== MAIN COCKPIT LAYOUT ==================== */
+#app-view { position: relative; z-index: 5; display: none; min-height: 100vh; }
+.layout { display: grid; grid-template-columns: 270px 1fr; min-height: 100vh; }
+.sidebar {
+  background: var(--panel);
+  backdrop-filter: blur(20px);
+  border-inline-end: 1px solid var(--border);
+  padding: 22px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 10px 18px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.brand b {
+  font-family: var(--hud);
+  font-size: 18px;
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--cyan), var(--accent-soft));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13.5px;
+  text-align: start;
+  transition: .2s;
+}
+.nav-item:hover { background: var(--panel-2); color: var(--text); border-color: var(--border); }
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(124,77,255,0.3), rgba(0,240,255,0.12));
+  border-color: var(--cyan);
+  color: #fff;
+  box-shadow: inset 0 0 14px rgba(0, 240, 255, 0.15);
+}
+[data-theme="light"] .nav-item.active { color: var(--text); }
+.badge {
+  background: var(--danger);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  font-family: var(--mono);
+  box-shadow: 0 0 10px var(--danger);
+}
+
+.main { padding: 20px clamp(14px, 2.5vw, 32px); max-width: 1420px; width: 100%; margin: 0 auto; }
+
+/* TOP TELEMETRY BAR */
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 20px;
+  margin-bottom: 22px;
+}
+.welcome-box h2 { font-size: 19px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+.telemetry-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 10px var(--success);
+  animation: pulse 1.6s infinite;
+  display: inline-block;
+}
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.8); } }
+.top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* ORBITAL HERO DECK (3D GLOBE + LIVE WAVEFORM CHART) */
+.cockpit-hero {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.radar-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 270px;
+}
+#orbital-canvas {
+  width: 100%;
+  height: 190px;
+  display: block;
+}
+.chart-card {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 270px;
+}
+#traffic-chart {
+  width: 100%;
+  height: 185px;
+  display: block;
+}
+
+/* TELEMETRY METRICS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.stat-card {
+  padding: 18px 20px;
+  transition: transform .25s, border-color .25s;
+}
+.stat-card:hover { transform: translateY(-3px); border-color: var(--cyan); }
+.stat-card small { color: var(--muted); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+.stat-card b {
+  display: block;
+  font-size: 32px;
+  font-weight: 900;
+  margin: 8px 0 6px;
+  font-family: var(--hud);
+  color: var(--cyan);
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
+}
+.progress-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  border-radius: 99px;
+  transition: width .8s ease;
+}
+
+.card { padding: 22px; margin-bottom: 20px; }
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.card-head h3 { font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.color-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel-2);
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.color-item input[type="color"] { width: 42px; height: 34px; border: 0; background: none; cursor: pointer; }
+
+/* SWITCH */
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background: var(--panel-2);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.switch { position: relative; width: 52px; height: 28px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; inset: 0; background: #333652; border-radius: 99px; transition: .3s; cursor: pointer; }
+.slider:before { content: ""; position: absolute; width: 22px; height: 22px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .3s; }
+input:checked + .slider { background: var(--danger); box-shadow: 0 0 14px var(--danger); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* TABLES & INBOX */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { padding: 12px 14px; text-align: start; border-bottom: 1px solid var(--border); }
+th { color: var(--cyan); font-size: 11px; font-family: var(--mono); text-transform: uppercase; }
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.st-on { background: rgba(0, 230, 118, 0.14); color: var(--success); border: 1px solid rgba(0,230,118,0.3); }
+.st-off { background: rgba(142, 146, 178, 0.14); color: var(--muted); }
+.st-new { background: rgba(0, 240, 255, 0.14); color: var(--cyan); border: 1px solid rgba(0,240,255,0.3); }
+
+/* ==================== MODERN FUTURISTIC COMMS CHAT ==================== */
+.comms-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  min-height: 490px;
+}
+.comms-roster {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.roster-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.avatar-hex {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  color: #fff;
+  font-family: var(--hud);
+  font-weight: 900;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.comms-main {
+  display: flex;
+  flex-direction: column;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.comms-header {
+  padding: 12px 16px;
+  background: rgba(124, 77, 255, 0.1);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chat-box {
+  flex: 1;
+  height: 380px;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.msg-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  max-width: 82%;
+}
+.msg-row.mine {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+.msg-bubble {
+  padding: 12px 16px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--panel-solid);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.msg-row.mine .msg-bubble {
+  border-radius: 16px 16px 4px 16px;
+  background: linear-gradient(135deg, var(--accent), #4E24C7);
+  border-color: var(--cyan);
+  color: #fff;
+}
+.msg-meta {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+}
+.chat-form {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  background: var(--panel-solid);
+  border-top: 1px solid var(--border);
+}
+.chat-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  outline: none;
+}
+.chat-form input:focus { border-color: var(--cyan); }
+
+.repeater-item {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(90deg, var(--accent), #00B8D4);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 99px;
+  font-weight: 800;
+  font-size: 13px;
+  z-index: 999;
+  transition: .3s;
+  box-shadow: 0 10px 30px rgba(0, 240, 255, 0.35);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+
+#mob-toggle { display: none; }
+@media (max-width: 960px) {
+  .cockpit-hero { grid-template-columns: 1fr; }
+  .comms-shell { grid-template-columns: 1fr; }
+  .comms-roster { flex-direction: row; overflow-x: auto; }
+}
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: fixed; inset-inline-start: -280px; width: 265px; z-index: 50; transition: .3s; }
+  .sidebar.open { inset-inline-start: 0; }
+  #mob-toggle { display: inline-flex; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="space-bg"></canvas>
+<div class="scanlines"></div>
+
+<!-- ==================== LOGIN VIEW ==================== -->
+<div id="login-view">
+  <div class="login-card hud-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <span class="mono" style="color:var(--cyan)">ORBITAL GATEWAY // v4.0</span>
+      <button class="btn ghost sm" id="login-lang-btn">English</button>
+    </div>
+    <div class="login-orbit"><div class="login-orbit-core"></div></div>
+    <h1 class="hud-font" data-i18n="loginTitle">SYMVOX COMMAND</h1>
+    <p data-i18n="loginSub">أدخل إحداثيات الدخول للوصول إلى غرفة قيادة المركبة</p>
+    <form id="login-form">
+      <div class="field">
+        <label data-i18n="usernameLbl">معرّف القائد / المشرف</label>
+        <input id="login-user" value="Bassem" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label data-i18n="passLbl">رمز التشفير (Password)</label>
+        <input id="login-pass" type="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <p id="login-err" style="color:var(--danger);font-size:13px;margin-bottom:12px;display:none"></p>
+      <button class="btn full" type="submit" data-i18n="loginBtn">تفعيل الاتصال والدخول ↗</button>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== DASHBOARD COCKPIT VIEW ==================== -->
+<div id="app-view">
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <b>SYMVOX // DECK</b>
+        <span class="mono" style="color:var(--cyan)">4.0</span>
+      </div>
+      <button class="nav-item active" data-tab="overview"><span data-i18n="navOverview">🛸 رادار القيادة والزوار</span></button>
+      <button class="nav-item" data-tab="inbox"><span data-i18n="navInbox">📡 إشارات العملاء</span><span class="badge" id="inbox-badge" style="display:none">0</span></button>
+      <button class="nav-item" data-tab="theme"><span data-i18n="navTheme">🎨 الطيف اللوني والصيانة</span></button>
+      <button class="nav-item" data-tab="content"><span data-i18n="navContent">⚙️ وحدات ومحتوى المنصة</span></button>
+      <button class="nav-item" data-tab="sections"><span data-i18n="navSections">🛰️ إطلاق أقسام جديدة</span></button>
+      <button class="nav-item" data-tab="admins"><span data-i18n="navAdmins">🛡️ طاقم القيادة والأمان</span></button>
+      <button class="nav-item" data-tab="chat"><span data-i18n="navChat">💬 قناة اتصال الطاقم</span></button>
+      <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--border)">
+        <button class="btn danger full" id="logout-btn" data-i18n="logout">قطع الاتصال (خروج)</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar hud-box">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="btn ghost sm" id="mob-toggle">☰</button>
+          <div class="welcome-box">
+            <h2 id="welcome-heading">Welcome Bassem 🚀</h2>
+            <span id="role-subtitle" class="mono" style="color:var(--cyan)">COMMANDER // SUPER ADMIN</span>
+          </div>
+        </div>
+
+        <div class="telemetry-strip">
+          <span><i class="pulse-dot"></i> SYS: ONLINE</span>
+          <span id="live-clock">00:00:00 UTC</span>
+          <span style="color:var(--accent-soft)">DB: SYNCED</span>
+        </div>
+
+        <div class="top-actions">
+          <a href="index.html" target="_blank" class="btn ghost sm" data-i18n="previewSite">فتح الموقع ↗</a>
+          <button class="btn ghost sm" id="theme-toggle">☀️ / 🌙</button>
+          <button class="btn ghost sm" id="lang-toggle">English</button>
+        </div>
+      </header>
+
+      <!-- TAB 1: OVERVIEW, 3D ORBITAL & LIVE CHART -->
+      <section class="tab-pane active" id="tab-overview">
+        <div class="cockpit-hero">
+          <div class="radar-card hud-box">
+            <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
+              <span class="mono" style="color:var(--cyan)">ORBITAL CORE // 3D</span>
+              <span class="mono" style="color:var(--success)">ACTIVE</span>
+            </div>
+            <canvas id="orbital-canvas"></canvas>
+            <div style="width:100%;display:flex;justify-content:space-between" class="mono">
+              <span>LAT: 31.20° N</span>
+              <span>NODE: ASIA-SE1</span>
+            </div>
+          </div>
+
+          <div class="chart-card hud-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div>
+                <h3 style="font-size:16px;font-weight:800" data-i18n="chartTitle">مؤشر تدفق الزوار اللحظي والأسبوعي (Telemetry Wave)</h3>
+                <span class="mono" style="color:var(--muted)">REAL-TIME TRAFFIC & ORBITAL PULSE</span>
+              </div>
+              <span class="status-pill st-on" id="chart-peak">PEAK: 0</span>
+            </div>
+            <canvas id="traffic-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card hud-box">
+            <small><span data-i18n="statNow">المتواجدون الآن (Live)</span> <i class="pulse-dot"></i></small>
+            <b id="st-online">0</b>
+            <div class="progress-bar"><i id="bar-online" style="width:35%"></i></div>
+          </div>
+          <div class="stat-card hud-box">
+            <small data-i18n="statWeek">زوار الأسبوع (7 أيام)</small>
+            <b id="st-week">0</b>
+            <div class="progress-bar"><i id="bar-week" style="width:65%"></i></div>
+          </div>
+          <div class="stat-card hud-box">
+            <small data-i18n="statMonth">زوار الشهر (30 يوم)</small>
+            <b id="st-month">0</b>
+            <div class="progress-bar"><i id="bar-month" style="width:82%"></i></div>
+          </div>
+          <div class="stat-card hud-box">
+            <small data-i18n="statTotal">إجمالي الزيارات الكلي</small>
+            <b id="st-total">0</b>
+            <div class="progress-bar"><i style="width:100%"></i></div>
+          </div>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="activeAdminsTitle">🛰️ رادار طاقم المشرفين المتصلين الآن</h3>
+          </div>
+          <div id="overview-admins" class="grid-2"></div>
+        </div>
+      </section>
+
+      <!-- TAB 2: INBOX / CLIENT REQUESTS -->
+      <section class="tab-pane" id="tab-inbox">
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="inboxTitle">📡 إشارات وطلبات العملاء الواردة</h3>
+            <span class="mono" id="inbox-count" style="color:var(--cyan)">0 signals</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="thClient">العميل</th>
+                  <th data-i18n="thServices">الخدمات المطلوبة</th>
+                  <th data-i18n="thMsg">تفاصيل المشروع</th>
+                  <th data-i18n="thDate">التاريخ</th>
+                  <th data-i18n="thActions">إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="inbox-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: COLORS & MAINTENANCE -->
+      <section class="tab-pane" id="tab-theme">
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="maintCardTitle">🚧 درع الصيانة (إغلاق المنصة مؤقتاً)</h3>
+          </div>
+          <div class="switch-row">
+            <div>
+              <b style="display:block;font-size:15px" data-i18n="maintToggleLbl">تفعيل وضع الصيانة للزوار</b>
+              <span style="font-size:13px;color:var(--muted)" data-i18n="maintToggleDesc">عند التفعيل، يتم تحويل جميع الزوار إلى شاشة صيانة فضائية فوراً</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-maint-on">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label data-i18n="maintTitleLbl">عنوان شاشة الصيانة</label>
+              <input id="cfg-maint-title" value="We’re upgrading the platform.">
+            </div>
+            <div class="field">
+              <label data-i18n="maintMsgLbl">رسالة الصيانة</label>
+              <input id="cfg-maint-msg" value="Symvox is currently undergoing scheduled enhancements. We’ll be back online shortly.">
+            </div>
+          </div>
+          <button class="btn" id="save-maint-btn" data-i18n="saveMaint">تحديث حالة الدرع</button>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="colorsTitle">🎨 التحكم في الطيف اللوني للموقع بالكامل</h3>
+            <button class="btn ghost sm" id="reset-colors-btn" data-i18n="resetColors">استعادة الألوان الأصلية</button>
+          </div>
+          <div class="grid-2">
+            <div class="color-item"><span>الخلفية الرئيسية (Black)</span><input type="color" id="col-black" value="#09090E"></div>
+            <div class="color-item"><span>خلفية الكروت الداكنة (Ink)</span><input type="color" id="col-ink" value="#13121B"></div>
+            <div class="color-item"><span>اللون الأساسي المميز (Primary)</span><input type="color" id="col-purple" value="#7C4DFF"></div>
+            <div class="color-item"><span>اللون المميز الفاتح (Soft Accent)</span><input type="color" id="col-purpleSoft" value="#B9A7FF"></div>
+            <div class="color-item"><span>اللون المميز العميق (Deep Accent)</span><input type="color" id="col-purpleDeep" value="#2A1A5E"></div>
+            <div class="color-item"><span>خلفية الأقسام الفاتحة (Light Gray)</span><input type="color" id="col-gray" value="#ECEBF2"></div>
+            <div class="color-item"><span>لون النصوص الفرعية (Muted Text)</span><input type="color" id="col-grayText" value="#9A98AB"></div>
+            <div class="color-item"><span>لون النصوص الأساسية (White)</span><input type="color" id="col-white" value="#FFFFFF"></div>
+          </div>
+          <div style="margin-top:18px">
+            <button class="btn" id="save-colors-btn" data-i18n="applyColors">بث الألوان الجديدة للموقع فوراً</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: FULL SITE CONTENT EDITOR -->
+      <section class="tab-pane" id="tab-content">
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="heroEditTitle">⚙️ تعديل الواجهة الرئيسية (Hero & Marquee)</h3>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>شارة البداية (Badge)</label><input id="c-heroBadge" value="Digital innovation studio"></div>
+            <div class="field"><label>العنوان الرئيسي (H1)</label><input id="c-heroTitle" value="We connect what’s next."></div>
+            <div class="field"><label>النص التعريفي (Lead)</label><textarea id="c-heroLead" rows="2">Strategy, intelligent engineering, distinctive design, digital growth and security, working as one connected system.</textarea></div>
+            <div class="field"><label>الكلمات المفتاحية (مفصولة بفاصلة)</label><input id="c-heroPills" value="Intelligent web, Product experience, Digital growth, Cyber defense"></div>
+            <div class="field"><label>زر الدعوة الأساسي</label><input id="c-heroBtn1" value="Start a project"></div>
+            <div class="field"><label>زر الدعوة الثانوي</label><input id="c-heroBtn2" value="What we do"></div>
+            <div class="field"><label>الشريط المتحرك (Marquee)</label><input id="c-marquee" value="AI websites, UI/UX design, Social media, Marketing, Cybersecurity"></div>
+          </div>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="aboutWhyTitle">📝 تعديل قسم من نحن والنهج والفوتر</h3>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>عنوان قسم About</label><input id="c-aboutTag" value="About Symvox"></div>
+            <div class="field"><label>نص قسم About التفاعلي</label><textarea id="c-aboutText" rows="2">We believe every business deserves a digital presence that is intelligent, beautiful and safe. So we put AI, design, marketing and security in one room.</textarea></div>
+            <div class="field"><label>عنوان قسم Why Us</label><input id="c-whyTitle" value="Not just a provider. A connected partner."></div>
+            <div class="field"><label>عنوان قسم Process</label><input id="c-procTitle" value="From first call to growth."></div>
+            <div class="field"><label>عنوان قسم Work</label><input id="c-workTitle" value="Selected work."></div>
+            <div class="field"><label>عنوان قسم Contact</label><input id="c-ctTitle" value="Let’s make your next move meaningful."></div>
+            <div class="field"><label>شعار الفوتر</label><input id="c-footerTagline" value="Connected Digital Innovation Studio"></div>
+            <div class="field"><label>حقوق الملكية</label><input id="c-footerCopy" value="© 2026 Symvox"></div>
+          </div>
+          <button class="btn" id="save-texts-btn" data-i18n="saveTexts">حفظ وبث التعديلات النصية</button>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3>تعديل الخدمات (Services)</h3>
+            <button class="btn ghost sm" id="add-service-btn">+ إضافة خدمة</button>
+          </div>
+          <div id="services-editor"></div>
+          <button class="btn" id="save-services-btn">حفظ الخدمات</button>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3>تعديل الأعمال والمشاريع (Projects)</h3>
+            <button class="btn ghost sm" id="add-project-btn">+ إضافة مشروع</button>
+          </div>
+          <div id="projects-editor"></div>
+          <button class="btn" id="save-projects-btn">حفظ المشاريع</button>
+        </div>
+      </section>
+
+      <!-- TAB 5: DYNAMIC SECTION BUILDER -->
+      <section class="tab-pane" id="tab-sections">
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="builderTitle">🛰️ إطلاق أقسام جديدة للمنصة (آراء العملاء، شركاء النجاح...)</h3>
+            <button class="btn sm" id="new-sec-btn">+ إنشاء قسم جديد</button>
+          </div>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:18px" data-i18n="builderDesc">
+            ابنِ أقساماً جديدة في الموقع واملأ بطاقاتها فوراً دون الحاجة للعودة للكود.
+          </p>
+          <div id="custom-sections-editor"></div>
+          <button class="btn" id="save-custom-secs-btn" data-i18n="saveSections">نشر الأقسام على الموقع</button>
+        </div>
+      </section>
+
+      <!-- TAB 6: ADMINS & SECURITY -->
+      <section class="tab-pane" id="tab-admins">
+        <div class="grid-2">
+          <div class="card hud-box">
+            <div class="card-head">
+              <h3 data-i18n="changeMyPassTitle">🔐 تحديث رمز المرور الخاص بي</h3>
+            </div>
+            <form id="my-pass-form">
+              <div class="field">
+                <label data-i18n="newPassLbl">كلمة المرور الجديدة</label>
+                <input type="password" id="my-new-pass" required minlength="4">
+              </div>
+              <button class="btn" type="submit" data-i18n="updatePassBtn">تحديث كلمة مروري</button>
+            </form>
+          </div>
+
+          <div class="card hud-box" id="add-admin-card">
+            <div class="card-head">
+              <h3 data-i18n="addAdminTitle">➕ تجنيد مشرف جديد (للقائد فقط)</h3>
+            </div>
+            <form id="add-admin-form">
+              <div class="field">
+                <label data-i18n="adminNameLbl">اسم المشرف</label>
+                <input id="new-admin-name" placeholder="مثال: Ahmed" required>
+              </div>
+              <div class="field">
+                <label data-i18n="adminPassLbl">كلمة المرور الخاصة به</label>
+                <input type="password" id="new-admin-pass" placeholder="••••••" required minlength="4">
+              </div>
+              <button class="btn" type="submit" data-i18n="createAdminBtn">تفعيل حساب المشرف</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="adminsListTitle">طاقم المشرفين وحالة الاتصال المباشرة</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>الرتبة والصلاحية</th>
+                  <th>الحالة الآن</th>
+                  <th>التحكم / الحذف</th>
+                </tr>
+              </thead>
+              <tbody id="admins-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: MODERN TEAM COMMS CHAT -->
+      <section class="tab-pane" id="tab-chat">
+        <div class="card hud-box">
+          <div class="card-head">
+            <h3 data-i18n="chatTitle">💬 قناة الاتصال المشفرة لطاقم القيادة (COMMS)</h3>
+            <button class="btn danger sm" id="clear-chat-btn">تطهير السجل</button>
+          </div>
+          <div class="comms-shell">
+            <div class="comms-roster" id="chat-roster"></div>
+            <div class="comms-main">
+              <div class="comms-header">
+                <span class="mono" style="color:var(--cyan)"><i class="pulse-dot"></i> CHANNEL: #ORBITAL-BRIDGE</span>
+                <span class="mono" style="color:var(--muted)">E2E SYNCED</span>
+              </div>
+              <div class="chat-box" id="chat-messages"></div>
+              <form class="chat-form" id="chat-form">
+                <input id="chat-input" placeholder="أرسل إشارة أو رسالة لطاقم المشرفين..." required autocomplete="off">
+                <button class="btn" type="submit" data-i18n="sendBtn">إرسال 🚀</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, set, push, update, remove, onValue, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  databaseURL: "https://symvox-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* ============ LIVE UTC CLOCK ============ */
+setInterval(() => {
+  const el = document.getElementById('live-clock');
+  if (el) el.textContent = new Date().toISOString().slice(11, 19) + ' UTC';
+}, 1000);
+
+/* ============ LIGHTWEIGHT SPACE CANVAS & 3D ORBITAL GLOBE ============ */
+const spaceCanvas = document.getElementById('space-bg');
+const sCtx = spaceCanvas.getContext('2d');
+let stars = [];
+function initSpace() {
+  spaceCanvas.width = innerWidth;
+  spaceCanvas.height = innerHeight;
+  stars = Array.from({ length: 85 }, () => ({
+    x: Math.random() * spaceCanvas.width,
+    y: Math.random() * spaceCanvas.height,
+    r: Math.random() * 1.4 + 0.3,
+    s: Math.random() * 0.25 + 0.05
+  }));
+}
+initSpace();
+addEventListener('resize', initSpace);
+
+const orbCanvas = document.getElementById('orbital-canvas');
+const oCtx = orbCanvas ? orbCanvas.getContext('2d') : null;
+const orbPts = [];
+for (let i = 0; i < 64; i++) {
+  const y = 1 - 2 * (i + 0.5) / 64;
+  const r = Math.sqrt(1 - y * y);
+  const a = i * 2.39996;
+  orbPts.push([Math.cos(a) * r, y, Math.sin(a) * r]);
+}
+
+let dailyChartData = [4, 7, 5, 11, 9, 15, 12];
+const chartCanvas = document.getElementById('traffic-chart');
+const cCtx = chartCanvas ? chartCanvas.getContext('2d') : null;
+
+function renderVisuals(t) {
+  // 1. Starfield
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  sCtx.clearRect(0, 0, spaceCanvas.width, spaceCanvas.height);
+  sCtx.fillStyle = isLight ? 'rgba(124,77,255,0.28)' : 'rgba(185,167,255,0.55)';
+  stars.forEach(st => {
+    st.y -= st.s;
+    if (st.y < 0) st.y = spaceCanvas.height;
+    sCtx.beginPath();
+    sCtx.arc(st.x, st.y, st.r, 0, 6.28);
+    sCtx.fill();
+  });
+
+  // 2. 3D Orbital Core inside Cockpit
+  if (oCtx && orbCanvas.offsetParent !== null) {
+    const w = orbCanvas.width = orbCanvas.clientWidth * 1.5;
+    const h = orbCanvas.height = orbCanvas.clientHeight * 1.5;
+    const cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.34;
+    oCtx.clearRect(0, 0, w, h);
+    const ry = t * 0.0008, rx = 0.35;
+    const ca = Math.cos(ry), sa = Math.sin(ry), cb = Math.cos(rx), sb = Math.sin(rx);
+
+    // Radar rings
+    oCtx.strokeStyle = 'rgba(0, 240, 255, 0.18)';
+    oCtx.lineWidth = 1.5;
+    [R * 1.25, R * 1.55].forEach(rad => {
+      oCtx.beginPath();
+      oCtx.arc(cx, cy, rad, 0, 6.28);
+      oCtx.stroke();
+    });
+
+    // Sweeping radar line
+    const sweep = t * 0.0018;
+    oCtx.strokeStyle = 'rgba(0, 240, 255, 0.5)';
+    oCtx.beginPath();
+    oCtx.moveTo(cx, cy);
+    oCtx.lineTo(cx + Math.cos(sweep) * R * 1.55, cy + Math.sin(sweep) * R * 1.55);
+    oCtx.stroke();
+
+    // 3D Globe dots
+    orbPts.forEach((p, idx) => {
+      const k = 1 + 0.08 * Math.sin(t * 0.002 + idx);
+      const x1 = p[0] * k * ca + p[2] * k * sa;
+      const z1 = -p[0] * k * sa + p[2] * k * ca;
+      const y2 = p[1] * k * cb - z1 * sb;
+      const z2 = p[1] * k * sb + z1 * cb;
+      const f = 3 / (3 - z2);
+      oCtx.globalAlpha = Math.max(0.15, (z2 + 1) / 2);
+      oCtx.fillStyle = idx % 5 === 0 ? '#00F0FF' : '#7C4DFF';
+      oCtx.beginPath();
+      oCtx.arc(cx + x1 * R * f, cy + y2 * R * f, 2.5 * f, 0, 6.28);
+      oCtx.fill();
+    });
+    oCtx.globalAlpha = 1;
+  }
+
+  // 3. Animated Telemetry Wave Chart
+  if (cCtx && chartCanvas.offsetParent !== null) {
+    const w = chartCanvas.width = chartCanvas.clientWidth * 1.5;
+    const h = chartCanvas.height = chartCanvas.clientHeight * 1.5;
+    cCtx.clearRect(0, 0, w, h);
+
+    const padX = 28, padY = 26;
+    const gw = w - padX * 2, gh = h - padY * 2;
+    const maxVal = Math.max(10, ...dailyChartData) * 1.25;
+
+    // Grid lines
+    cCtx.strokeStyle = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.07)';
+    cCtx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+      const y = padY + (gh / 4) * i;
+      cCtx.beginPath();
+      cCtx.moveTo(padX, y);
+      cCtx.lineTo(w - padX, y);
+      cCtx.stroke();
+    }
+
+    // Animated wave points
+    const pts = dailyChartData.map((val, i) => {
+      const wave = Math.sin(t * 0.0025 + i * 1.1) * 4;
+      const x = padX + (gw / Math.max(1, dailyChartData.length - 1)) * i;
+      const y = padY + gh - (val / maxVal) * gh + wave;
+      return [x, y, val];
+    });
+
+    // Area gradient
+    const grad = cCtx.createLinearGradient(0, padY, 0, h - padY);
+    grad.addColorStop(0, 'rgba(0, 240, 255, 0.35)');
+    grad.addColorStop(1, 'rgba(124, 77, 255, 0.0)');
+    cCtx.fillStyle = grad;
+    cCtx.beginPath();
+    cCtx.moveTo(pts[0][0], h - padY);
+    pts.forEach(p => cCtx.lineTo(p[0], p[1]));
+    cCtx.lineTo(pts[pts.length - 1][0], h - padY);
+    cCtx.closePath();
+    cCtx.fill();
+
+    // Glowing line
+    cCtx.strokeStyle = '#00F0FF';
+    cCtx.lineWidth = 3;
+    cCtx.beginPath();
+    pts.forEach((p, i) => i ? cCtx.lineTo(p[0], p[1]) : cCtx.moveTo(p[0], p[1]));
+    cCtx.stroke();
+
+    // Data nodes
+    pts.forEach(p => {
+      cCtx.fillStyle = '#7C4DFF';
+      cCtx.beginPath();
+      cCtx.arc(p[0], p[1], 6, 0, 6.28);
+      cCtx.fill();
+      cCtx.fillStyle = '#fff';
+      cCtx.beginPath();
+      cCtx.arc(p[0], p[1], 2.5, 0, 6.28);
+      cCtx.fill();
+    });
+  }
+
+  requestAnimationFrame(renderVisuals);
+}
+requestAnimationFrame(renderVisuals);
+
+/* ============ SECURITY HELPERS ============ */
+async function sha256(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ============ I18N (AR / EN) ============ */
+let lang = localStorage.getItem('svx_lang') || 'ar';
+const dict = {
+  ar: {
+    loginTitle: 'SYMVOX COMMAND',
+    loginSub: 'أدخل إحداثيات الدخول للوصول إلى غرفة قيادة المركبة',
+    usernameLbl: 'معرّف القائد / المشرف',
+    passLbl: 'رمز التشفير (Password)',
+    loginBtn: 'تفعيل الاتصال والدخول ↗',
+    navOverview: '🛸 رادار القيادة والزوار',
+    navInbox: '📡 إشارات العملاء',
+    navTheme: '🎨 الطيف اللوني والصيانة',
+    navContent: '⚙️ وحدات ومحتوى المنصة',
+    navSections: '🛰️ إطلاق أقسام جديدة',
+    navAdmins: '🛡️ طاقم القيادة والأمان',
+    navChat: '💬 قناة اتصال الطاقم',
+    logout: 'قطع الاتصال (خروج)',
+    previewSite: 'فتح الموقع ↗',
+    chartTitle: 'مؤشر تدفق الزوار اللحظي والأسبوعي (Telemetry Wave)',
+    statNow: 'المتواجدون الآن (Live)',
+    statWeek: 'زوار الأسبوع (7 أيام)',
+    statMonth: 'زوار الشهر (30 يوم)',
+    statTotal: 'إجمالي الزيارات الكلي',
+    activeAdminsTitle: '🛰️ رادار طاقم المشرفين المتصلين الآن',
+    inboxTitle: '📡 إشارات وطلبات العملاء الواردة',
+    thClient: 'العميل',
+    thServices: 'الخدمات المطلوبة',
+    thMsg: 'تفاصيل المشروع',
+    thDate: 'التاريخ',
+    thActions: 'إجراءات',
+    maintCardTitle: '🚧 درع الصيانة (إغلاق المنصة مؤقتاً)',
+    maintToggleLbl: 'تفعيل وضع الصيانة للزوار',
+    maintToggleDesc: 'عند التفعيل، يتم تحويل جميع الزوار إلى شاشة صيانة فضائية فوراً',
+    maintTitleLbl: 'عنوان شاشة الصيانة',
+    maintMsgLbl: 'رسالة الصيانة',
+    saveMaint: 'تحديث حالة الدرع',
+    colorsTitle: '🎨 التحكم في الطيف اللوني للموقع بالكامل',
+    resetColors: 'استعادة الألوان الأصلية',
+    applyColors: 'بث الألوان الجديدة للموقع فوراً',
+    heroEditTitle: '⚙️ تعديل الواجهة الرئيسية (Hero & Marquee)',
+    aboutWhyTitle: '📝 تعديل قسم من نحن والنهج والفوتر',
+    saveTexts: 'حفظ وبث التعديلات النصية',
+    builderTitle: '🛰️ إطلاق أقسام جديدة للمنصة (آراء العملاء، شركاء النجاح...)',
+    builderDesc: 'ابنِ أقساماً جديدة في الموقع واملأ بطاقاتها فوراً دون الحاجة للعودة للكود.',
+    saveSections: 'نشر الأقسام على الموقع',
+    changeMyPassTitle: '🔐 تحديث رمز المرور الخاص بي',
+    newPassLbl: 'كلمة المرور الجديدة',
+    updatePassBtn: 'تحديث كلمة مروري',
+    addAdminTitle: '➕ تجنيد مشرف جديد (للقائد فقط)',
+    adminNameLbl: 'اسم المشرف',
+    adminPassLbl: 'كلمة المرور الخاصة به',
+    createAdminBtn: 'تفعيل حساب المشرف',
+    adminsListTitle: 'طاقم المشرفين وحالة الاتصال المباشرة',
+    chatTitle: '💬 قناة الاتصال المشفرة لطاقم القيادة (COMMS)',
+    sendBtn: 'إرسال 🚀'
+  },
+  en: {
+    loginTitle: 'SYMVOX COMMAND',
+    loginSub: 'Enter command credentials to access the orbital bridge',
+    usernameLbl: 'Commander / Admin ID',
+    passLbl: 'Access Code (Password)',
+    loginBtn: 'Initialize Link ↗',
+    navOverview: '🛸 Command Radar & Telemetry',
+    navInbox: '📡 Client Signals',
+    navTheme: '🎨 Spectrum & Shield',
+    navContent: '⚙️ Platform Modules',
+    navSections: '🛰️ Launch New Sections',
+    navAdmins: '🛡️ Crew & Security',
+    navChat: '💬 Crew Comms Channel',
+    logout: 'Disconnect',
+    previewSite: 'Launch Site ↗',
+    chartTitle: 'Real-Time & Weekly Visitor Telemetry Wave',
+    statNow: 'Online Now (Live)',
+    statWeek: 'Weekly Visitors (7D)',
+    statMonth: 'Monthly Visitors (30D)',
+    statTotal: 'Total All-Time Visits',
+    activeAdminsTitle: '🛰️ Active Crew Radar Status',
+    inboxTitle: '📡 Incoming Client Signals & Briefs',
+    thClient: 'Client',
+    thServices: 'Requested Modules',
+    thMsg: 'Mission Brief',
+    thDate: 'Timestamp',
+    thActions: 'Actions',
+    maintCardTitle: '🚧 Maintenance Shield (Lock Platform)',
+    maintToggleLbl: 'Activate Maintenance Shield',
+    maintToggleDesc: 'Visitors will see an orbital upgrade screen instead of the live site',
+    maintTitleLbl: 'Shield Headline',
+    maintMsgLbl: 'Shield Message',
+    saveMaint: 'Update Shield Status',
+    colorsTitle: '🎨 Full Website Color Spectrum',
+    resetColors: 'Reset Default Spectrum',
+    applyColors: 'Broadcast Colors Live',
+    heroEditTitle: '⚙️ Edit Hero & Marquee Deck',
+    aboutWhyTitle: '📝 Edit About, Approach & Footer',
+    saveTexts: 'Broadcast Text Updates',
+    builderTitle: '🛰️ Launch New Platform Sections (Testimonials, Partners...)',
+    builderDesc: 'Build and deploy new website sections without touching source code.',
+    saveSections: 'Deploy Sections Live',
+    changeMyPassTitle: '🔐 Update My Access Code',
+    newPassLbl: 'New Password',
+    updatePassBtn: 'Update My Code',
+    addAdminTitle: '➕ Recruit New Moderator (Commander Only)',
+    adminNameLbl: 'Moderator Name',
+    adminPassLbl: 'Access Code',
+    createAdminBtn: 'Authorize Crew Member',
+    adminsListTitle: 'Crew Directory & Live Telemetry',
+    chatTitle: '💬 Encrypted Crew Comms Channel',
+    sendBtn: 'Transmit 🚀'
+  }
+};
+
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'English' : 'العربية';
+  document.getElementById('login-lang-btn').textContent = lang === 'ar' ? 'English' : 'العربية';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (dict[lang][k]) el.textContent = dict[lang][k];
+  });
+}
+applyLang();
+document.getElementById('lang-toggle').onclick = () => { lang = lang === 'ar' ? 'en' : 'ar'; localStorage.setItem('svx_lang', lang); applyLang(); };
+document.getElementById('login-lang-btn').onclick = () => { lang = lang === 'ar' ? 'en' : 'ar'; localStorage.setItem('svx_lang', lang); applyLang(); };
+
+let uiTheme = localStorage.getItem('svx_ui_theme') || 'dark';
+document.documentElement.setAttribute('data-theme', uiTheme);
+document.getElementById('theme-toggle').onclick = () => {
+  uiTheme = uiTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', uiTheme);
+  localStorage.setItem('svx_ui_theme', uiTheme);
+};
+
+/* ============ SUPER ADMIN INIT & AUTH ============ */
+async function ensureSuperAdmin() {
+  const superRef = ref(db, 'admins/Bassem');
+  const snap = await get(superRef);
+  if (!snap.exists()) {
+    const defaultHash = await sha256('2561966');
+    await set(superRef, {
+      username: 'Bassem',
+      passwordHash: defaultHash,
+      role: 'superadmin',
+      protected: true,
+      createdAt: Date.now()
+    });
+  }
+}
+
+let currentUser = null;
+let loginAttempts = 0;
+let lockUntil = 0;
+
+document.getElementById('login-form').onsubmit = async (e) => {
+  e.preventDefault();
+  const errEl = document.getElementById('login-err');
+  if (Date.now() < lockUntil) {
+    errEl.style.display = 'block';
+    errEl.textContent = lang === 'ar' ? 'تم إيقاف المحاولات مؤقتاً للحماية. انتظر 30 ثانية.' : 'Too many attempts. Wait 30 seconds.';
+    return;
+  }
+
+  const rawUser = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value;
+
+  await ensureSuperAdmin();
+
+  const targetKey = rawUser.toLowerCase() === 'bassem' ? 'Bassem' : rawUser.replace(/[.#$\[\]]/g, '_');
+  const snap = await get(ref(db, `admins/${targetKey}`));
+
+  if (!snap.exists()) {
+    loginAttempts++;
+    if (loginAttempts >= 5) lockUntil = Date.now() + 30000;
+    errEl.style.display = 'block';
+    errEl.textContent = lang === 'ar' ? 'بيانات الدخول غير صحيحة!' : 'Invalid credentials!';
+    return;
+  }
+
+  const adminData = snap.val();
+  const hash = await sha256(pass);
+
+  if (hash !== adminData.passwordHash) {
+    loginAttempts++;
+    if (loginAttempts >= 5) lockUntil = Date.now() + 30000;
+    errEl.style.display = 'block';
+    errEl.textContent = lang === 'ar' ? 'رمز التشفير غير صحيح!' : 'Wrong access code!';
+    return;
+  }
+
+  loginAttempts = 0;
+  errEl.style.display = 'none';
+  currentUser = { key: targetKey, username: adminData.username, role: adminData.role };
+  sessionStorage.setItem('svx_session', JSON.stringify(currentUser));
+  enterDashboard();
+};
+
+function enterDashboard() {
+  document.getElementById('login-view').style.display = 'none';
+  document.getElementById('app-view').style.display = 'block';
+
+  document.getElementById('welcome-heading').textContent = `Welcome ${currentUser.username} 🚀`;
+  document.getElementById('role-subtitle').textContent = currentUser.role === 'superadmin'
+    ? 'COMMANDER // SUPER ADMIN (PROTECTED)'
+    : 'CREW OFFICER // MODERATOR';
+
+  if (currentUser.role !== 'superadmin') {
+    document.getElementById('add-admin-card').style.display = 'none';
+    document.getElementById('clear-chat-btn').style.display = 'none';
+  }
+
+  const adminOnlineRef = ref(db, `adminPresence/${currentUser.key}`);
+  onValue(ref(db, '.info/connected'), (s) => {
+    if (s.val() === true) {
+      onDisconnect(adminOnlineRef).remove();
+      set(adminOnlineRef, { online: true, lastSeen: serverTimestamp() });
+    }
+  });
+
+  startListeners();
+}
+
+document.getElementById('logout-btn').onclick = async () => {
+  if (currentUser) await remove(ref(db, `adminPresence/${currentUser.key}`));
+  sessionStorage.removeItem('svx_session');
+  location.reload();
+};
+
+const savedSession = sessionStorage.getItem('svx_session');
+if (savedSession) {
+  currentUser = JSON.parse(savedSession);
+  enterDashboard();
+}
+
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    document.getElementById('sidebar').classList.remove('open');
+  };
+});
+document.getElementById('mob-toggle').onclick = () => document.getElementById('sidebar').classList.toggle('open');
+
+let servicesState = [
+  { tab: 'AI web', mono: '01 / BUILD · AI website development', title: 'Sites that think first.', desc: 'AI drafts structure, copy and code in hours. Our engineers refine every line so it ships fast and runs fast.', tags: 'Generative layouts, Custom code, Fast hosting' },
+  { tab: 'UI/UX', mono: '02 / EXPERIENCE · UI/UX and creative design', title: 'Interfaces with a point of view.', desc: 'Grids, type and motion composed around how your customers actually look, scroll and decide.', tags: 'Design systems, Prototypes, Brand-led UI' },
+  { tab: 'Social', mono: '03 / PRESENCE · Social media management', title: 'A content system, not just posts.', desc: 'Planning, creative and publishing in one rhythm, so your brand shows up every day and looks like itself.', tags: 'Content calendars, Short video, Community' },
+  { tab: 'Marketing', mono: '04 / GROWTH · Digital marketing and growth', title: 'Growth you can read.', desc: 'Campaigns tied to numbers. We test, measure and double down on what brings customers to your site.', tags: 'Paid ads, SEO, Analytics' },
+  { tab: 'Security', mono: '05 / PROTECTION · Cybersecurity and protection', title: 'Secure by structure.', desc: 'Audits, hardening and monitoring built into every launch, so your site and your customers’ data stay protected.', tags: 'Security audits, Monitoring, Incident response' }
+];
+
+let projectsState = [
+  { cat: 'web', title: 'Synthesis Cloud', sub: 'AI web · Product architecture', grad: 'linear-gradient(135deg,#7C4DFF,#B9A7FF)', desc: 'An AI infrastructure product concept built around interactive documentation and a modular interface system.', bullets: 'Modular product architecture\nInteractive documentation\nDeveloper-focused navigation' },
+  { cat: 'security', title: 'Aegis Mesh', sub: 'Cybersecurity · UI/UX', grad: 'linear-gradient(135deg,#09090E,#2A1A5E 60%,#7C4DFF)', desc: 'An executive security portal concept that turns complex threat signals into a clear, actionable workspace.', bullets: 'Zero-trust access concepts\nThreat signals in plain language\nRole-based dashboards' },
+  { cat: 'design', title: 'Verdant Treasury', sub: 'UI/UX · Web engineering', grad: 'conic-gradient(from 200deg at 30% 60%,#ECEBF2,#B9A7FF,#fff,#ECEBF2)', desc: 'A financial product concept balancing calm visual language with precise, responsive data modules.', bullets: 'Responsive financial dashboard\nEditorial data presentation\nAccessible chart system' },
+  { cat: 'growth', title: 'Kinetic Launch', sub: 'Social · Digital growth', grad: 'repeating-linear-gradient(115deg,#7C4DFF 0 18px,#B9A7FF 18px 36px)', desc: 'A connected brand launch spanning social storytelling, campaign landing pages and acquisition journeys.', bullets: 'Social content direction\nCampaign landing pages\nAcquisition funnel concepts' }
+];
+
+let customSectionsState = [];
+
+function startListeners() {
+  onValue(ref(db, 'analytics/online'), (snap) => {
+    const val = snap.val();
+    const count = val ? Object.keys(val).length : 0;
+    document.getElementById('st-online').textContent = count;
+    document.getElementById('bar-online').style.width = Math.min(100, count * 12 + 15) + '%';
+  });
+
+  onValue(ref(db, 'analytics/daily'), (snap) => {
+    const days = snap.val() || {};
+    const now = Date.now();
+    let weekSum = 0, monthSum = 0;
+    const last7 = [];
+    for (let i = 6; i >= 0; i--) {
+      const k = new Date(now - i * 86400000).toISOString().slice(0, 10);
+      last7.push(days[k] || 0);
+    }
+    dailyChartData = last7.some(v => v > 0) ? last7 : [2, 5, 4, 8, 6, 11, 9];
+    document.getElementById('chart-peak').textContent = 'PEAK: ' + Math.max(...dailyChartData);
+
+    Object.entries(days).forEach(([dateStr, count]) => {
+      const diffDays = (now - new Date(dateStr).getTime()) / (1000 * 3600 * 24);
+      if (diffDays <= 7) weekSum += count;
+      if (diffDays <= 30) monthSum += count;
+    });
+    document.getElementById('st-week').textContent = weekSum;
+    document.getElementById('st-month').textContent = monthSum;
+  });
+
+  onValue(ref(db, 'analytics/total'), (snap) => {
+    document.getElementById('st-total').textContent = snap.val() || 0;
+  });
+
+  onValue(ref(db, 'inquiries'), (snap) => {
+    const data = snap.val() || {};
+    const list = Object.entries(data).map(([id, v]) => ({ id, ...v })).sort((a, b) => b.createdAt - a.createdAt);
+    const newCount = list.filter(x => x.status === 'new').length;
+    const badge = document.getElementById('inbox-badge');
+    badge.style.display = newCount > 0 ? 'inline-block' : 'none';
+    badge.textContent = newCount;
+    document.getElementById('inbox-count').textContent = `${list.length} signals`;
+
+    const tbody = document.getElementById('inbox-body');
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:24px">لا توجد إشارات واردة في الرادار حالياً</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = list.map(item => `
+      <tr>
+        <td><b>${esc(item.name)}</b><br><span class="mono" style="color:var(--cyan)">${esc(item.email)}</span></td>
+        <td><span class="status-pill st-new">${esc(item.services)}</span></td>
+        <td style="max-width:300px">${esc(item.message)}</td>
+        <td class="mono">${new Date(item.createdAt).toLocaleDateString()}</td>
+        <td>
+          ${item.status === 'new' ? `<button class="btn sm" onclick="window.markRead('${item.id}')">استلام</button>` : `<span class="mono" style="color:var(--success)">✓ مستلم</span>`}
+          <button class="btn danger sm" onclick="window.delInquiry('${item.id}')">حذف</button>
+        </td>
+      </tr>
+    `).join('');
+  });
+
+  onValue(ref(db, 'siteConfig'), (snap) => {
+    const cfg = snap.val() || {};
+    if (cfg.maintenance) {
+      document.getElementById('cfg-maint-on').checked = !!cfg.maintenance.enabled;
+      if (cfg.maintenance.title) document.getElementById('cfg-maint-title').value = cfg.maintenance.title;
+      if (cfg.maintenance.message) document.getElementById('cfg-maint-msg').value = cfg.maintenance.message;
+    }
+    if (cfg.colors) {
+      Object.entries(cfg.colors).forEach(([k, v]) => {
+        const inp = document.getElementById('col-' + k);
+        if (inp) inp.value = v;
+      });
+    }
+    if (cfg.content) {
+      Object.entries(cfg.content).forEach(([k, v]) => {
+        const inp = document.getElementById('c-' + k);
+        if (inp) inp.value = v;
+      });
+    }
+    if (Array.isArray(cfg.services)) servicesState = cfg.services;
+    if (Array.isArray(cfg.projects)) projectsState = cfg.projects;
+    if (Array.isArray(cfg.customSections)) customSectionsState = cfg.customSections;
+    renderServicesEditor();
+    renderProjectsEditor();
+    renderCustomSectionsEditor();
+  });
+
+  let adminsMap = {};
+  let presenceMap = {};
+
+  function renderAdmins() {
+    const tbody = document.getElementById('admins-table-body');
+    const overviewBox = document.getElementById('overview-admins');
+    const chatRoster = document.getElementById('chat-roster');
+    const entries = Object.entries(adminsMap);
+
+    overviewBox.innerHTML = entries.map(([key, adm]) => {
+      const isOn = !!(presenceMap[key] && presenceMap[key].online);
+      return `
+        <div class="color-item">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="avatar-hex">${esc(adm.username.slice(0,2).toUpperCase())}</div>
+            <div>
+              <b>${esc(adm.username)}</b>
+              <span class="mono" style="display:block;color:var(--muted)">${adm.role === 'superadmin' ? 'COMMANDER' : 'OFFICER'}</span>
+            </div>
+          </div>
+          <span class="status-pill ${isOn ? 'st-on' : 'st-off'}">${isOn ? '● ONLINE' : '○ OFFLINE'}</span>
+        </div>
+      `;
+    }).join('');
+
+    chatRoster.innerHTML = `<span class="mono" style="color:var(--cyan);margin-bottom:4px">CREW ONLINE (${entries.length})</span>` + entries.map(([key, adm]) => {
+      const isOn = !!(presenceMap[key] && presenceMap[key].online);
+      return `
+        <div class="roster-item">
+          <div class="avatar-hex">${esc(adm.username.slice(0,2).toUpperCase())}</div>
+          <div style="min-width:0">
+            <b style="display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(adm.username)}</b>
+            <span class="mono" style="font-size:10px;color:${isOn ? 'var(--success)' : 'var(--muted)'}">${isOn ? '● متصل الآن' : '○ غير متصل'}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    tbody.innerHTML = entries.map(([key, adm]) => {
+      const isOn = !!(presenceMap[key] && presenceMap[key].online);
+      const isSuper = adm.role === 'superadmin' || adm.protected;
+      const canManage = currentUser.role === 'superadmin';
+      return `
+        <tr>
+          <td><b>${esc(adm.username)}</b></td>
+          <td><span class="mono">${isSuper ? '👑 القائد الرئيسي (محمي)' : 'ضابط مشرف'}</span></td>
+          <td><span class="status-pill ${isOn ? 'st-on' : 'st-off'}">${isOn ? '● ONLINE' : '○ OFFLINE'}</span></td>
+          <td>
+            ${canManage ? `<button class="btn ghost sm" onclick="window.changeAdminPass('${key}')">تغيير الرمز</button>` : ''}
+            ${canManage && !isSuper ? `<button class="btn danger sm" onclick="window.removeAdmin('${key}')">فصل</button>` : ''}
+            ${isSuper ? `<span class="mono" style="color:var(--muted)">محمي بالكامل</span>` : ''}
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  onValue(ref(db, 'admins'), (snap) => { adminsMap = snap.val() || {}; renderAdmins(); });
+  onValue(ref(db, 'adminPresence'), (snap) => { presenceMap = snap.val() || {}; renderAdmins(); });
+
+  onValue(ref(db, 'adminChat'), (snap) => {
+    const data = snap.val() || {};
+    const msgs = Object.values(data).sort((a, b) => a.ts - b.ts);
+    const box = document.getElementById('chat-messages');
+    box.innerHTML = msgs.map(m => {
+      const mine = m.sender === currentUser.username;
+      const initials = (m.sender || 'SV').slice(0, 2).toUpperCase();
+      return `
+        <div class="msg-row ${mine ? 'mine' : ''}">
+          <div class="avatar-hex">${esc(initials)}</div>
+          <div class="msg-bubble">
+            <div class="msg-meta">
+              <b>${esc(m.sender)} ${m.role === 'superadmin' ? '👑' : ''}</b>
+              <span>${new Date(m.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+            </div>
+            <div style="font-size:14px;line-height:1.5">${esc(m.text)}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    box.scrollTop = box.scrollHeight;
+  });
+}
+
+window.markRead = (id) => update(ref(db, `inquiries/${id}`), { status: 'read' });
+window.delInquiry = (id) => { if (confirm('حذف هذه الإشارة؟')) remove(ref(db, `inquiries/${id}`)); };
+
+document.getElementById('save-maint-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/maintenance'), {
+    enabled: document.getElementById('cfg-maint-on').checked,
+    title: document.getElementById('cfg-maint-title').value,
+    message: document.getElementById('cfg-maint-msg').value
+  });
+  toast('تم تحديث حالة درع الصيانة بنجاح 🛡️');
+};
+
+document.getElementById('save-colors-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/colors'), {
+    black: document.getElementById('col-black').value,
+    ink: document.getElementById('col-ink').value,
+    purple: document.getElementById('col-purple').value,
+    purpleSoft: document.getElementById('col-purpleSoft').value,
+    purpleDeep: document.getElementById('col-purpleDeep').value,
+    gray: document.getElementById('col-gray').value,
+    grayText: document.getElementById('col-grayText').value,
+    white: document.getElementById('col-white').value
+  });
+  toast('تم بث الطيف اللوني الجديد للموقع فوراً 🎨');
+};
+
+document.getElementById('reset-colors-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/colors'), {
+    black: '#09090E', ink: '#13121B', purple: '#7C4DFF', purpleSoft: '#B9A7FF',
+    purpleDeep: '#2A1A5E', gray: '#ECEBF2', grayText: '#9A98AB', white: '#FFFFFF'
+  });
+  toast('تمت استعادة الألوان الأصلية');
+};
+
+document.getElementById('save-texts-btn').onclick = async () => {
+  const keys = ['heroBadge','heroTitle','heroLead','heroPills','heroBtn1','heroBtn2','marquee','aboutTag','aboutText','whyTitle','procTitle','workTitle','ctTitle','footerTagline','footerCopy'];
+  const content = {};
+  keys.forEach(k => { content[k] = document.getElementById('c-' + k).value; });
+  await set(ref(db, 'siteConfig/content'), content);
+  toast('تم بث جميع التعديلات النصية بنجاح 🚀');
+};
+
+function renderServicesEditor() {
+  const wrap = document.getElementById('services-editor');
+  wrap.innerHTML = servicesState.map((s, i) => `
+    <div class="repeater-item">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <b>وحدة الخدمة #${i + 1}</b>
+        <button class="btn danger sm" onclick="window.delService(${i})">حذف</button>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>اسم التبويب (Tab)</label><input value="${esc(s.tab)}" onchange="window.updService(${i},'tab',this.value)"></div>
+        <div class="field"><label>الشارة (Mono)</label><input value="${esc(s.mono)}" onchange="window.updService(${i},'mono',this.value)"></div>
+        <div class="field"><label>العنوان</label><input value="${esc(s.title)}" onchange="window.updService(${i},'title',this.value)"></div>
+        <div class="field"><label>الوسوم (مفصولة بفاصلة)</label><input value="${esc(s.tags)}" onchange="window.updService(${i},'tags',this.value)"></div>
+      </div>
+      <div class="field"><label>الوصف</label><textarea rows="2" onchange="window.updService(${i},'desc',this.value)">${esc(s.desc)}</textarea></div>
+    </div>
+  `).join('');
+}
+window.updService = (i, k, v) => { servicesState[i][k] = v; };
+window.delService = (i) => { servicesState.splice(i, 1); renderServicesEditor(); };
+document.getElementById('add-service-btn').onclick = () => {
+  servicesState.push({ tab: 'New', mono: '06 / NEW · Service', title: 'New Service Title', desc: 'Service description here.', tags: 'Tag 1, Tag 2' });
+  renderServicesEditor();
+};
+document.getElementById('save-services-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/services'), servicesState);
+  toast('تم حفظ الخدمات وتحديثها في الموقع');
+};
+
+function renderProjectsEditor() {
+  const wrap = document.getElementById('projects-editor');
+  wrap.innerHTML = projectsState.map((p, i) => `
+    <div class="repeater-item">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <b>مشروع #${i + 1}</b>
+        <button class="btn danger sm" onclick="window.delProject(${i})">حذف</button>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>اسم المشروع</label><input value="${esc(p.title)}" onchange="window.updProject(${i},'title',this.value)"></div>
+        <div class="field"><label>التصنيف (web / security / design / growth)</label><input value="${esc(p.cat)}" onchange="window.updProject(${i},'cat',this.value)"></div>
+        <div class="field"><label>العنوان الفرعي</label><input value="${esc(p.sub)}" onchange="window.updProject(${i},'sub',this.value)"></div>
+        <div class="field"><label>تدرج الخلفية (CSS Gradient)</label><input value="${esc(p.grad)}" onchange="window.updProject(${i},'grad',this.value)"></div>
+      </div>
+      <div class="field"><label>الوصف التفصيلي</label><textarea rows="2" onchange="window.updProject(${i},'desc',this.value)">${esc(p.desc)}</textarea></div>
+      <div class="field"><label>النقاط (كل نقطة في سطر)</label><textarea rows="2" onchange="window.updProject(${i},'bullets',this.value)">${esc(p.bullets)}</textarea></div>
+    </div>
+  `).join('');
+}
+window.updProject = (i, k, v) => { projectsState[i][k] = v; };
+window.delProject = (i) => { projectsState.splice(i, 1); renderProjectsEditor(); };
+document.getElementById('add-project-btn').onclick = () => {
+  projectsState.push({ cat: 'web', title: 'New Concept', sub: 'AI web · Platform', grad: 'linear-gradient(135deg,#7C4DFF,#B9A7FF)', desc: 'Project overview.', bullets: 'Feature 1\nFeature 2' });
+  renderProjectsEditor();
+};
+document.getElementById('save-projects-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/projects'), projectsState);
+  toast('تم حفظ المشاريع وتحديثها في الموقع');
+};
+
+function renderCustomSectionsEditor() {
+  const wrap = document.getElementById('custom-sections-editor');
+  if (!customSectionsState.length) {
+    wrap.innerHTML = `<p style="color:var(--muted);margin-bottom:14px">لا توجد أقسام إضافية حالياً. اضغط على "+ إنشاء قسم جديد" لإضافة آراء العملاء أو شركاء النجاح.</p>`;
+    return;
+  }
+  wrap.innerHTML = customSectionsState.map((sec, sIdx) => `
+    <div class="repeater-item">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <b>قسم: ${esc(sec.title)}</b>
+        <button class="btn danger sm" onclick="window.delCustomSec(${sIdx})">حذف القسم بالكامل</button>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>عنوان القسم الرئيسي</label><input value="${esc(sec.title)}" onchange="window.updCustomSec(${sIdx},'title',this.value)"></div>
+        <div class="field"><label>العنوان الصغير (Tag)</label><input value="${esc(sec.tag)}" onchange="window.updCustomSec(${sIdx},'tag',this.value)"></div>
+        <div class="field">
+          <label>خلفية القسم</label>
+          <select onchange="window.updCustomSec(${sIdx},'theme',this.value)">
+            <option value="dark" ${sec.theme==='dark'?'selected':''}>داكن (Dark)</option>
+            <option value="light" ${sec.theme==='light'?'selected':''}>فاتح (Light)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>نوع العرض</label>
+          <select onchange="window.updCustomSec(${sIdx},'type',this.value)">
+            <option value="cards" ${sec.type==='cards'?'selected':''}>بطاقات آراء عملاء / مميزات</option>
+            <option value="logos" ${sec.type==='logos'?'selected':''}>شركات وشركاء نجاح</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span class="mono">البطاقات داخل هذا القسم:</span>
+          <button class="btn ghost sm" onclick="window.addCustomItem(${sIdx})">+ إضافة بطاقة</button>
+        </div>
+        ${(sec.items || []).map((it, iIdx) => `
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:8px">
+            <input placeholder="التصنيف / الوظيفة" value="${esc(it.tag)}" onchange="window.updCustomItem(${sIdx},${iIdx},'tag',this.value)" style="padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-solid)">
+            <input placeholder="الاسم / الشركة" value="${esc(it.title)}" onchange="window.updCustomItem(${sIdx},${iIdx},'title',this.value)" style="padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-solid)">
+            <input placeholder="الرأي / الوصف" value="${esc(it.subtitle)}" onchange="window.updCustomItem(${sIdx},${iIdx},'subtitle',this.value)" style="padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-solid)">
+            <button class="btn danger sm" onclick="window.delCustomItem(${sIdx},${iIdx})">✕</button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('new-sec-btn').onclick = () => {
+  customSectionsState.push({
+    id: 'sec_' + Date.now(),
+    tag: 'Client Testimonials',
+    title: 'Trusted by ambitious teams.',
+    theme: 'dark',
+    type: 'cards',
+    visible: true,
+    items: [
+      { tag: 'CEO · TechCorp', title: 'Karim Mansour', subtitle: 'Symvox transformed our entire digital infrastructure in record time.' }
+    ]
+  });
+  renderCustomSectionsEditor();
+};
+window.updCustomSec = (i, k, v) => { customSectionsState[i][k] = v; };
+window.delCustomSec = (i) => { customSectionsState.splice(i, 1); renderCustomSectionsEditor(); };
+window.addCustomItem = (sIdx) => {
+  customSectionsState[sIdx].items = customSectionsState[sIdx].items || [];
+  customSectionsState[sIdx].items.push({ tag: 'Partner', title: 'Company Name', subtitle: 'Enterprise AI & Security partner' });
+  renderCustomSectionsEditor();
+};
+window.updCustomItem = (sIdx, iIdx, k, v) => { customSectionsState[sIdx].items[iIdx][k] = v; };
+window.delCustomItem = (sIdx, iIdx) => { customSectionsState[sIdx].items.splice(iIdx, 1); renderCustomSectionsEditor(); };
+
+document.getElementById('save-custom-secs-btn').onclick = async () => {
+  await set(ref(db, 'siteConfig/customSections'), customSectionsState);
+  toast('تم إطلاق الأقسام الجديدة على الموقع بنجاح 🛰️');
+};
+
+document.getElementById('my-pass-form').onsubmit = async (e) => {
+  e.preventDefault();
+  const newPass = document.getElementById('my-new-pass').value;
+  const hash = await sha256(newPass);
+  await update(ref(db, `admins/${currentUser.key}`), { passwordHash: hash });
+  document.getElementById('my-new-pass').value = '';
+  toast('تم تحديث رمز التشفير الخاص بك بنجاح 🔐');
+};
+
+document.getElementById('add-admin-form').onsubmit = async (e) => {
+  e.preventDefault();
+  if (currentUser.role !== 'superadmin') return;
+  const name = document.getElementById('new-admin-name').value.trim();
+  const pass = document.getElementById('new-admin-pass').value;
+  const key = name.replace(/[.#$\[\]]/g, '_');
+  if (key.toLowerCase() === 'bassem') {
+    toast('لا يمكن استبدال القائد الرئيسي!');
+    return;
+  }
+  const hash = await sha256(pass);
+  await set(ref(db, `admins/${key}`), {
+    username: name,
+    passwordHash: hash,
+    role: 'moderator',
+    protected: false,
+    createdAt: Date.now()
+  });
+  e.target.reset();
+  toast(`تم تجنيد المشرف ${name} بنجاح`);
+};
+
+window.changeAdminPass = async (key) => {
+  if (currentUser.role !== 'superadmin') return;
+  const np = prompt(`أدخل رمز المرور الجديد للمشرف (${key}):`);
+  if (!np || np.length < 4) return;
+  const hash = await sha256(np);
+  await update(ref(db, `admins/${key}`), { passwordHash: hash });
+  toast(`تم تحديث رمز مرور ${key}`);
+};
+
+window.removeAdmin = async (key) => {
+  if (currentUser.role !== 'superadmin' || key === 'Bassem') return;
+  if (confirm(`هل أنت متأكد من فصل المشرف ${key} نهائياً؟`)) {
+    await remove(ref(db, `admins/${key}`));
+    await remove(ref(db, `adminPresence/${key}`));
+    toast(`تم فصل المشرف ${key}`);
+  }
+};
+
+document.getElementById('chat-form').onsubmit = async (e) => {
+  e.preventDefault();
+  const inp = document.getElementById('chat-input');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+  await push(ref(db, 'adminChat'), {
+    sender: currentUser.username,
+    role: currentUser.role,
+    text: txt,
+    ts: Date.now()
+  });
+};
+
+document.getElementById('clear-chat-btn').onclick = async () => {
+  if (currentUser.role !== 'superadmin') return;
+  if (confirm('تطهير جميع رسائل قناة الاتصال؟')) {
+    await remove(ref(db, 'adminChat'));
+    toast('تم تطهير القناة');
+  }
+};
+</script>
+</body>
+</html>
